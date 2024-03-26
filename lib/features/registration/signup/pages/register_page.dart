@@ -23,7 +23,7 @@ class RegisterPage extends StatelessWidget {
               ),
               SizedBox(height: 60,),
               Text(
-                "Sign up as a:",
+                "Sign up as",
                 style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 24,
@@ -33,13 +33,37 @@ class RegisterPage extends StatelessWidget {
                 height: 38,
               ),
               ButtonItem(
-                  title: "Client",
-                  onPress: () {}),
+                  title: "A Client",
+                  onPress: () {Navigator.pushNamed(context, "/SignUpPage");}),
+              // SizedBox(height: 6,),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //   Text("Already have an account?", style:
+              //   TextStyle(fontSize: 14, color: Colors.grey.shade400),
+              //     textAlign: TextAlign.center,),
+              //   SizedBox(width: 8,),
+              //   InkWell(onTap: (){}, child: Text("Sign in", style:
+              //   TextStyle(fontSize: 14, color: Colors.blue.shade400, fontWeight: FontWeight.bold),
+              //     textAlign: TextAlign.center,),),
+              // ],),
               SizedBox(height: 24,),
               ButtonItem(
-                  title: "Agent",
-                  onPress: () {}),
-              SizedBox(height: 130,)
+                  title: "An Agent",
+                  onPress: () {Navigator.pushNamed(context, "/SignUpPage");}),
+              SizedBox(height: 6,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Already have an account?", style:
+                  TextStyle(fontSize: 14, color: Colors.grey.shade400),
+                    textAlign: TextAlign.center,),
+                  SizedBox(width: 8,),
+                  InkWell(onTap: (){ Navigator.pushNamed(context, "/LoginPage");}, child: Text("Sign in", style:
+                  TextStyle(fontSize: 14, color: Colors.blue.shade400, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,),),
+                ],),
+              SizedBox(height: 130,),
             ],
           ),
         ),
