@@ -5,17 +5,20 @@ import '../../../../global/common/toast.dart';
 import '../../../firebase_auth_implementation/firebase_auth_services.dart';
 import '../../signin/pages/login_page.dart';
 import '../widgets/form_container_widget.dart';
+import '../widgets/signup_authentication.dart';
+
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final FirebaseAuthService _auth = FirebaseAuthService();
+  final SignUpAuthentication _authentication = SignUpAuthentication(); // Creating an instance of SignUpAuthentication
 
+  TextEditingController _firstNameController = TextEditingController();
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -33,10 +36,6 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   automaticallyImplyLeading: false,
-      //   title: Text("SignUp"),
-      // ),
       body: Center(
         child: SingleChildScrollView(
           reverse: false,
@@ -49,38 +48,33 @@ class _SignUpPageState extends State<SignUpPage> {
                   "Sign Up",
                   style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
-                  height: 30,
+                SizedBox(height: 30),
+                FormContainerWidget(
+                  controller: _firstNameController,
+                  hintText: "First Name",
+                  isPasswordField: false,
                 ),
+                SizedBox(height: 10),
                 FormContainerWidget(
                   controller: _usernameController,
                   hintText: "Username",
                   isPasswordField: false,
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 10),
                 FormContainerWidget(
                   controller: _emailController,
                   hintText: "Email",
                   isPasswordField: false,
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 10),
                 FormContainerWidget(
                   controller: _passwordController,
                   hintText: "Password",
                   isPasswordField: true,
                 ),
-                SizedBox(
-                  height: 30,
-                ),
+                SizedBox(height: 30),
                 GestureDetector(
-                  onTap:  (){
-                    _signUp();
-
-                  },
+                  onTap: _signUp,
                   child: Container(
                     width: double.infinity,
                     height: 45,
@@ -89,36 +83,38 @@ class _SignUpPageState extends State<SignUpPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
-                        child: isSigningUp ? CircularProgressIndicator(color: Colors.white,):Text(
-                          "Sign Up",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        )),
+                      child: isSigningUp
+                          ? CircularProgressIndicator(color: Colors.white)
+                          : Text(
+                        "Sign Up",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("Already have an account?"),
-                    SizedBox(
-                      width: 5,
-                    ),
+                    SizedBox(width: 5),
                     GestureDetector(
-                        onTap: () {
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginPage()),
-                                  (route) => false);
-                        },
-                        child: Text(
-                          "Login",
-                          style: TextStyle(
-                              color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),
-                        ))
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage()),
+                                (route) => false);
+                      },
+                      child: Text(
+                        "Login",
+                        style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )
                   ],
                 )
               ],
@@ -130,26 +126,23 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void _signUp() async {
-
     setState(() {
       isSigningUp = true;
     });
 
+    String firstname = _firstNameController.text;
     String username = _usernameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+    User? user = await _authentication.signUp(firstname, username, email, password);
 
     setState(() {
       isSigningUp = false;
     });
+
     if (user != null) {
-      showToast(message: "User created successfully ");
-      Navigator.pushNamed(context, "/home");
+      Navigator.pushNamed(context, "/LoginPage");
     }
-    // else {
-    //   showToast(message: "Some error happened");
-    // }
   }
 }

@@ -11,7 +11,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'features/onboarding/pages/onboarding2.dart';
 import 'features/onboarding/pages/onboarding3.dart';
+import 'features/password_reset/forgot_password_page.dart';
 import 'firebase_options.dart';
+
 
 
 Future<void> main() async {
@@ -59,6 +61,7 @@ class MyApp extends StatelessWidget {
         '/SignUpPage': (context) => SignUpPage(),
         '/LoginPage': (context) => LoginPage(),
         '/Home': (context) => Home(),
+        '/ForgotPasswordPage': (context) => ForgotPasswordPage(),
       },
     );
   }

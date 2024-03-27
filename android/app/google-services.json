@@ -12,7 +12,20 @@
           "package_name": "com.example.laundry_ease"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "392533223139-rbi3g40fi3thi7asl59qg046a6fajui6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.laundry_ease",
+            "certificate_hash": "7ed0f8109c0712b0a73ff552a50cc0415fa288da"
+          }
+        },
+        {
+          "client_id": "392533223139-olgab57mept05q722r1te3adb92uoa0n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBB_N1pbGCKYiB5ROOUO4Y9-RSaS6gq2TY"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392533223139-olgab57mept05q722r1te3adb92uoa0n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "392533223139-ahrl6436p2ka79gd7ll1c8dbl3ll2qfp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.laundryEase.RunnerTests"
+              }
+            }
+          ]
         }
       }
     }

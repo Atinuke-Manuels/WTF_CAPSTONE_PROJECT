@@ -28,6 +28,7 @@ class FirebaseAuthService {
 
   }
 
+
   Future<User?> signInWithEmailAndPassword(String email, String password) async {
 
     try {
@@ -44,8 +45,6 @@ class FirebaseAuthService {
     return null;
 
   }
-
-
 
 
 }

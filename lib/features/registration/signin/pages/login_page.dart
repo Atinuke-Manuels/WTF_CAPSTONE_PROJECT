@@ -1,15 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:laundry_ease/features/password_reset/forgot_password_page.dart';
 
 import '../../../../global/common/toast.dart';
 import '../../../firebase_auth_implementation/firebase_auth_services.dart';
 import '../../../home/pages/home.dart';
 import '../../signup/pages/sign_up_page.dart';
 import '../../signup/widgets/form_container_widget.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -66,6 +67,28 @@ class _LoginPageState extends State<LoginPage> {
                   controller: _passwordController,
                   hintText: "Password",
                   isPasswordField: true,
+                ),
+                SizedBox(height: 10,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
+                              (route) => false,
+                        );
+                      },
+                      child: Text(
+                        "Forgot Password?",
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 30,
@@ -181,7 +204,7 @@ class _LoginPageState extends State<LoginPage> {
       showToast(message: "User is successfully signed in");
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const Home()),
+        MaterialPageRoute(builder: (context) =>  Home()),
             (Route<dynamic> route) => false,
       );
     }
