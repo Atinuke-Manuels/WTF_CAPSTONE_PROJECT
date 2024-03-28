@@ -2,6 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:laundry_ease/agent/agent_home/pages/agent_home_page.dart';
 import 'package:laundry_ease/features/home/pages/home.dart';
 import 'package:laundry_ease/features/home/pages/placeholder.dart';
 import 'package:laundry_ease/features/onboarding/pages/onboarding1.dart';
@@ -73,6 +74,7 @@ class MyApp extends StatelessWidget {
           '/LoginPage': (context) => LoginPage(),
           '/HomePage': (context) => HomePage(),
           '/PlaceHolder': (context) => PlaceHolder(),
+          '/AgentHomePage': (context) => AgentHomePage(),
           '/ForgotPasswordPage': (context) => ForgotPasswordPage(),
         },
       ),

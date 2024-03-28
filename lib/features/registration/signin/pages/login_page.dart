@@ -3,14 +3,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:laundry_ease/agent/agent_home/pages/agent_home_page.dart';
 import 'package:laundry_ease/features/home/pages/home_page.dart';
 import 'package:laundry_ease/features/password_reset/forgot_password_page.dart';
 
 import '../../../../global/common/toast.dart';
+import '../../../../global/common/usermodel.dart';
 import '../../../firebase_auth_implementation/firebase_auth_services.dart';
 import '../../../home/pages/home.dart';
+import '../../../home/pages/placeholder.dart';
 import '../../signup/pages/sign_up_page.dart';
 import '../../signup/widgets/form_container_widget.dart';
+import '../../signup/widgets/signup_authentication.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -21,6 +25,33 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  SignUpAuthentication _signUpAuth = SignUpAuthentication(); // Instance of SignUpAuthentication
+  String? role;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData();// Fetch user data when the widget initializes
+
+  }
+
+  void _fetchUserData() async {
+    // Retrieve the current user's email from Firebase Authentication
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      String email = user.email ?? '';
+      UserModel? currentUser = await _signUpAuth.readData(email);
+
+      // Update the firstname variable if the current user is found
+      if (currentUser != null) {
+        setState(() {
+          role = currentUser.role;
+        });
+      }
+    }
+  }
+
+
   bool _isSigning = false;
   final FirebaseAuthService _auth = FirebaseAuthService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -197,21 +228,29 @@ class _LoginPageState extends State<LoginPage> {
 
     User? user = await _auth.signInWithEmailAndPassword(email, password);
 
-    setState(() {
-      _isSigning = false;
-    });
 
-    if (user != null) {
+    if (user != null && role == 'Role.client') {
       showToast(message: "User is successfully signed in");
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) =>  HomePage()),
             (Route<dynamic> route) => false,
       );
+    } else if(user != null && role == 'Role.agent'){
+      showToast(message: "User is successfully signed in");
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) =>  AgentHomePage()),
+            (Route<dynamic> route) => false,
+      );
+    } else {
+      showToast(message: "Invalid User");
     }
-    // else {
-    //   showToast(message: "some error occurred");
-    // }
+
+    setState(() {
+      _isSigning = false;
+    });
+
   }
 
 

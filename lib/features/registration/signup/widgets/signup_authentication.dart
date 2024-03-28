@@ -43,7 +43,13 @@ class SignUpAuthentication {
   void _createData(UserModel userModel) {
     final userCollection = FirebaseFirestore.instance.collection("users");
     String id = userCollection.doc().id;
-    final newUser = userModel.toJson(); // Use toJson() method of UserModel
+    final newUser = UserModel(
+      id: id,
+      firstname: userModel.firstname,
+      username: userModel.username,
+      email: userModel.email,
+      role: userModel.role,
+    ).toJson();
     userCollection.doc(id).set(newUser);
   }
 }
