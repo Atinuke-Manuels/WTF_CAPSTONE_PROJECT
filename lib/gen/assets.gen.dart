@@ -13,27 +13,46 @@ class $AssetsOnboardingGen {
   const $AssetsOnboardingGen();
 
   /// File path: assets/onboarding/onboarding1.jpg
-  AssetGenImage get onboarding1 =>
+  AssetGenImage get onboarding1Jpg =>
       const AssetGenImage('assets/onboarding/onboarding1.jpg');
 
+  /// File path: assets/onboarding/onboarding1.png
+  AssetGenImage get onboarding1Png =>
+      const AssetGenImage('assets/onboarding/onboarding1.png');
+
   /// File path: assets/onboarding/onboarding2.jpg
-  AssetGenImage get onboarding2 =>
+  AssetGenImage get onboarding2Jpg =>
       const AssetGenImage('assets/onboarding/onboarding2.jpg');
 
+  /// File path: assets/onboarding/onboarding2.png
+  AssetGenImage get onboarding2Png =>
+      const AssetGenImage('assets/onboarding/onboarding2.png');
+
   /// File path: assets/onboarding/onboarding3.jpg
-  AssetGenImage get onboarding3 =>
+  AssetGenImage get onboarding3Jpg =>
       const AssetGenImage('assets/onboarding/onboarding3.jpg');
 
+  /// File path: assets/onboarding/onboarding3.png
+  AssetGenImage get onboarding3Png =>
+      const AssetGenImage('assets/onboarding/onboarding3.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [onboarding1, onboarding2, onboarding3];
+  List<AssetGenImage> get values => [
+        onboarding1Jpg,
+        onboarding1Png,
+        onboarding2Jpg,
+        onboarding2Png,
+        onboarding3Jpg,
+        onboarding3Png
+      ];
 }
 
 class $AssetsSplashGen {
   const $AssetsSplashGen();
 
-  /// File path: assets/splash/laundryEaseLogo.PNG
+  /// File path: assets/splash/laundryEaseLogo.png
   AssetGenImage get laundryEaseLogo =>
-      const AssetGenImage('assets/splash/laundryEaseLogo.PNG');
+      const AssetGenImage('assets/splash/laundryEaseLogo.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [laundryEaseLogo];

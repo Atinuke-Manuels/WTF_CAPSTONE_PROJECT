@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
-          primaryColor: const Color(0xFF2196F3),
+          primaryColor: const Color(0xFF5229b6),
           // Set primary color
           primaryColorLight: const Color(0xFF64B5F6),
           // Set light theme primary color

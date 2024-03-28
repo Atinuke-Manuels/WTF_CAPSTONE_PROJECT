@@ -16,7 +16,7 @@ class Onboarding1 extends StatelessWidget {
             child: Column(
               children: [
                 Image.asset(
-                  Assets.onboarding.onboarding1.path,
+                  Assets.onboarding.onboarding1Png.path,
                   height: MediaQuery.of(context).size.height * 0.5,
                   width: MediaQuery.of(context).size.width * 1,
                 ),
