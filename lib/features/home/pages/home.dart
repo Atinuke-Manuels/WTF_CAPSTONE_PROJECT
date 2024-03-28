@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../../global/common/usermodel.dart';
 import '../../registration/signin/pages/login_page.dart';
 import '../../registration/signup/widgets/signup_authentication.dart'; // Import SignUpAuthentication
 
@@ -13,13 +14,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   SignUpAuthentication _auth = SignUpAuthentication(); // Instance of SignUpAuthentication
-
   String? firstname; // Variable to store firstname
 
   @override
   void initState() {
     super.initState();
-    _fetchUserData(); // Fetch user data when the widget initializes
+    _fetchUserData();// Fetch user data when the widget initializes
+
   }
 
   void _fetchUserData() async {
@@ -27,21 +28,12 @@ class _HomeState extends State<Home> {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       String email = user.email ?? '';
-      List<UserModel> users = await _auth.readData().first;
-      UserModel? currentUser;
-
-      // Find the user with the matching email
-      for (UserModel user in users) {
-        if (user.email == email) {
-          currentUser = user;
-          break;
-        }
-      }
+      UserModel? currentUser = await _auth.readData(email);
 
       // Update the firstname variable if the current user is found
       if (currentUser != null) {
         setState(() {
-          firstname = currentUser?.firstname;
+          firstname = currentUser.firstname;
         });
       }
     }
@@ -55,7 +47,8 @@ class _HomeState extends State<Home> {
         child: SafeArea(
           child: Column(
             children: [
-              Text("Hello ${firstname ?? "..."}"), // Display the firstname
+              Text("Hello ${firstname ?? "..."}"),
+
               TextButton(
                 onPressed: () {
                   FirebaseAuth.instance.signOut();

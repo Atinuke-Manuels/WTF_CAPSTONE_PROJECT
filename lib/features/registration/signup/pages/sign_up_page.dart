@@ -1,12 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../global/common/toast.dart';
-import '../../../firebase_auth_implementation/firebase_auth_services.dart';
 import '../../signin/pages/login_page.dart';
+
+import '../widgets/drop_down_container.dart';
 import '../widgets/form_container_widget.dart';
 import '../widgets/signup_authentication.dart';
 
+
+
+// Add this enum for role selection
+enum Role { client, agent }
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -16,17 +20,22 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final SignUpAuthentication _authentication = SignUpAuthentication(); // Creating an instance of SignUpAuthentication
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  TextEditingController _firstNameController = TextEditingController();
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  // Add a variable to track the selected role
+  Role _selectedRole = Role.client;
 
   bool isSigningUp = false;
 
+  // Initialize SignUpAuthentication instance
+  final SignUpAuthentication _authentication = SignUpAuthentication();
+
   @override
   void dispose() {
+    _firstNameController.dispose();
     _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -67,11 +76,21 @@ class _SignUpPageState extends State<SignUpPage> {
                   isPasswordField: false,
                 ),
                 SizedBox(height: 10),
+                DropDownContainerWidget(
+                  initialValue: _selectedRole,
+                  onChanged: (Role value) {
+                    setState(() {
+                      _selectedRole = value;
+                    });
+                  },
+                ),
+                SizedBox(height: 10),
                 FormContainerWidget(
                   controller: _passwordController,
                   hintText: "Password",
                   isPasswordField: true,
                 ),
+                // Use the same FormContainerWidget for role selection
                 SizedBox(height: 30),
                 GestureDetector(
                   onTap: _signUp,
@@ -135,7 +154,10 @@ class _SignUpPageState extends State<SignUpPage> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    User? user = await _authentication.signUp(firstname, username, email, password);
+    // Now you have access to _selectedRole to include it in your signUp method
+    // For demonstration purposes, I'm passing it as a String. You can modify
+    // your signUp method accordingly.
+    User? user = await _authentication.signUp(firstname, username, email, password, _selectedRole.toString());
 
     setState(() {
       isSigningUp = false;
