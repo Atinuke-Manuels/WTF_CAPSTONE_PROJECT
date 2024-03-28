@@ -5,10 +5,14 @@ class ButtonItem extends StatelessWidget {
     super.key,
     required this.title,
     required this.onPress,
+    this.textColor = Colors.white,
+    this.backgroundColor = Colors.white,
   });
 
   final String title;
   final Function() onPress;
+  final Color textColor; // Added parameter for text color with default value
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +20,11 @@ class ButtonItem extends StatelessWidget {
       onPressed: onPress,
       child: Text(
         title,
-        style: TextStyle(color: Colors.white, fontSize: 18),
+        style: TextStyle(color: textColor, fontSize: 16),
       ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: Theme.of(context).primaryColor,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        backgroundColor: backgroundColor,
+        padding: EdgeInsets.symmetric(horizontal: 18, vertical: 14),
         minimumSize: Size(double.infinity, 50),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(

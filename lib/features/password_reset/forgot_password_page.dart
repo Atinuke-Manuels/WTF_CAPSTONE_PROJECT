@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:laundry_ease/features/registration/signin/pages/login_page.dart';
@@ -47,7 +48,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               children: [
                 Text(
                   "Password Reset",
-                  style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 30,
@@ -64,7 +65,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   onTap: () => _resetPassword(context),
                   child: Container(
                     width: double.infinity,
-                    height: 45,
+                    height: 60.h,
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(10),
@@ -76,6 +77,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
+                          fontSize: 18.sp,
                         ),
                       ),
                     ),
@@ -91,7 +93,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Remembered your password?"),
+                    Text("Remembered your password?", style: TextStyle(fontSize: 18.sp, color: Colors.grey.shade800)),
                     SizedBox(
                       width: 5,
                     ),
@@ -108,6 +110,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold,
+                          fontSize: 18.sp
                         ),
                       ),
                     ),
@@ -142,7 +145,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content:
-          Text("Failed to send password reset email. Please try again."),
+          Text("Failed to send password reset email. Please try again.",),
         ),
       );
     }

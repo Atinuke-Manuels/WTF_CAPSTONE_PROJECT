@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:laundry_ease/features/onboarding/pages/onboarding2.dart';
 import '../../../gen/assets.gen.dart';
 import '../widgets/onboarding_button.dart';
@@ -15,35 +16,54 @@ class Onboarding1 extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                SizedBox(height: 70.h,),
                 Image.asset(
                   Assets.onboarding.onboarding1Png.path,
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  width: MediaQuery.of(context).size.width * 1,
+                  height: 371.h,
+                  width: 339.w,
                 ),
+                SizedBox(height: 50.h,),
                 Container(
                   padding: EdgeInsets.all(16),
                   child: Column(children: [
+                    Text("Welcome to LaundryEase", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),),
+                    SizedBox(height: 18.h,),
                     Text(
-                      "Washing is really an amazing experience. Come and try our variety of services which include ironing, starching etc.",
+                      "Make your laundry routine with LaundryEase. Convenient scheduling and easy payments for effortless laundry care",
                       style:
-                          TextStyle(fontSize: 12, color: Colors.grey.shade400),
+                          TextStyle(fontSize: 12, color: Colors.grey.shade800),
                       textAlign: TextAlign.center,
                     ),
                   ]),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.24,
+                  height: MediaQuery.of(context).size.height * 0.16,
                 ),
-                OnboardingButton(
-                    title: "Next",
-                    padding: EdgeInsets.symmetric(horizontal: 48, vertical: 8),
-                    onPress: () {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Onboarding2()),
-                            (Route<dynamic> route) => false,
-                      );
-                    }),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    OnboardingButton(
+                        title: "Skip",
+                        textColor: Theme.of(context).primaryColor,
+                        padding:
+                        EdgeInsets.symmetric(horizontal: 48, vertical: 8),
+                        onPress: () {
+                          Navigator.pushNamed(context, '/Onboarding3');
+                        }),
+                    OnboardingButton(
+                        title: "Next",
+                        backgroundColor: Theme.of(context).primaryColor,
+                        padding:
+                        EdgeInsets.symmetric(horizontal: 48, vertical: 8),
+                        onPress: () {
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(builder: (context) => const Onboarding2()),
+                                (Route<dynamic> route) => false,
+                          );
+                        }),
+                  ],
+                )
               ],
             ),
           ),

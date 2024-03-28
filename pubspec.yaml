@@ -66,7 +66,7 @@ flutter_launcher_icons:
       - icons
       - splash
   ios: true
-  image_path: "assets/splash/laundryEaseLogo.png"
+  image_path: "assets/splash/newLogo.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

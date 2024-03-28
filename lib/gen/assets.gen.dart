@@ -50,9 +50,9 @@ class $AssetsOnboardingGen {
 class $AssetsSplashGen {
   const $AssetsSplashGen();
 
-  /// File path: assets/splash/laundryEaseLogo.png
+  /// File path: assets/splash/newLogo.png
   AssetGenImage get laundryEaseLogo =>
-      const AssetGenImage('assets/splash/laundryEaseLogo.png');
+      const AssetGenImage('assets/splash/newLogo.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [laundryEaseLogo];

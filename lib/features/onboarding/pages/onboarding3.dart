@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:laundry_ease/features/registration/signup/pages/register_page.dart';
 import '../../../gen/assets.gen.dart';
 import '../widgets/onboarding_button.dart';
@@ -26,34 +27,40 @@ class Onboarding3 extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                SizedBox(height: 70.h,),
                 Image.asset(
                   Assets.onboarding.onboarding3Png.path,
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  width: MediaQuery.of(context).size.width * 1,
+                  height: 382.h,
+                  width: 319.w,
                 ),
+                SizedBox(height: 30.h,),
                 Container(
                   padding: EdgeInsets.all(16),
                   child: Column(children: [
+                    Text("Discover the benefits", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),),
+                    SizedBox(height: 18.h,),
                     Text(
-                      "Washing is really an amazing experience. Come and try our variety of services which include ironing, starching etc.",
+                      "Explore LaundryEase in just a few steps- schedule your pickup, track your order and enjoy freshly cleaned laundry delivered right to your doorstep.",
                       style:
-                      TextStyle(fontSize: 12, color: Colors.grey.shade400),
+                      TextStyle(fontSize: 12, color: Colors.grey.shade800),
                       textAlign: TextAlign.center,
                     ),
                   ]),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.24,
+                  height: MediaQuery.of(context).size.height * 0.16,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     OnboardingButton(
                         title: "Previous",
+                        textColor: Theme.of(context).primaryColor,
                         padding: EdgeInsets.symmetric(horizontal: 36, vertical: 8),
                         onPress: () {Navigator.pushNamed(context, '/Onboarding2');}),
                     OnboardingButton(
                         title: "Get Started",
+                        backgroundColor: Theme.of(context).primaryColor,
                         padding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
                         onPress: () {
                           _onGetStartedPressed(context);

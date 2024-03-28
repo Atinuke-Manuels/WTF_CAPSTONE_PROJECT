@@ -1,6 +1,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:laundry_ease/agent/agent_home/pages/agent_home_page.dart';
@@ -82,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Text(
                   "Login",
-                  style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 30,
@@ -117,6 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold,
+                          fontSize: 18.sp,
                         ),
                       ),
                     ),
@@ -131,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   child: Container(
                     width: double.infinity,
-                    height: 45,
+                    height: 60.h,
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(10),
@@ -143,6 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
+                          fontSize: 18.sp
                         ),
                       ),
                     ),
@@ -156,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   child: Container(
                     width: double.infinity,
-                    height: 45,
+                    height: 60.h,
                     decoration: BoxDecoration(
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(10),
@@ -172,6 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
+                              fontSize: 18.sp,
                             ),
                           ),
                         ],
@@ -188,7 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have an account?"),
+                    Text("Don't have an account?", style: TextStyle(fontSize: 18.sp, color: Colors.grey.shade800),),
                     SizedBox(
                       width: 5,
                     ),
@@ -205,6 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold,
+                          fontSize: 18.sp
                         ),
                       ),
                     ),

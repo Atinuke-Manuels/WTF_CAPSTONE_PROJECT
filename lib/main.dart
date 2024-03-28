@@ -2,6 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:laundry_ease/agent/agent_home/pages/agent_home_page.dart';
 import 'package:laundry_ease/features/home/pages/home.dart';
 import 'package:laundry_ease/features/home/pages/placeholder.dart';
@@ -45,38 +46,43 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<HomeBloc>(
-          create: (BuildContext context) => HomeBloc(),
+    return ScreenUtilInit(
+      designSize: const Size(430, 932),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<HomeBloc>(
+            create: (BuildContext context) => HomeBloc(),
+          ),
+          // Add more BlocProviders as needed
+        ],
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+            primaryColor: const Color(0xFF5229b6),
+            // Set primary color
+            primaryColorLight: const Color(0xFF64B5F6),
+            // Set light theme primary color
+            primaryColorDark: const Color(0xFF1976D2),
+          ),
+          home: onboardingComplete ? RegisterPage() : SplashScreen(),
+          routes: {
+            '/Onboarding1': (context) => Onboarding1(),
+            '/Onboarding2': (context) => Onboarding2(),
+            '/Onboarding3': (context) => Onboarding3(),
+            '/RegisterPage': (context) => RegisterPage(),
+            '/SignUpPage': (context) => SignUpPage(),
+            '/LoginPage': (context) => LoginPage(),
+            '/HomePage': (context) => HomePage(),
+            '/PlaceHolder': (context) => PlaceHolder(),
+            '/AgentHomePage': (context) => AgentHomePage(),
+            '/ForgotPasswordPage': (context) => ForgotPasswordPage(),
+          },
         ),
-        // Add more BlocProviders as needed
-      ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-          primaryColor: const Color(0xFF5229b6),
-          // Set primary color
-          primaryColorLight: const Color(0xFF64B5F6),
-          // Set light theme primary color
-          primaryColorDark: const Color(0xFF1976D2),
-        ),
-        home: onboardingComplete ? RegisterPage() : SplashScreen(),
-        routes: {
-          '/Onboarding1': (context) => Onboarding1(),
-          '/Onboarding2': (context) => Onboarding2(),
-          '/Onboarding3': (context) => Onboarding3(),
-          '/RegisterPage': (context) => RegisterPage(),
-          '/SignUpPage': (context) => SignUpPage(),
-          '/LoginPage': (context) => LoginPage(),
-          '/HomePage': (context) => HomePage(),
-          '/PlaceHolder': (context) => PlaceHolder(),
-          '/AgentHomePage': (context) => AgentHomePage(),
-          '/ForgotPasswordPage': (context) => ForgotPasswordPage(),
-        },
       ),
     );
   }

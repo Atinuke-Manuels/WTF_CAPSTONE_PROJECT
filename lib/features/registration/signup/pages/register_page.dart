@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../gen/assets.gen.dart';
 import '../../../onboarding/widgets/button_item.dart';
@@ -16,17 +17,18 @@ class RegisterPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(height: 20.h,),
               Image.asset(
                 Assets.splash.laundryEaseLogo.path,
-                height: MediaQuery.of(context).size.height * 0.2,
-                width: MediaQuery.of(context).size.width * 0.2,
+                height: 332.h,
+                width: 271.w,
               ),
-              SizedBox(height: 60,),
+              SizedBox(height: 20,),
               Text(
                 "Sign up as",
                 style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 24,
+                    // color: Theme.of(context).primaryColor,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(
@@ -34,36 +36,26 @@ class RegisterPage extends StatelessWidget {
               ),
               ButtonItem(
                   title: "A Client",
+                  backgroundColor: Theme.of(context).primaryColor,
                   onPress: () {Navigator.pushNamed(context, "/SignUpPage");}),
-              // SizedBox(height: 6,),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //   Text("Already have an account?", style:
-              //   TextStyle(fontSize: 14, color: Colors.grey.shade400),
-              //     textAlign: TextAlign.center,),
-              //   SizedBox(width: 8,),
-              //   InkWell(onTap: (){}, child: Text("Sign in", style:
-              //   TextStyle(fontSize: 14, color: Colors.blue.shade400, fontWeight: FontWeight.bold),
-              //     textAlign: TextAlign.center,),),
-              // ],),
               SizedBox(height: 24,),
               ButtonItem(
-                  title: "An Agent",
+                  title: "A Delivery Agent",
+                  textColor: Theme.of(context).primaryColor,
                   onPress: () {Navigator.pushNamed(context, "/SignUpPage");}),
-              SizedBox(height: 6,),
+              SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Already have an account?", style:
-                  TextStyle(fontSize: 14, color: Colors.grey.shade400),
+                  TextStyle(fontSize: 18.sp, color: Colors.grey.shade800),
                     textAlign: TextAlign.center,),
                   SizedBox(width: 8,),
                   InkWell(onTap: (){ Navigator.pushNamed(context, "/LoginPage");}, child: Text("Sign in", style:
-                  TextStyle(fontSize: 14, color: Colors.blue.shade400, fontWeight: FontWeight.bold),
+                  TextStyle(fontSize: 18.sp, color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,),),
                 ],),
-              SizedBox(height: 130,),
+              SizedBox(height: 100,),
             ],
           ),
         ),

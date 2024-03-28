@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../signin/pages/login_page.dart';
 
@@ -54,8 +55,8 @@ class _SignUpPageState extends State<SignUpPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Sign Up",
-                  style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
+                  "Create Account",
+                  style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 30),
                 FormContainerWidget(
@@ -96,7 +97,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   onTap: _signUp,
                   child: Container(
                     width: double.infinity,
-                    height: 45,
+                    height: 60.h,
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(10),
@@ -105,10 +106,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: isSigningUp
                           ? CircularProgressIndicator(color: Colors.white)
                           : Text(
-                        "Sign Up",
+                        "Create Account",
                         style: TextStyle(
                             color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.sp,
+                        ),
                       ),
                     ),
                   ),
@@ -117,7 +120,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account?"),
+                    Text("Already have an account?", style: TextStyle(fontSize: 18.sp),),
                     SizedBox(width: 5),
                     GestureDetector(
                       onTap: () {
@@ -131,7 +134,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         "Login",
                         style: TextStyle(
                             color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.bold, fontSize: 18.sp),
                       ),
                     )
                   ],
