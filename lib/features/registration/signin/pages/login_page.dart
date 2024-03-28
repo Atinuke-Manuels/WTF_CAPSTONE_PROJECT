@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:laundry_ease/features/home/pages/home_page.dart';
 import 'package:laundry_ease/features/password_reset/forgot_password_page.dart';
 
 import '../../../../global/common/toast.dart';
@@ -204,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
       showToast(message: "User is successfully signed in");
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) =>  Home()),
+        MaterialPageRoute(builder: (context) =>  HomePage()),
             (Route<dynamic> route) => false,
       );
     }
@@ -232,7 +233,7 @@ class _LoginPageState extends State<LoginPage> {
         );
 
         await _firebaseAuth.signInWithCredential(credential);
-        Navigator.pushNamed(context, "/Home");
+        Navigator.pushNamed(context, "/HomePage");
       }
 
     }catch(e) {
