@@ -14,7 +14,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   SignUpAuthentication _auth = SignUpAuthentication(); // Instance of SignUpAuthentication
-  String? firstname; // Variable to store firstname
+  String? firstname;
+  String? role;// Variable to store firstname
 
   @override
   void initState() {
@@ -34,6 +35,7 @@ class _HomeState extends State<Home> {
       if (currentUser != null) {
         setState(() {
           firstname = currentUser.firstname;
+          role = currentUser.role;
         });
       }
     }
@@ -52,7 +54,7 @@ class _HomeState extends State<Home> {
           child: Column(
             children: [
               Text("Hello ${firstname ?? "..."}"),
-
+              Text("I am a  ${role ?? "..."}"),
               TextButton(
                 onPressed: () {
                   _signOut();

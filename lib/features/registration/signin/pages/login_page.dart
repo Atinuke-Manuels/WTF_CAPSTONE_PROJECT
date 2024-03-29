@@ -26,8 +26,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  SignUpAuthentication _signUpAuth = SignUpAuthentication(); // Instance of SignUpAuthentication
-  String? role;
+  SignUpAuthentication _auth = SignUpAuthentication(); // Instance of SignUpAuthentication
+  String? firstname;
+  String? role;// Variable to store firstname
 
   @override
   void initState() {
@@ -36,16 +37,17 @@ class _LoginPageState extends State<LoginPage> {
 
   }
 
-  void _fetchUserData() async {
+  Future<void> _fetchUserData() async {
     // Retrieve the current user's email from Firebase Authentication
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      String id = user.uid ?? '';
-      UserModel? currentUser = await _signUpAuth.readData(id);
+      String email = user.email ?? '';
+      UserModel? currentUser = await _auth.readData(email);
 
       // Update the firstname variable if the current user is found
       if (currentUser != null) {
         setState(() {
+          firstname = currentUser.firstname;
           role = currentUser.role;
         });
       }
@@ -54,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
 
 
   bool _isSigning = false;
-  final FirebaseAuthService _auth = FirebaseAuthService();
+  final FirebaseAuthService _authentication = FirebaseAuthService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -223,54 +225,9 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // void _signIn() async {
-  //   setState(() {
-  //     _isSigning = true;
-  //   });
-  //
-  //   String email = _emailController.text;
-  //   String password = _passwordController.text;
-  //
-  //   User? user = await _auth.signInWithEmailAndPassword(email, password);
-  //
-  //
-  //   if (user != null) {
-  //     if (role == "Role.client") {
-  //       showToast(message: "User is successfully signed in ${role}");
-  //       Navigator.pushAndRemoveUntil(
-  //         context,
-  //         MaterialPageRoute(builder: (context) =>  HomePage()),
-  //             (Route<dynamic> route) => false,
-  //       );
-  //     } else {
-  //       showToast(message: "User is successfully signed in ${role}");
-  //       Navigator.pushAndRemoveUntil(
-  //         context,
-  //         MaterialPageRoute(builder: (context) =>  AgentHomePage()),
-  //             (Route<dynamic> route) => false,
-  //       );
-  //     }
-  //
-  //     // else if (role == 'Role.agent') {
-  //     //   showToast(message: "User is successfully signed in");
-  //     //   Navigator.pushAndRemoveUntil(
-  //     //     context,
-  //     //     MaterialPageRoute(builder: (context) =>  AgentHomePage()),
-  //     //         (Route<dynamic> route) => false,
-  //     //   );
-  //     // } else {
-  //     //   showToast(message: "Invalid User ${user.uid}");
-  //     // }
-  //   }
-  //
-  //   setState(() {
-  //     _isSigning = false;
-  //   });
-  //
-  // }
 
 
-  void _signIn() async {
+  Future<void> _signIn() async {
     setState(() {
       _isSigning = true;
     });
@@ -278,20 +235,36 @@ class _LoginPageState extends State<LoginPage> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    User? user = await _auth.signInWithEmailAndPassword(email, password);
+    try {
+      User? user = await _authentication.signInWithEmailAndPassword(email, password);
 
-    setState(() {
-      _isSigning = false;
-    });
+      setState(() {
+        _isSigning = false;
+      });
 
-    if (user != null) {
-      showToast(message: "User is successfully signed in ${role}");
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) =>  HomePage()),
-    (Route<dynamic> route) => false,);
-    } else {
-      showToast(message: "An error occurred");
+      if (user != null) {
+        await _fetchUserData();
+        if (role == "Role.client") {
+          showToast(message: "User is successfully signed in ${role}");
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) =>  HomePage()),
+                (Route<dynamic> route) => false,
+          );
+        } else{
+          showToast(message: "User is successfully signed in ${role}");
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) =>  AgentHomePage()),
+                (Route<dynamic> route) => false,
+          );
+        }
+      }
+    } catch (e) {
+      showToast(message: 'Failed to sign in: $e');
+      setState(() {
+        _isSigning = false;
+      });
     }
   }
 
