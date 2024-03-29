@@ -39,6 +39,10 @@ class _HomeState extends State<Home> {
     }
   }
 
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +55,7 @@ class _HomeState extends State<Home> {
 
               TextButton(
                 onPressed: () {
-                  FirebaseAuth.instance.signOut();
+                  _signOut();
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (context) => LoginPage()),

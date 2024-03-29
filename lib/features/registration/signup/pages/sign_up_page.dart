@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../global/common/toast.dart';
 import '../../signin/pages/login_page.dart';
 
 import '../widgets/drop_down_container.dart';
@@ -56,7 +57,8 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 Text(
                   "Create Account",
-                  style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 30.sp, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 30),
                 FormContainerWidget(
@@ -97,9 +99,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   onTap: _signUp,
                   child: Container(
                     width: double.infinity,
-                    height: 60.h,
+                    height: 100.h,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme
+                          .of(context)
+                          .primaryColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
@@ -108,19 +112,20 @@ class _SignUpPageState extends State<SignUpPage> {
                           : Text(
                         "Create Account",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18.sp,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.sp,
                         ),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 20.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account?", style: TextStyle(fontSize: 18.sp),),
+                    Text("Already have an account?",
+                      style: TextStyle(fontSize: 18.sp),),
                     SizedBox(width: 5),
                     GestureDetector(
                       onTap: () {
@@ -133,7 +138,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Text(
                         "Login",
                         style: TextStyle(
-                            color: Theme.of(context).primaryColor,
+                            color: Theme
+                                .of(context)
+                                .primaryColor,
                             fontWeight: FontWeight.bold, fontSize: 18.sp),
                       ),
                     )
@@ -157,17 +164,22 @@ class _SignUpPageState extends State<SignUpPage> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    // Now you have access to _selectedRole to include it in your signUp method
-    // For demonstration purposes, I'm passing it as a String. You can modify
-    // your signUp method accordingly.
-    User? user = await _authentication.signUp(firstname, username, email, password, _selectedRole.toString());
+    // Check if the selected role is either "Client" or "Agent"
+    if (_selectedRole != null && (_selectedRole == Role.client || _selectedRole == Role.agent)) {
+      // Now you have access to _selectedRole to include it in your signUp method
+      User? user = await _authentication.signUp(
+          firstname, username, email, password, _selectedRole.toString());
 
+      if (user != null) {
+        Navigator.pushNamed(context, "/LoginPage");
+      }
+    } else {
+      // Handle the case where "Select Role" option is chosen or an invalid role is selected
+      // For example, display an error message or take appropriate action
+      showToast(message: 'Please select a valid role (Client or Agent).');
+    }
     setState(() {
       isSigningUp = false;
     });
-
-    if (user != null) {
-      Navigator.pushNamed(context, "/LoginPage");
-    }
   }
 }

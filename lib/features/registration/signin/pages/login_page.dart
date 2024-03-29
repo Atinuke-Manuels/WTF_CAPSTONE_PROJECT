@@ -40,8 +40,8 @@ class _LoginPageState extends State<LoginPage> {
     // Retrieve the current user's email from Firebase Authentication
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      String email = user.email ?? '';
-      UserModel? currentUser = await _signUpAuth.readData(email);
+      String id = user.uid ?? '';
+      UserModel? currentUser = await _signUpAuth.readData(id);
 
       // Update the firstname variable if the current user is found
       if (currentUser != null) {
@@ -223,6 +223,53 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // void _signIn() async {
+  //   setState(() {
+  //     _isSigning = true;
+  //   });
+  //
+  //   String email = _emailController.text;
+  //   String password = _passwordController.text;
+  //
+  //   User? user = await _auth.signInWithEmailAndPassword(email, password);
+  //
+  //
+  //   if (user != null) {
+  //     if (role == "Role.client") {
+  //       showToast(message: "User is successfully signed in ${role}");
+  //       Navigator.pushAndRemoveUntil(
+  //         context,
+  //         MaterialPageRoute(builder: (context) =>  HomePage()),
+  //             (Route<dynamic> route) => false,
+  //       );
+  //     } else {
+  //       showToast(message: "User is successfully signed in ${role}");
+  //       Navigator.pushAndRemoveUntil(
+  //         context,
+  //         MaterialPageRoute(builder: (context) =>  AgentHomePage()),
+  //             (Route<dynamic> route) => false,
+  //       );
+  //     }
+  //
+  //     // else if (role == 'Role.agent') {
+  //     //   showToast(message: "User is successfully signed in");
+  //     //   Navigator.pushAndRemoveUntil(
+  //     //     context,
+  //     //     MaterialPageRoute(builder: (context) =>  AgentHomePage()),
+  //     //         (Route<dynamic> route) => false,
+  //     //   );
+  //     // } else {
+  //     //   showToast(message: "Invalid User ${user.uid}");
+  //     // }
+  //   }
+  //
+  //   setState(() {
+  //     _isSigning = false;
+  //   });
+  //
+  // }
+
+
   void _signIn() async {
     setState(() {
       _isSigning = true;
@@ -233,30 +280,21 @@ class _LoginPageState extends State<LoginPage> {
 
     User? user = await _auth.signInWithEmailAndPassword(email, password);
 
-
-    if (user != null && role == 'Role.client') {
-      showToast(message: "User is successfully signed in");
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) =>  HomePage()),
-            (Route<dynamic> route) => false,
-      );
-    } else if(user != null && role == 'Role.agent'){
-      showToast(message: "User is successfully signed in");
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) =>  AgentHomePage()),
-            (Route<dynamic> route) => false,
-      );
-    } else {
-      showToast(message: "Invalid User");
-    }
-
     setState(() {
       _isSigning = false;
     });
 
+    if (user != null) {
+      showToast(message: "User is successfully signed in ${role}");
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) =>  HomePage()),
+    (Route<dynamic> route) => false,);
+    } else {
+      showToast(message: "An error occurred");
+    }
   }
+
 
 
   _signInWithGoogle()async{

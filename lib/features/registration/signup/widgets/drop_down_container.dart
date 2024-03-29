@@ -42,15 +42,13 @@ class _DropDownContainerWidgetState extends State<DropDownContainerWidget> {
         },
         items: [
           DropdownMenuItem(
-            value: null,
-            child: Text("Select Role"), // Placeholder text
+            value: Role.client, // Set default role as Client
+            child: Text('Client'),
           ),
-          ...Role.values.map((Role role) {
-            return DropdownMenuItem<Role>(
-              value: role,
-              child: Text(role == Role.client ? 'Client' : 'Agent'),
-            );
-          }).toList(),
+          DropdownMenuItem(
+            value: Role.agent,
+            child: Text('Agent'),
+          ),
         ],
         decoration: InputDecoration(
           border: InputBorder.none,
@@ -61,4 +59,3 @@ class _DropDownContainerWidgetState extends State<DropDownContainerWidget> {
     );
   }
 }
-
