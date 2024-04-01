@@ -9,6 +9,52 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsHomeGen {
+  const $AssetsHomeGen();
+
+  /// File path: assets/home/delivery1.png
+  AssetGenImage get delivery1 =>
+      const AssetGenImage('assets/home/delivery1.png');
+
+  /// File path: assets/home/delivery2.png
+  AssetGenImage get delivery2 =>
+      const AssetGenImage('assets/home/delivery2.png');
+
+  /// File path: assets/home/delivery3.png
+  AssetGenImage get delivery3 =>
+      const AssetGenImage('assets/home/delivery3.png');
+
+  /// File path: assets/home/deliveryImg1.png
+  AssetGenImage get deliveryImg1 =>
+      const AssetGenImage('assets/home/deliveryImg1.png');
+
+  /// File path: assets/home/deliveryImg2.png
+  AssetGenImage get deliveryImg2 =>
+      const AssetGenImage('assets/home/deliveryImg2.png');
+
+  /// File path: assets/home/deliveryImg3.png
+  AssetGenImage get deliveryImg3 =>
+      const AssetGenImage('assets/home/deliveryImg3.png');
+
+  $AssetsHomeServiceImagesGen get serviceImages =>
+      const $AssetsHomeServiceImagesGen();
+
+  /// File path: assets/home/washing_machine1.png
+  AssetGenImage get washingMachine1 =>
+      const AssetGenImage('assets/home/washing_machine1.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+        delivery1,
+        delivery2,
+        delivery3,
+        deliveryImg1,
+        deliveryImg2,
+        deliveryImg3,
+        washingMachine1
+      ];
+}
+
 class $AssetsOnboardingGen {
   const $AssetsOnboardingGen();
 
@@ -51,16 +97,44 @@ class $AssetsSplashGen {
   const $AssetsSplashGen();
 
   /// File path: assets/splash/newLogo.png
-  AssetGenImage get laundryEaseLogo =>
-      const AssetGenImage('assets/splash/newLogo.png');
+  AssetGenImage get newLogo => const AssetGenImage('assets/splash/newLogo.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [laundryEaseLogo];
+  List<AssetGenImage> get values => [newLogo];
+}
+
+class $AssetsHomeServiceImagesGen {
+  const $AssetsHomeServiceImagesGen();
+
+  /// File path: assets/home/serviceImages/serviceIg3.png
+  AssetGenImage get serviceIg3 =>
+      const AssetGenImage('assets/home/serviceImages/serviceIg3.png');
+
+  /// File path: assets/home/serviceImages/serviceImg1.png
+  AssetGenImage get serviceImg1 =>
+      const AssetGenImage('assets/home/serviceImages/serviceImg1.png');
+
+  /// File path: assets/home/serviceImages/serviceImg2.png
+  AssetGenImage get serviceImg2 =>
+      const AssetGenImage('assets/home/serviceImages/serviceImg2.png');
+
+  /// File path: assets/home/serviceImages/serviceImg4.png
+  AssetGenImage get serviceImg4 =>
+      const AssetGenImage('assets/home/serviceImages/serviceImg4.png');
+
+  /// File path: assets/home/serviceImages/serviceImg5.png
+  AssetGenImage get serviceImg5 =>
+      const AssetGenImage('assets/home/serviceImages/serviceImg5.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values =>
+      [serviceIg3, serviceImg1, serviceImg2, serviceImg4, serviceImg5];
 }
 
 class Assets {
   Assets._();
 
+  static const $AssetsHomeGen home = $AssetsHomeGen();
   static const $AssetsOnboardingGen onboarding = $AssetsOnboardingGen();
   static const $AssetsSplashGen splash = $AssetsSplashGen();
 }

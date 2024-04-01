@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                Assets.splash.laundryEaseLogo.path,
+                Assets.splash.newLogo.path,
                 height: MediaQuery.of(context).size.height * 0.4,
                 width: MediaQuery.of(context).size.width * 0.4,
               ),

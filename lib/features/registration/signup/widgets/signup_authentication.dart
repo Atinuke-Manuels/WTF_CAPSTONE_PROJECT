@@ -9,12 +9,14 @@ class SignUpAuthentication {
   final FirebaseAuthService _auth = FirebaseAuthService();
 
   Future<User?> signUp(
-      String firstname, String username, String email, String password, String role) async {
+      String firstname, String username, String phone, String address,String email, String password, String role) async {
     User? user = await _auth.signUpWithEmailAndPassword(email, password);
     if (user != null) {
       _createData(UserModel(
         firstname: firstname,
         username: username,
+        phone: phone,
+        address: address,
         email: email,
         role: role,
       ));
@@ -47,6 +49,8 @@ class SignUpAuthentication {
       id: id,
       firstname: userModel.firstname,
       username: userModel.username,
+      phone: userModel.phone,
+      address: userModel.address,
       email: userModel.email,
       role: userModel.role,
     ).toJson();

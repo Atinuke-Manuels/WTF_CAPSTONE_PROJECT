@@ -92,6 +92,8 @@ flutter:
     - assets/
     - assets/splash/
     - assets/onboarding/
+    - assets/home/
+    - assets/home/serviceImages/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

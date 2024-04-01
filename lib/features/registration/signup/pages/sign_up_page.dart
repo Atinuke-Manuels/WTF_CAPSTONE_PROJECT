@@ -25,6 +25,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   // Add a variable to track the selected role
@@ -39,6 +41,8 @@ class _SignUpPageState extends State<SignUpPage> {
   void dispose() {
     _firstNameController.dispose();
     _usernameController.dispose();
+    _phoneController.dispose();
+    _addressController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -74,6 +78,18 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 SizedBox(height: 10),
                 FormContainerWidget(
+                  controller: _phoneController,
+                  hintText: "Phone number",
+                  isPasswordField: false,
+                ),
+                SizedBox(height: 10),
+                FormContainerWidget(
+                  controller: _addressController,
+                  hintText: "Address",
+                  isPasswordField: false,
+                ),
+                SizedBox(height: 10),
+                FormContainerWidget(
                   controller: _emailController,
                   hintText: "Email",
                   isPasswordField: false,
@@ -99,7 +115,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   onTap: _signUp,
                   child: Container(
                     width: double.infinity,
-                    height: 100.h,
+                    height: 60.h,
                     decoration: BoxDecoration(
                       color: Theme
                           .of(context)
@@ -162,13 +178,15 @@ class _SignUpPageState extends State<SignUpPage> {
     String firstname = _firstNameController.text;
     String username = _usernameController.text;
     String email = _emailController.text;
+    String phone = _phoneController.text;
+    String address = _addressController.text;
     String password = _passwordController.text;
 
     // Check if the selected role is either "Client" or "Agent"
     if (_selectedRole != null && (_selectedRole == Role.client || _selectedRole == Role.agent)) {
       // Now you have access to _selectedRole to include it in your signUp method
       User? user = await _authentication.signUp(
-          firstname, username, email, password, _selectedRole.toString());
+          firstname, username,  phone, address, email,password, _selectedRole.toString());
 
       if (user != null) {
         Navigator.pushNamed(context, "/LoginPage");

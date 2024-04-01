@@ -21,7 +21,7 @@ class RegisterPage extends StatelessWidget {
               children: [
                 SizedBox(height: 20.h,),
                 Image.asset(
-                  Assets.splash.laundryEaseLogo.path,
+                  Assets.splash.newLogo.path,
                   height: 332.h,
                   width: 271.w,
                 ),
