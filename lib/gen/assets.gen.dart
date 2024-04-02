@@ -93,6 +93,16 @@ class $AssetsOnboardingGen {
       ];
 }
 
+class $AssetsProfileGen {
+  const $AssetsProfileGen();
+
+  /// File path: assets/profile/avatar.jpg
+  AssetGenImage get avatar => const AssetGenImage('assets/profile/avatar.jpg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [avatar];
+}
+
 class $AssetsSplashGen {
   const $AssetsSplashGen();
 
@@ -136,6 +146,7 @@ class Assets {
 
   static const $AssetsHomeGen home = $AssetsHomeGen();
   static const $AssetsOnboardingGen onboarding = $AssetsOnboardingGen();
+  static const $AssetsProfileGen profile = $AssetsProfileGen();
   static const $AssetsSplashGen splash = $AssetsSplashGen();
 }
 

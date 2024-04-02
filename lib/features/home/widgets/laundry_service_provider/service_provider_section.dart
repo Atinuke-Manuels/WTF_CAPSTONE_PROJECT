@@ -17,7 +17,7 @@ class ServiceProviderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 244.h,
+      height: 250.h,
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [

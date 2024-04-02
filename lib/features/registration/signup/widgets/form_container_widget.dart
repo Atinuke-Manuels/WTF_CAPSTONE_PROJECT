@@ -1,10 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 
-
 class FormContainerWidget extends StatefulWidget {
-
   final TextEditingController? controller;
   final Key? fieldKey;
   final bool? isPasswordField;
@@ -15,6 +11,9 @@ class FormContainerWidget extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onFieldSubmitted;
   final TextInputType? inputType;
+  final String? errorMessage;
+  final FocusNode? focusNode;
+  final FocusNode? nextFocusNode;
 
   const FormContainerWidget({
     this.controller,
@@ -26,18 +25,18 @@ class FormContainerWidget extends StatefulWidget {
     this.onSaved,
     this.validator,
     this.onFieldSubmitted,
-    this.inputType
+    this.inputType,
+    this.errorMessage,
+    this.focusNode,
+    this.nextFocusNode,
   });
 
-
   @override
-  _FormContainerWidgetState createState() => new _FormContainerWidgetState();
+  _FormContainerWidgetState createState() => _FormContainerWidgetState();
 }
 
 class _FormContainerWidgetState extends State<FormContainerWidget> {
-
   bool _obscureText = true;
-
 
   @override
   Widget build(BuildContext context) {
@@ -48,30 +47,52 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
         color: Colors.grey.withOpacity(.35),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: new TextFormField(
-        style: TextStyle(color: Colors.black),
-        controller: widget.controller,
-        keyboardType: widget.inputType,
-        key: widget.fieldKey,
-        obscureText: widget.isPasswordField == true? _obscureText : false,
-        onSaved: widget.onSaved,
-        validator: widget.validator,
-        onFieldSubmitted: widget.onFieldSubmitted,
-        decoration: new InputDecoration(
-          border: InputBorder.none,
-          filled: true,
-          hintText: widget.hintText,
-          hintStyle: TextStyle(color: Colors.black45),
-          suffixIcon: new GestureDetector(
-            onTap: () {
-              setState(() {
-                _obscureText = !_obscureText;
-              });
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextFormField(
+            style: TextStyle(color: Colors.black),
+            controller: widget.controller,
+            keyboardType: widget.inputType,
+            key: widget.fieldKey,
+            obscureText: widget.isPasswordField == true ? _obscureText : false,
+            onSaved: widget.onSaved,
+            validator: widget.validator,
+            onFieldSubmitted: (value) {
+              if (widget.nextFocusNode != null) {
+                FocusScope.of(context).requestFocus(widget.nextFocusNode);
+              }
+              if (widget.onFieldSubmitted != null) {
+                widget.onFieldSubmitted!(value);
+              }
             },
-            child:
-            widget.isPasswordField==true? Icon(_obscureText ? Icons.visibility_off : Icons.visibility, color: _obscureText == false ? Colors.blue : Colors.grey,) : Text(""),
+            focusNode: widget.focusNode,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              filled: true,
+              hintText: widget.hintText,
+              hintStyle: TextStyle(color: Colors.black45),
+              labelText: widget.labelText,
+              labelStyle: TextStyle(color: Colors.black),
+              helperText: widget.errorMessage,
+              helperStyle: TextStyle(color: Colors.red),
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _obscureText = !_obscureText;
+                  });
+                },
+                child: widget.isPasswordField == true
+                    ? Icon(
+                  _obscureText ? Icons.visibility_off : Icons.visibility,
+                  color: _obscureText == false ? Colors.blue : Colors.grey,
+                )
+                    : Text(""),
+              ),
+            ),
           ),
-        ),
+          SizedBox(height: 8),
+        ],
       ),
     );
   }

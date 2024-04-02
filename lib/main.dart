@@ -17,11 +17,6 @@ import 'package:laundry_ease/features/registration/signup/pages/sign_up_page.dar
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'features/home/bloc/home_cubit.dart';
-import 'features/home/pages/home_page.dart';
-import 'features/onboarding/pages/onboarding2.dart';
-import 'features/onboarding/pages/onboarding3.dart';
-import 'features/password_reset/forgot_password_page.dart';
-import 'features/profile/pages/profile_page.dart';
 import 'firebase_options.dart';
 
 
@@ -69,7 +64,7 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
             primaryColor: const Color(0xFF5229b6),
             // Set primary color
-            primaryColorLight: const Color(0xFF64B5F6),
+            primaryColorLight: const Color(0xFF7E57C2),
             // Set light theme primary color
             primaryColorDark: const Color(0xFF1976D2),
           ),

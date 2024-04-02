@@ -135,24 +135,56 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
     String email = _emailController.text.trim();
 
+    // Validate email format
+    if (!RegExp(r"^[a-zA-Z0-9+._-]+@[a-zA-Z0-9.-]+$").hasMatch(email)) {
+      showToast(message: "Please enter a valid email address.");
+      setState(() {
+        isSignReset = false; // Reset signing state
+      });
+      return; // Exit the method if email is not valid
+    }
+
     try {
+      // Check if the email exists in Firebase Authentication
+      List<String> signInMethods = await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+      // If the email does not exist, signInMethods will be empty
+      if (signInMethods.isEmpty) {
+        showToast(message: "This email is not registered.");
+        setState(() {
+          isSignReset = false; // Reset signing state
+        });
+        return;
+      }
+    } catch (e) {
+      // Handle any potential errors
+      print("Error checking email existence: $e");
+      showToast(message: "An error occurred. Please try again later.");
+      setState(() {
+        isSignReset = false; // Reset signing state
+      });
+      return;
+    }
+
+    try {
+      // Send password reset email
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      Navigator.pushNamed(context, '/LoginPage');
       // Show success message to the user
       showToast(message: "Password reset email sent. Please check your email.");
+      // Navigate back to login page
+      Navigator.pushNamed(context, '/LoginPage');
     } catch (e) {
       // Show error message if password reset fails
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content:
-          Text("Failed to send password reset email. Please try again.",),
+          content: Text("Failed to send password reset email. Please try again."),
         ),
       );
     }
     setState(() {
-      isSignReset = false; // Set signing state to true
+      isSignReset = false; // Set signing state to false
     });
   }
+
 
 
 

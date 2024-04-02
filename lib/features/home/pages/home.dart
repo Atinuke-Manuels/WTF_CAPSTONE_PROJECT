@@ -161,7 +161,7 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                          width: 150,
+                          width: 150.w,
                           child: Text("Your clothes will be ready in 1 day.")),
                       Image.asset(
                         Assets.home.washingMachine1.path,
