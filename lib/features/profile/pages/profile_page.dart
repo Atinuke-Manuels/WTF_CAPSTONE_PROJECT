@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:laundry_ease/gen/assets.gen.dart';
 
 import '../../../global/common/usermodel.dart';
@@ -9,6 +11,7 @@ import '../../registration/signin/pages/login_page.dart';
 import '../widgets/sign_out_dialog.dart';
 import '../../registration/signup/widgets/signup_authentication.dart';
 import '../widgets/profile_item.dart';
+import 'dart:io';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -44,7 +47,24 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-
+  Future<void> _updateProfileImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      String email = FirebaseAuth.instance.currentUser!.email ?? '';
+      // Upload image to Firebase Storage
+      Reference ref = FirebaseStorage.instance.ref().child('avatars/$email/avatar.jpg');
+      UploadTask uploadTask = ref.putFile(File(pickedFile.path));
+      await uploadTask.whenComplete(() async {
+        // Get download URL of uploaded image
+        String imageUrl = await ref.getDownloadURL();
+        // Save image URL to Firestore or Realtime Database
+        await _auth.updateProfileAvatar(email, imageUrl);
+        // Fetch user data again to update the profile page
+        _fetchUserData();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,10 +103,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(60),
-                        child: Image.asset(
-                          Assets.profile.avatar.path,
-                          height: 40.h,
-                          width: 40.w,
+                        child: GestureDetector(
+                          onTap: _updateProfileImage,
+                          child: Image.asset(
+                            Assets.profile.avatar.path,
+                            height: 40.h,
+                            width: 40.w,
+                          ),
                         ),
                       ),
                     ),
@@ -174,4 +197,3 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
-

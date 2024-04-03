@@ -1,7 +1,31 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- The INTERNET permission is required for development. Specifically,
-         the Flutter tool needs it to communicate with the running application
-         to allow setting breakpoints, to provide hot reload, etc.
-    -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.laundry_ease">
+
+    <!-- Permission to access the internet -->
     <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- Permission to read from external storage -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- Permission to write to external storage -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- Permission to access the camera -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Other permissions and configurations -->
+
+    <application>
+        <!-- Other application configurations -->
+    </application>
 </manifest>
+
+
+
+    <!--<manifest xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--    &lt;!&ndash; The INTERNET permission is required for development. Specifically,-->
+<!--         the Flutter tool needs it to communicate with the running application-->
+<!--         to allow setting breakpoints, to provide hot reload, etc.-->
+<!--    &ndash;&gt;-->
+<!--    <uses-permission android:name="android.permission.INTERNET"/>-->
+<!--</manifest>-->

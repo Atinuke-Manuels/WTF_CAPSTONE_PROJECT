@@ -230,6 +230,7 @@ class _SignUpPageState extends State<SignUpPage> {
     String address = _addressController.text;
     String password = _passwordController.text;
     String confirmPassword = _confirmPasswordController.text; // Get confirm password
+    String avatarUrl ="";
 
     // Regex patterns for validation
     RegExp namePattern = RegExp(r'^.{3,}$');
@@ -298,7 +299,7 @@ class _SignUpPageState extends State<SignUpPage> {
         (_selectedRole == Role.client || _selectedRole == Role.agent)) {
       // Now you have access to _selectedRole to include it in your signUp method
       User? user = await _authentication.signUp(
-          firstname, username, phone, address, email, password, _selectedRole.toString());
+          firstname, username, phone, address, email, password, _selectedRole.toString(), avatarUrl,);
 
       if (user != null) {
         Navigator.pushNamed(context, "/LoginPage");
