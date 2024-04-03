@@ -6,6 +6,7 @@ import 'package:laundry_ease/gen/assets.gen.dart';
 
 import '../../../global/common/usermodel.dart';
 import '../../registration/signin/pages/login_page.dart';
+import '../widgets/sign_out_dialog.dart';
 import '../../registration/signup/widgets/signup_authentication.dart';
 import '../widgets/profile_item.dart';
 
@@ -43,9 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  Future<void> _signOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -152,13 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                           child: InkWell(
                             onTap: (){
-                              _signOut();
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginPage()),
-                                    (route) => false,
-                              );
+                              showSignOutDialog(context);
                             },
                             child: Row(
                               children: [

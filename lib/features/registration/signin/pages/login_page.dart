@@ -11,8 +11,6 @@ import 'package:laundry_ease/features/password_reset/forgot_password_page.dart';
 import '../../../../global/common/toast.dart';
 import '../../../../global/common/usermodel.dart';
 import '../../../firebase_auth_implementation/firebase_auth_services.dart';
-import '../../../home/pages/home.dart';
-import '../../../home/pages/placeholder.dart';
 import '../../signup/pages/sign_up_page.dart';
 import '../../signup/widgets/form_container_widget.dart';
 import '../../signup/widgets/signup_authentication.dart';
@@ -245,14 +243,14 @@ class _LoginPageState extends State<LoginPage> {
       if (user != null) {
         await _fetchUserData();
         if (role == "Role.client") {
-          showToast(message: "User is successfully signed in ${role}");
+          showToast(message: "User is successfully signed");
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) =>  HomePage()),
                 (Route<dynamic> route) => false,
           );
         } else{
-          showToast(message: "User is successfully signed in ${role}");
+          showToast(message: "User is successfully signed");
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) =>  AgentHomePage()),
