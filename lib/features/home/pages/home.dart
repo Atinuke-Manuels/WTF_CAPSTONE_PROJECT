@@ -80,6 +80,7 @@ class _HomeState extends State<Home> {
                             FontAwesomeIcons.locationDot,
                             color: Colors.black,
                           ),
+                          SizedBox(width: 6.w,),
                           Expanded(
                             child: Text(
                               "${address ?? "..."}",

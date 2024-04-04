@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
           // Add more BlocProviders as needed
         ],
         child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Laundry Ease',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

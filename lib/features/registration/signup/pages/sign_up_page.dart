@@ -197,7 +197,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 (route) => false);
                       },
                       child: Text(
-                        "Login",
+                        "Sign In",
                         style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.bold,
@@ -235,7 +235,7 @@ class _SignUpPageState extends State<SignUpPage> {
     // Regex patterns for validation
     RegExp namePattern = RegExp(r'^.{3,}$');
     RegExp emailPattern = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    RegExp phonePattern = RegExp(r'^[0-9]{10}$');
+    RegExp phonePattern = RegExp(r'^[0-9]{11}$');
     RegExp addressPattern = RegExp(r'^.{1,40}$');
     RegExp passwordPattern = RegExp(r'^.{8,}$');
 
@@ -256,7 +256,7 @@ class _SignUpPageState extends State<SignUpPage> {
     }
     if (!phonePattern.hasMatch(phone)) {
       setState(() {
-        _phoneError = 'Invalid phone number format.';
+        _phoneError = 'Invalid phone number format. 11 digits expected';
       });
       isValid = false;
     }

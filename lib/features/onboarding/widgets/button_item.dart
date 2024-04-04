@@ -27,10 +27,8 @@ class ButtonItem extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 18, vertical: 14),
         minimumSize: Size(double.infinity, 50),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(12),
-            bottomRight: Radius.circular(12),
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(12),),
+          side: BorderSide(color: Theme.of(context).primaryColor, width: 2),
         ),
       ),
     );

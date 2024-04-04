@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +8,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:laundry_ease/gen/assets.gen.dart';
 
 import '../../../global/common/usermodel.dart';
-import '../../registration/signin/pages/login_page.dart';
 import '../widgets/sign_out_dialog.dart';
 import '../../registration/signup/widgets/signup_authentication.dart';
 import '../widgets/profile_item.dart';
 import 'dart:io';
+
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -24,6 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
   SignUpAuthentication _auth =
   SignUpAuthentication(); // Instance of SignUpAuthentication
   String? firstname;
+  String? avatar;
 
   @override
   void initState() {
@@ -42,7 +44,11 @@ class _ProfilePageState extends State<ProfilePage> {
       if (currentUser != null) {
         setState(() {
           firstname = currentUser.firstname;
+          avatar = currentUser.avatarUrl;
         });
+        // Debug print to check avatar URL after updating state
+        // print('Avatar URL: $avatar');
+        // print('Avatar URL: $firstname');
       }
     }
   }
@@ -51,24 +57,64 @@ class _ProfilePageState extends State<ProfilePage> {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      String email = FirebaseAuth.instance.currentUser!.email ?? '';
-      // Upload image to Firebase Storage
+      print('Image picked');
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      String email = FirebaseAuth.instance.currentUser!.email!;
       Reference ref = FirebaseStorage.instance.ref().child('avatars/$email/avatar.jpg');
       UploadTask uploadTask = ref.putFile(File(pickedFile.path));
-      await uploadTask.whenComplete(() async {
-        // Get download URL of uploaded image
+
+      try {
+        await uploadTask;
+        print('Image uploaded');
         String imageUrl = await ref.getDownloadURL();
-        // Save image URL to Firestore or Realtime Database
-        await _auth.updateProfileAvatar(email, imageUrl);
+        print('Image URL: $imageUrl');
+
+        // Save image URL to Firestore
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(email) // Use the user's email as the document ID
+            .update({'avatarUrl': imageUrl});
+
+        setState(() {
+          avatar = imageUrl;
+        });
+
         // Fetch user data again to update the profile page
         _fetchUserData();
-      });
+      } on FirebaseException catch (e) {
+        if (e.code == 'storage/object-not-found') {
+          print('File not found');
+        } else if (e.code == 'storage/unauthorized') {
+          print('User doesn\'t have permission to access the object');
+        } else if (e.code == 'storage/canceled') {
+          print('User canceled the upload');
+        } else if (e.code == 'storage/unknown') {
+          print('Unknown error occurred while uploading the image.');
+        } else {
+          print('Unknown error occurred, code: ${e.code}');
+        }
+      }
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: InkWell(
+            onTap: () {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                '/HomePage', // Route name of your home page
+                    (route) => false, // This will remove all the routes until the specified route
+              );
+            },
+            child: Icon(Icons.arrow_circle_left_outlined, size: 30,)),
+        title: Text("Profile", style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 20, fontWeight: FontWeight.bold),),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         reverse: false,
         child: SafeArea(
@@ -78,9 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 30.h,),
-                Text("Profile", style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 20, fontWeight: FontWeight.bold),),
-                SizedBox(height: 30.h,),
+                SizedBox(height: 15.h,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -93,7 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                     Container(
-                      padding: EdgeInsets.all(4),
+                      // padding: EdgeInsets.all(4),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
@@ -103,16 +147,35 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(60),
-                        child: GestureDetector(
-                          onTap: _updateProfileImage,
-                          child: Image.asset(
-                            Assets.profile.avatar.path,
-                            height: 40.h,
-                            width: 40.w,
-                          ),
-                        ),
-                      ),
-                    ),
+            child: GestureDetector(
+              onTap: () {
+                      _updateProfileImage();
+                      },
+              child: avatar != null
+                  ? Image.network(
+                avatar!,
+                height: 60.h,
+                width: 60.w,
+                loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                },
+                errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                  return Icon(Icons.person, size: 40,);
+                },
+              )
+                  : Image.asset(
+                  Assets.profile.avatar.path,
+                height: 60.h,
+                width: 60.w,
+              ),
+            ),
+          ),
+
+        ),
 
                   ],
                 ),

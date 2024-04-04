@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:laundry_ease/features/onboarding/widgets/button_item.dart';
 import 'package:laundry_ease/features/registration/signup/pages/register_page.dart';
 import '../../../gen/assets.gen.dart';
+import '../../registration/signin/pages/login_page.dart';
 import '../widgets/onboarding_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,6 +20,16 @@ class Onboarding3 extends StatelessWidget {
     );
   }
 
+  Future<void> _onSignInPressed(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('onboardingComplete', true);
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+          (Route<dynamic> route) => false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,7 +39,7 @@ class Onboarding3 extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 70.h,),
+                SizedBox(height: 60.h,),
                 Image.asset(
                   Assets.onboarding.onboarding3Png.path,
                   height: 382.h,
@@ -47,25 +59,38 @@ class Onboarding3 extends StatelessWidget {
                     ),
                   ]),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.16,
+                // SizedBox(
+                //   height: MediaQuery.of(context).size.height * 0.16,
+                // ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ButtonItem(
+                          title: "Create An Account",
+                          backgroundColor: Theme.of(context).primaryColor,
+                          onPress: () {
+                            _onGetStartedPressed(context);
+                          }),
+                      SizedBox(height: 14.h,),
+                      ButtonItem(
+                          title: "Sign In",
+                          textColor: Theme.of(context).primaryColor,
+                          onPress: () {_onSignInPressed(context);}),
+                    ],),
                 ),
+                SizedBox(height: 10.h,),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     OnboardingButton(
                         title: "Previous",
                         textColor: Theme.of(context).primaryColor,
-                        padding: EdgeInsets.symmetric(horizontal: 36, vertical: 8),
+                        padding: EdgeInsets.symmetric(horizontal: 36, vertical: 0),
                         onPress: () {Navigator.pushNamed(context, '/Onboarding2');}),
-                    OnboardingButton(
-                        title: "Get Started",
-                        backgroundColor: Theme.of(context).primaryColor,
-                        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 8),
-                        onPress: () {
-                          _onGetStartedPressed(context);
-                        }),
-                  ],)
+                  ],
+                ),
               ],
             ),
           ),

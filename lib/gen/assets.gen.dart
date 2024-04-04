@@ -58,6 +58,10 @@ class $AssetsHomeGen {
 class $AssetsOnboardingGen {
   const $AssetsOnboardingGen();
 
+  /// File path: assets/onboarding/google.png
+  AssetGenImage get google =>
+      const AssetGenImage('assets/onboarding/google.png');
+
   /// File path: assets/onboarding/onboarding1.jpg
   AssetGenImage get onboarding1Jpg =>
       const AssetGenImage('assets/onboarding/onboarding1.jpg');
@@ -84,6 +88,7 @@ class $AssetsOnboardingGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
+        google,
         onboarding1Jpg,
         onboarding1Png,
         onboarding2Jpg,

@@ -106,7 +106,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         );
                       },
                       child: Text(
-                        "Log in",
+                        "Sign In",
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold,

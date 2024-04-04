@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:laundry_ease/agent/agent_home/pages/agent_home_page.dart';
 import 'package:laundry_ease/features/home/pages/home_page.dart';
 import 'package:laundry_ease/features/password_reset/forgot_password_page.dart';
+import 'package:laundry_ease/gen/assets.gen.dart';
 
 import '../../../../global/common/toast.dart';
 import '../../../../global/common/usermodel.dart';
@@ -82,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Login",
+                  "Sign In",
                   style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
@@ -141,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Center(
                       child: _isSigning ? CircularProgressIndicator(
                         color: Colors.white,) : Text(
-                        "Login",
+                        "Sign In",
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -161,19 +162,23 @@ class _LoginPageState extends State<LoginPage> {
                     width: double.infinity,
                     height: 60.h,
                     decoration: BoxDecoration(
-                      color: Colors.red,
+                      // color: Colors.red,
                       borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: Theme.of(context).primaryColor, // You can change the color of the border here
+                        width: 1, // You can adjust the width of the border here
+                      ),
                     ),
                     child: Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(FontAwesomeIcons.google, color: Colors.white,),
+                          Image.asset(Assets.onboarding.google.path, height: 40, width: 40,),
                           SizedBox(width: 5,),
                           Text(
                             "Sign in with Google",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 18.sp,
                             ),
