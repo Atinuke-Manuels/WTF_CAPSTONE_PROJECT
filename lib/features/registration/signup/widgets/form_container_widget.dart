@@ -14,6 +14,8 @@ class FormContainerWidget extends StatefulWidget {
   final String? errorMessage;
   final FocusNode? focusNode;
   final FocusNode? nextFocusNode;
+  final dynamic initialValue;
+  final bool readOnly; // Add readOnly parameter
 
   const FormContainerWidget({
     this.controller,
@@ -29,6 +31,8 @@ class FormContainerWidget extends StatefulWidget {
     this.errorMessage,
     this.focusNode,
     this.nextFocusNode,
+    this.initialValue,
+    this.readOnly = false, // Initialize readOnly parameter
   });
 
   @override
@@ -67,6 +71,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
               }
             },
             focusNode: widget.focusNode,
+            readOnly: widget.readOnly, // Set readOnly property
             decoration: InputDecoration(
               border: InputBorder.none,
               filled: true,
@@ -90,6 +95,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
                     : Text(""),
               ),
             ),
+            initialValue: widget.initialValue != null ? widget.initialValue.toString() : null,
           ),
           SizedBox(height: 8),
         ],
@@ -97,3 +103,4 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
     );
   }
 }
+

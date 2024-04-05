@@ -14,6 +14,7 @@ import 'features/home/bloc/home_cubit.dart';
 import 'features/home/pages/home_page.dart';
 import 'features/onboarding/pages/onboarding2.dart';
 import 'features/onboarding/pages/onboarding3.dart';
+import 'features/registration/signup/pages/agent_signup_page.dart';
 import 'firebase_options.dart';
 
 final Map<String, WidgetBuilder> appRoutes = {
@@ -22,6 +23,7 @@ final Map<String, WidgetBuilder> appRoutes = {
   '/Onboarding3': (context) => Onboarding3(),
   '/RegisterPage': (context) => RegisterPage(),
   '/SignUpPage': (context) => SignUpPage(),
+  '/AgentSignUpPage': (context) => AgentSignUpPage(),
   '/ForgotPasswordPage': (context) => ForgotPasswordPage(),
   '/LoginPage': (context) => LoginPage(),
   '/HomePage': (context) => HomePage(),

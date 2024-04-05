@@ -44,7 +44,7 @@ class RegisterPage extends StatelessWidget {
                 ButtonItem(
                     title: "A Delivery Agent",
                     textColor: Theme.of(context).primaryColor,
-                    onPress: () {Navigator.pushNamed(context, "/SignUpPage");}),
+                    onPress: () {Navigator.pushNamed(context, "/AgentSignUpPage");}),
                 SizedBox(height: 10,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

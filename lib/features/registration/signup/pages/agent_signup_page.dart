@@ -11,16 +11,16 @@ import '../widgets/signup_authentication.dart';
 import 'email_verification_page.dart';
 
 // Add this enum for role selection
-enum Role {client }
+enum Role {agent }
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class AgentSignUpPage extends StatefulWidget {
+  const AgentSignUpPage({Key? key}) : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<AgentSignUpPage> createState() => _AgentSignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _AgentSignUpPageState extends State<AgentSignUpPage> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -32,7 +32,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController(); // Added confirm password controller
 
   // Add a variable to track the selected role
-  Role _selectedRole = Role.client;
+  Role _selectedRole = Role.agent;
 
   bool isSigningUp = false;
 
@@ -84,13 +84,13 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.2.h,),
                 Text(
-                  "Client Sign Up",
+                  "Agent Sign Up",
                   style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 30),
                 FormContainerWidget(
                   controller: _firstNameController,
-                  hintText: "First Name",
+                  hintText: "Full Name",
                   isPasswordField: false,
                   focusNode: _firstNameFocusNode,
                   nextFocusNode: _usernameFocusNode,
@@ -99,7 +99,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 SizedBox(height: 10),
                 FormContainerWidget(
                   controller: _usernameController,
-                  hintText: "Username",
+                  hintText: "Company Name",
                   isPasswordField: false,
                   focusNode: _usernameFocusNode,
                   nextFocusNode: _phoneFocusNode,
@@ -117,7 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 SizedBox(height: 10),
                 FormContainerWidget(
                   controller: _addressController,
-                  hintText: "Address",
+                  hintText: "Office Address",
                   isPasswordField: false,
                   focusNode: _addressFocusNode,
                   nextFocusNode: _emailFocusNode,
@@ -301,9 +301,9 @@ class _SignUpPageState extends State<SignUpPage> {
       return;
     }
 
-    // Check if the selected role is either "Client" or "Agent"
+    // Check if the selected role is either "agent" or "Agent"
     if (_selectedRole != null &&
-        (_selectedRole == Role.client)) {
+        (_selectedRole == Role.agent)) {
       // Now you have access to _selectedRole to include it in your signUp method
       User? user = await _authentication.signUp(
         firstname,
@@ -321,7 +321,7 @@ class _SignUpPageState extends State<SignUpPage> {
         try {
           await user.sendEmailVerification();
           // Navigate to EmailVerificationPage after sending verification email
-          showToast(message: "Successful. Please verify your Email to continue");
+          showToast(message: "Please verify your Email to continue");
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -336,7 +336,7 @@ class _SignUpPageState extends State<SignUpPage> {
     } else {
       // Handle the case where "Select Role" option is chosen or an invalid role is selected
       // For example, display an error message or take appropriate action
-      showToast(message: 'Please select a valid role (Client or Agent).');
+      showToast(message: 'Please select a valid role (agent or Agent).');
     }
 
     setState(() {
