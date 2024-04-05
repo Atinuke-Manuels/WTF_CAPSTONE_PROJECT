@@ -12,6 +12,7 @@ import 'package:laundry_ease/gen/assets.gen.dart';
 import '../../../../global/common/toast.dart';
 import '../../../../global/common/usermodel.dart';
 import '../../../firebase_auth_implementation/firebase_auth_services.dart';
+import '../../signup/pages/email_verification_page.dart';
 import '../../signup/pages/sign_up_page.dart';
 import '../../signup/widgets/form_container_widget.dart';
 import '../../signup/widgets/signup_authentication.dart';
@@ -239,37 +240,59 @@ class _LoginPageState extends State<LoginPage> {
     String password = _passwordController.text;
 
     try {
-      User? user = await _authentication.signInWithEmailAndPassword(email, password);
+      // Sign in with email and password
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-      setState(() {
-        _isSigning = false;
-      });
+      User? user = userCredential.user;
+      if (user != null && user.emailVerified) {
+        // User is verified, proceed with sign-in
+        setState(() {
+          _isSigning = false;
+        });
 
-      if (user != null) {
+        // Now you can fetch user data and proceed to the appropriate screen based on their role
         await _fetchUserData();
+
         if (role == "Role.client") {
-          showToast(message: "User is successfully signed");
+          showToast(message: "User is successfully signed in");
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) =>  HomePage()),
+            MaterialPageRoute(builder: (context) => HomePage()),
                 (Route<dynamic> route) => false,
           );
-        } else{
-          showToast(message: "User is successfully signed");
+        } else {
+          showToast(message: "User is successfully signed in");
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) =>  AgentHomePage()),
+            MaterialPageRoute(builder: (context) => AgentHomePage()),
                 (Route<dynamic> route) => false,
           );
         }
+      } else {
+        // User is not verified
+        showToast(message: 'Please verify your email before signing in.');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EmailVerificationPage(email: email),
+          ),
+        );
+        setState(() {
+          _isSigning = false;
+        });
       }
     } catch (e) {
+      // Handle sign-in errors
       showToast(message: 'Failed to sign in: $e');
       setState(() {
         _isSigning = false;
       });
     }
   }
+
 
 
 

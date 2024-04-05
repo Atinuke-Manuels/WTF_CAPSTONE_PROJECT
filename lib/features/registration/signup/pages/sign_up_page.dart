@@ -1,3 +1,4 @@
+import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +8,7 @@ import '../../signin/pages/login_page.dart';
 import '../widgets/drop_down_container.dart';
 import '../widgets/form_container_widget.dart';
 import '../widgets/signup_authentication.dart';
+import 'email_verification_page.dart';
 
 // Add this enum for role selection
 enum Role { client, agent }
@@ -215,6 +217,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+
   void _signUp() async {
     setState(() {
       isSigningUp = true;
@@ -229,8 +232,8 @@ class _SignUpPageState extends State<SignUpPage> {
     String phone = _phoneController.text;
     String address = _addressController.text;
     String password = _passwordController.text;
-    String confirmPassword = _confirmPasswordController.text; // Get confirm password
-    String avatarUrl ="";
+    String confirmPassword = _confirmPasswordController.text;
+    String avatarUrl = "";
 
     // Regex patterns for validation
     RegExp namePattern = RegExp(r'^.{3,}$');
@@ -299,20 +302,44 @@ class _SignUpPageState extends State<SignUpPage> {
         (_selectedRole == Role.client || _selectedRole == Role.agent)) {
       // Now you have access to _selectedRole to include it in your signUp method
       User? user = await _authentication.signUp(
-          firstname, username, phone, address, email, password, _selectedRole.toString(), avatarUrl,);
+        firstname,
+        username,
+        phone,
+        address,
+        email,
+        password,
+        _selectedRole.toString(),
+        avatarUrl,
+      );
 
       if (user != null) {
-        Navigator.pushNamed(context, "/LoginPage");
+        // Send verification email
+        try {
+          await user.sendEmailVerification();
+          // Navigate to EmailVerificationPage after sending verification email
+          showToast(message: "Successful. Please verify your Email to continue");
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EmailVerificationPage(email: email),
+            ),
+          );
+        } catch (e) {
+          // Handle error sending verification email
+          showToast(message: "Error sending verification email: $e");
+        }
       }
     } else {
       // Handle the case where "Select Role" option is chosen or an invalid role is selected
       // For example, display an error message or take appropriate action
       showToast(message: 'Please select a valid role (Client or Agent).');
     }
+
     setState(() {
       isSigningUp = false;
     });
   }
+
 
   // Error messages for each field
   String? _firstNameError;

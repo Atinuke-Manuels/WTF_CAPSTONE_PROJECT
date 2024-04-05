@@ -13,25 +13,26 @@ import '../../registration/signup/widgets/signup_authentication.dart';
 import '../widgets/profile_item.dart';
 import 'dart:io';
 
-
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({Key? key});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  SignUpAuthentication _auth =
-  SignUpAuthentication(); // Instance of SignUpAuthentication
+  SignUpAuthentication _auth = SignUpAuthentication();
   String? firstname;
   String? avatar;
+  String? userEmail;
+  DocumentSnapshot? snapshot;
 
   @override
   void initState() {
     super.initState();
-    _fetchUserData(); // Fetch user data when the widget initializes
+    _fetchUserData();
   }
+
 
   void _fetchUserData() async {
     // Retrieve the current user's email from Firebase Authentication
@@ -45,74 +46,103 @@ class _ProfilePageState extends State<ProfilePage> {
         setState(() {
           firstname = currentUser.firstname;
           avatar = currentUser.avatarUrl;
+          userEmail = currentUser.email;
         });
-        // Debug print to check avatar URL after updating state
-        // print('Avatar URL: $avatar');
-        // print('Avatar URL: $firstname');
       }
     }
   }
 
+  // Future<void> _updateProfileImage() async {
+  //   final picker = ImagePicker();
+  //   final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+  //   if (pickedFile != null) {
+  //     print('Image picked');
+  //     String email = FirebaseAuth.instance.currentUser!.email!;
+  //     print('Querying Firestore with email: $email');
+  //
+  //     // Reference to the storage location
+  //     Reference ref = FirebaseStorage.instance.ref().child('avatars/$email/avatar.jpg');
+  //
+  //     try {
+  //       // Upload the image to Firebase Storage
+  //       UploadTask uploadTask = ref.putFile(File(pickedFile.path));
+  //       TaskSnapshot taskSnapshot = await uploadTask;
+  //       print('Image uploaded');
+  //
+  //       // Get the download URL of the uploaded image
+  //       String imageUrl = await taskSnapshot.ref.getDownloadURL();
+  //       print('Image URL: $imageUrl');
+  //
+  //       // Update avatar URL in Firestore
+  //       await FirebaseFirestore.instance.collection('users').doc(email).update({'avatarUrl': imageUrl});
+  //       print('Avatar URL updated in Firestore');
+  //
+  //       // Fetch user data again to update the profile page
+  //       print('Fetching user data...');
+  //       _fetchUserData();
+  //       print('User data fetched successfully');
+  //     } catch (e) {
+  //       print('Error updating avatar URL: $e');
+  //     }
+  //   }
+  // }
   Future<void> _updateProfileImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       print('Image picked');
-      String uid = FirebaseAuth.instance.currentUser!.uid;
       String email = FirebaseAuth.instance.currentUser!.email!;
+      print('Querying Firestore with email: $email');
+
+      // Reference to the storage location
       Reference ref = FirebaseStorage.instance.ref().child('avatars/$email/avatar.jpg');
-      UploadTask uploadTask = ref.putFile(File(pickedFile.path));
 
       try {
-        await uploadTask;
+        // Upload the image to Firebase Storage
+        UploadTask uploadTask = ref.putFile(File(pickedFile.path));
+        TaskSnapshot taskSnapshot = await uploadTask;
         print('Image uploaded');
-        String imageUrl = await ref.getDownloadURL();
+
+        // Get the download URL of the uploaded image
+        String imageUrl = await taskSnapshot.ref.getDownloadURL();
         print('Image URL: $imageUrl');
 
-        // Save image URL to Firestore
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(email) // Use the user's email as the document ID
-            .update({'avatarUrl': imageUrl});
-
-        setState(() {
-          avatar = imageUrl;
-        });
+        // Update avatar URL in Firestore
+        await FirebaseFirestore.instance.collection('users').doc(email).update({'avatarUrl': imageUrl});
+        print('Avatar URL updated in Firestore');
 
         // Fetch user data again to update the profile page
+        print('Fetching user data...');
         _fetchUserData();
-      } on FirebaseException catch (e) {
-        if (e.code == 'storage/object-not-found') {
-          print('File not found');
-        } else if (e.code == 'storage/unauthorized') {
-          print('User doesn\'t have permission to access the object');
-        } else if (e.code == 'storage/canceled') {
-          print('User canceled the upload');
-        } else if (e.code == 'storage/unknown') {
-          print('Unknown error occurred while uploading the image.');
-        } else {
-          print('Unknown error occurred, code: ${e.code}');
-        }
+        print('User data fetched successfully');
+      } catch (e) {
+        print('Error updating avatar URL: $e');
       }
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
-            onTap: () {
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                '/HomePage', // Route name of your home page
-                    (route) => false, // This will remove all the routes until the specified route
-              );
-            },
-            child: Icon(Icons.arrow_circle_left_outlined, size: 30,)),
-        title: Text("Profile", style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 20, fontWeight: FontWeight.bold),),
+          onTap: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              '/HomePage',
+                  (route) => false,
+            );
+          },
+          child: Icon(Icons.arrow_circle_left_outlined, size: 30),
+        ),
+        title: Text(
+          "Profile",
+          style: TextStyle(
+            color: Theme.of(context).primaryColor,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -124,130 +154,155 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 15.h,),
+                SizedBox(height: 15.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       children: [
-                        Text("${firstname ?? "..."}", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                        Text(
+                          "${firstname ?? "..."}",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
                         GestureDetector(
-                            onTap: (){},
-                            child: Text("Edit my profile", style: TextStyle(color: Colors.grey.shade400, fontSize: 10),)),
+                          onTap: () {},
+                          child: Text(
+                            "Edit my profile",
+                            style: TextStyle(
+                              color: Colors.grey.shade400,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                    Container(
-                      // padding: EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: Colors.grey,
-                          width: 1.0, // Adjust the width of the border as needed
+                    GestureDetector(
+                      onTap: _updateProfileImage,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: Colors.grey,
+                            width: 1.0,
+                          ),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(60),
+                          child: avatar != null
+                              ? Image.network(
+                            avatar!,
+                            height: 60.h,
+                            width: 60.w,
+                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                              return loadingProgress == null ? child : CircularProgressIndicator();
+                            },
+                            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                              return Icon(Icons.person, size: 40);
+                            },
+                          )
+                              : Image.asset(
+                            Assets.profile.avatar.path,
+                            height: 60.h,
+                            width: 60.w,
+                          ),
                         ),
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(60),
-            child: GestureDetector(
-              onTap: () {
-                      _updateProfileImage();
-                      },
-              child: avatar != null
-                  ? Image.network(
-                avatar!,
-                height: 60.h,
-                width: 60.w,
-                loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                  if (loadingProgress == null) {
-                    return child;
-                  } else {
-                    return CircularProgressIndicator();
-                  }
-                },
-                errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                  return Icon(Icons.person, size: 40,);
-                },
-              )
-                  : Image.asset(
-                  Assets.profile.avatar.path,
-                height: 60.h,
-                width: 60.w,
-              ),
-            ),
-          ),
-
-        ),
-
+                    ),
                   ],
                 ),
-                SizedBox(height: 60.h,),
+                SizedBox(height: 60.h),
                 Column(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Settings", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                        Text("Settings",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16)),
                         ProfileItem(
-                          firstIcon: Icon(FontAwesomeIcons.arrowPointer, size: 16,color: Theme.of(context).primaryColorLight,),
+                          firstIcon: Icon(FontAwesomeIcons.arrowPointer,
+                              size: 16,
+                              color: Theme.of(context).primaryColorLight),
                           label: 'Location',
-                          onPress: (){},
+                          onPress: () {},
                         ),
                         ProfileItem(
-                          firstIcon: Icon(FontAwesomeIcons.handHoldingDollar, size: 16, color: Theme.of(context).primaryColorLight,),
+                          firstIcon: Icon(FontAwesomeIcons.handHoldingDollar,
+                              size: 16,
+                              color: Theme.of(context).primaryColorLight),
                           label: 'Refer & Earn',
-                          onPress: (){},
+                          onPress: () {},
                         ),
                         ProfileItem(
-                          firstIcon: Icon(FontAwesomeIcons.creditCard, size: 16, color: Theme.of(context).primaryColorLight,),
+                          firstIcon: Icon(FontAwesomeIcons.creditCard,
+                              size: 16,
+                              color: Theme.of(context).primaryColorLight),
                           label: 'Payment Method',
-                          onPress: (){},
+                          onPress: () {},
                         ),
                         ProfileItem(
-                          firstIcon: Icon(FontAwesomeIcons.bell, size: 16, color: Theme.of(context).primaryColorLight,),
+                          firstIcon: Icon(FontAwesomeIcons.bell,
+                              size: 16,
+                              color: Theme.of(context).primaryColorLight),
                           label: 'Notification',
-                          onPress: (){},
+                          onPress: () {},
                         ),
                       ],
                     ),
-                    SizedBox(height: 40.h,),
+                    SizedBox(height: 40.h),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Support", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                        Text("Support",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16)),
                         ProfileItem(
-                          firstIcon: Icon(FontAwesomeIcons.circleQuestion, size: 16,color: Theme.of(context).primaryColorLight,),
+                          firstIcon: Icon(FontAwesomeIcons.circleQuestion,
+                              size: 16,
+                              color: Theme.of(context).primaryColorLight),
                           label: 'Help Center',
-                          onPress: (){},
+                          onPress: () {},
                         ),
                         ProfileItem(
-                          firstIcon: Icon(FontAwesomeIcons.prescriptionBottle, size: 16, color: Theme.of(context).primaryColorLight,),
+                          firstIcon: Icon(FontAwesomeIcons.prescriptionBottle,
+                              size: 16,
+                              color: Theme.of(context).primaryColorLight),
                           label: 'How Laundry Ease Works',
-                          onPress: (){},
+                          onPress: () {},
                         ),
                         ProfileItem(
-                          firstIcon: Icon(FontAwesomeIcons.star, size: 16, color: Theme.of(context).primaryColorLight,),
+                          firstIcon: Icon(FontAwesomeIcons.star,
+                              size: 16,
+                              color: Theme.of(context).primaryColorLight),
                           label: 'Review & Rating',
-                          onPress: (){},
+                          onPress: () {},
                         ),
                         ProfileItem(
-                          firstIcon: Icon(FontAwesomeIcons.reply, size: 16, color: Theme.of(context).primaryColorLight,),
+                          firstIcon: Icon(FontAwesomeIcons.reply,
+                              size: 16,
+                              color: Theme.of(context).primaryColorLight),
                           label: 'Give Feedback',
-                          onPress: (){},
+                          onPress: () {},
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 16),
                           child: InkWell(
-                            onTap: (){
+                            onTap: () {
                               showSignOutDialog(context);
                             },
                             child: Row(
                               children: [
-                                Icon(Icons.exit_to_app, size: 32, color: Colors.red,),
-                                SizedBox(width: 10,),
-                                Text("Log Out", style: TextStyle(fontSize: 14))
+                                Icon(Icons.exit_to_app, size: 32, color: Colors.red),
+                                SizedBox(width: 10),
+                                Text("Log Out", style: TextStyle(fontSize: 14)),
                               ],
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ],
