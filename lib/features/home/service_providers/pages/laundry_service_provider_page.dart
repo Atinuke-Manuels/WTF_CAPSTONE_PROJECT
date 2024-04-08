@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../gen/assets.gen.dart';
 import '../../bloc/home_functions.dart';
 
 class LaundryServiceProviderPage extends StatefulWidget {
-  final String titleText;
-  final Image serviceImage;
-  const LaundryServiceProviderPage({Key? key, required this.titleText, required this.serviceImage}) : super(key: key);
+  final Map<String, dynamic> data;
+
+  const LaundryServiceProviderPage({Key? key, required this.data})
+      : super(key: key);
 
   @override
   _LaundryServiceProviderPageState createState() =>
@@ -48,9 +51,13 @@ class _LaundryServiceProviderPageState
             left: 0,
             right: 0,
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.6,
+              height: MediaQuery.of(context).size.height * 0.4,
               width: double.infinity, // 100% of screen width
-              child: widget.serviceImage,
+              child: Image.asset(
+                widget.data['bigImage'],
+                // Assuming 'bigImage' contains the asset path
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Positioned(
@@ -64,10 +71,13 @@ class _LaundryServiceProviderPageState
                   radius: 16,
                   backgroundColor: Colors.white,
                   child: GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Icon(Icons.arrow_back, size: 20,))),
+                      child: Icon(
+                        Icons.arrow_back,
+                        size: 20,
+                      ))),
               iconSize: 30,
             ),
           ),
@@ -80,7 +90,7 @@ class _LaundryServiceProviderPageState
                   radius: 16,
                   backgroundColor: Colors.white,
                   child: GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       homeFunctions.shareApkFile(context);
                     },
                     child: Icon(
@@ -94,7 +104,7 @@ class _LaundryServiceProviderPageState
                   radius: 16,
                   backgroundColor: Colors.white,
                   child: GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       handleThumbsUpClick();
                     },
                     child: Icon(
@@ -108,11 +118,13 @@ class _LaundryServiceProviderPageState
           ),
           // Red container
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.47, // Overlap by 10%
+            top: MediaQuery.of(context).size.height * 0.33,
+            // Overlap by 10%
             left: 0,
             right: 0,
             bottom: 0,
             child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -123,54 +135,122 @@ class _LaundryServiceProviderPageState
               // Add your container content here
               child: Padding(
                 padding: const EdgeInsets.all(14.0),
-                child: SingleChildScrollView(
-                  reverse: false,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 4.0, vertical: 0.0),
-                              child: Text(
-                                "Laundry",
-                                style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: 12,
-                                ),
-                              ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          onTap: (){},
+                          child: Container(
+                            padding: EdgeInsets.all(6),
+                            decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(4)),
+                            child: Text(
+                            "Laundry",
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 12,
                             ),
-                            style: ButtonStyle(
-                              backgroundColor:
-                              MaterialStateProperty.all<Color?>(
-                                Colors.purple.shade200,
-                              ),
-                              shape: MaterialStateProperty.all<OutlinedBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.zero,
-                                  // No border radius
-                                ),
-                              ),
+                          ),),
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.star,
+                              color: Colors.orangeAccent,
+                              size: 20,
                             ),
-                          ),
-                          Row(
+                            Text("$approxRating ($totalReviews reviews)"),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${widget.data['titleText']}",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              FontAwesomeIcons.locationDot,
+                              color: Theme.of(context).primaryColor,
+                              size: 16,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "${widget.data['address']}",
+                              style: TextStyle(fontSize: 10),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        DefaultTabController(
+                          length: 4,
+                          child: Column(
                             children: [
-                              Icon(
-                                Icons.star,
-                                color: Colors.orangeAccent,
-                                size: 20,
+                              TabBar(
+                                indicatorColor: Theme.of(context).primaryColor,
+                                labelColor: Theme.of(context).primaryColor,
+                                labelStyle: TextStyle(fontSize: 12),
+                                tabs: [
+                                  Tab(text: "About"),
+                                  Tab(text: "Services"),
+                                  Tab(text: "Gallery"),
+                                  Tab(text: "Reviews"),
+                                ],
                               ),
-                              Text("$approxRating ($totalReviews reviews)"),
+                              SingleChildScrollView(
+                                reverse: false,
+                                child: SizedBox(
+                                  height: 300,
+                                  child: TabBarView(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      children: [
+                                    Container(child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(height: 20.h,),
+                                        Text("About", style: TextStyle(fontWeight: FontWeight.bold),)
+                                      ],)),
+                                    Container(child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(height: 20.h,),
+                                        Text("Laundry Service", style: TextStyle(fontWeight: FontWeight.bold),)
+                                      ],)),
+                                    Container(child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                        SizedBox(height: 20.h,),
+                                        Text("Gallery", style: TextStyle(fontWeight: FontWeight.bold),)
+                                      ],)),
+                                    Container(child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(height: 20.h,),
+                                        Text("Review Summary", style: TextStyle(fontWeight: FontWeight.bold),)
+                                      ],)),
+                                  ]),
+                                ),
+                              )
                             ],
                           ),
-                        ],
-                      ),
-                      Text("${widget.titleText}",),
-                    ],
-                  ),
+                        )
+
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -180,3 +260,5 @@ class _LaundryServiceProviderPageState
     );
   }
 }
+
+

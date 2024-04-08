@@ -32,11 +32,7 @@ class ServiceProviderSection extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => LaundryServiceProviderPage(
-                      titleText: data['titleText'],
-                      serviceImage: Image.asset(
-                        data['bigImage'],
-                        fit: BoxFit.cover,
-                      ),
+                     data: data
                     ),
                   ),
                 );
