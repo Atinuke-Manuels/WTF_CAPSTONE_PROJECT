@@ -27,7 +27,7 @@ class RegisterPage extends StatelessWidget {
                 ),
                 SizedBox(height: 20,),
                 Text(
-                  "Sign up as",
+                  "Sign Up",
                   style: TextStyle(
                       // color: Theme.of(context).primaryColor,
                       fontSize: 16,
@@ -37,12 +37,12 @@ class RegisterPage extends StatelessWidget {
                   height: 38,
                 ),
                 ButtonItem(
-                    title: "A Client",
+                    title: "Client",
                     backgroundColor: Theme.of(context).primaryColor,
                     onPress: () {Navigator.pushNamed(context, "/SignUpPage");}),
                 SizedBox(height: 24,),
                 ButtonItem(
-                    title: "A Delivery Agent",
+                    title: "Service Provider",
                     textColor: Theme.of(context).primaryColor,
                     onPress: () {Navigator.pushNamed(context, "/AgentSignUpPage");}),
                 SizedBox(height: 10,),

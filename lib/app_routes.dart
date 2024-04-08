@@ -3,6 +3,7 @@ import 'package:laundry_ease/features/cart/pages/cart_page.dart';
 import 'package:laundry_ease/features/chat/pages/chat_page.dart';
 import 'package:laundry_ease/features/home/pages/home.dart';
 import 'package:laundry_ease/features/home/pages/placeholder.dart';
+import 'package:laundry_ease/features/home/service_providers/pages/laundry_service_provider_page.dart';
 import 'package:laundry_ease/features/onboarding/pages/onboarding1.dart';
 import 'package:laundry_ease/features/registration/signin/pages/login_page.dart';
 import 'package:laundry_ease/features/registration/signup/pages/register_page.dart';
@@ -27,6 +28,7 @@ final Map<String, WidgetBuilder> appRoutes = {
   '/ForgotPasswordPage': (context) => ForgotPasswordPage(),
   '/LoginPage': (context) => LoginPage(),
   '/HomePage': (context) => HomePage(),
+  '/LaundryServiceProviderPage': (context) => LaundryServiceProviderPage(titleText: "",),
   '/PlaceHolder': (context) => PlaceHolder(),
   '/ProfilePage': (context) => ProfilePage(),
   '/CartPage': (context) => CartPage(),

@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:laundry_ease/agent/agent_home/pages/agent_home_page.dart';
 import 'package:laundry_ease/features/home/pages/home_page.dart';
 import 'package:laundry_ease/features/password_reset/forgot_password_page.dart';
+import 'package:laundry_ease/features/registration/signup/pages/register_page.dart';
 import 'package:laundry_ease/gen/assets.gen.dart';
 
 import '../../../../global/common/toast.dart';
@@ -206,7 +207,7 @@ class _LoginPageState extends State<LoginPage> {
                       onTap: () {
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => SignUpPage()),
+                          MaterialPageRoute(builder: (context) => RegisterPage()),
                               (route) => false,
                         );
                       },

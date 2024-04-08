@@ -38,6 +38,8 @@ class $AssetsHomeGen {
 
   $AssetsHomeServiceImagesGen get serviceImages =>
       const $AssetsHomeServiceImagesGen();
+  $AssetsHomeServiceproviderGen get serviceprovider =>
+      const $AssetsHomeServiceproviderGen();
 
   /// File path: assets/home/washing_machine1.png
   AssetGenImage get washingMachine1 =>
@@ -144,6 +146,17 @@ class $AssetsHomeServiceImagesGen {
   /// List of all assets
   List<AssetGenImage> get values =>
       [serviceIg3, serviceImg1, serviceImg2, serviceImg4, serviceImg5];
+}
+
+class $AssetsHomeServiceproviderGen {
+  const $AssetsHomeServiceproviderGen();
+
+  /// File path: assets/home/serviceprovider/Image.png
+  AssetGenImage get image =>
+      const AssetGenImage('assets/home/serviceprovider/Image.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [image];
 }
 
 class Assets {

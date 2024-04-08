@@ -25,7 +25,7 @@ class ServiceProviderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPress,
+      onTap: (){},
       child: Container(
         width: MediaQuery.of(context).size.width * 0.36,
         padding: EdgeInsets.all(0),
@@ -77,7 +77,7 @@ class ServiceProviderItem extends StatelessWidget {
                     Text(fifthText, style: TextStyle(fontSize: 8),)
                   ],),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: onPress,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(

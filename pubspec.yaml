@@ -97,6 +97,7 @@ flutter:
     - assets/home/
     - assets/home/serviceImages/
     - assets/profile/
+    - assets/home/serviceprovider/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

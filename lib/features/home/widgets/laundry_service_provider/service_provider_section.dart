@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:laundry_ease/features/home/service_providers/pages/laundry_service_provider_page.dart';
 import 'package:laundry_ease/features/home/widgets/delivery/home_delivery_service_item.dart';
 import 'package:laundry_ease/features/home/widgets/laundry_service_provider/service_provider_item.dart';
 
@@ -30,7 +31,13 @@ class ServiceProviderSection extends StatelessWidget {
             serviceImage: Image.asset(
               "assets/home/delivery1.png",
             ),
-            onPress: (){},
+            onPress: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                  builder: (context) => LaundryServiceProviderPage(titleText: "Derry Laundry"),
+              ),);
+            },
           ),
           SizedBox(width: 8),
           ServiceProviderItem(
