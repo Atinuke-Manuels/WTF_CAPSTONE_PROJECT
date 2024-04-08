@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../../gen/assets.gen.dart';
+import '../../bloc/home_functions.dart';
 
 class LaundryServiceProviderPage extends StatefulWidget {
   final String titleText;
-  const LaundryServiceProviderPage({Key? key, required this.titleText}) : super(key: key);
+  final Image serviceImage;
+  const LaundryServiceProviderPage({Key? key, required this.titleText, required this.serviceImage}) : super(key: key);
 
   @override
   _LaundryServiceProviderPageState createState() =>
@@ -15,6 +17,7 @@ class _LaundryServiceProviderPageState
     extends State<LaundryServiceProviderPage> {
   int likeCount = 365; // Initial like count
   int totalReviews = 365; // Initial total reviews count
+  final HomeFunctions homeFunctions = HomeFunctions();
 
   // Function to handle thumbs up icon click
   void handleThumbsUpClick() {
@@ -47,10 +50,7 @@ class _LaundryServiceProviderPageState
             child: Container(
               height: MediaQuery.of(context).size.height * 0.6,
               width: double.infinity, // 100% of screen width
-              child: Image.asset(
-                Assets.home.serviceprovider.image.path,
-                fit: BoxFit.cover,
-              ),
+              child: widget.serviceImage,
             ),
           ),
           Positioned(
@@ -63,7 +63,11 @@ class _LaundryServiceProviderPageState
               icon: CircleAvatar(
                   radius: 16,
                   backgroundColor: Colors.white,
-                  child: Icon(Icons.arrow_back, size: 20,)),
+                  child: GestureDetector(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.arrow_back, size: 20,))),
               iconSize: 30,
             ),
           ),
@@ -75,9 +79,14 @@ class _LaundryServiceProviderPageState
                 CircleAvatar(
                   radius: 16,
                   backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.share,
-                    size: 20,
+                  child: GestureDetector(
+                    onTap: (){
+                      homeFunctions.shareApkFile(context);
+                    },
+                    child: Icon(
+                      Icons.share,
+                      size: 20,
+                    ),
                   ),
                 ),
                 SizedBox(width: 15),

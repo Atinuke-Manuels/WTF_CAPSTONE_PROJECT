@@ -1,19 +1,12 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:laundry_ease/features/home/service_providers/pages/laundry_service_provider_page.dart';
-import 'package:laundry_ease/features/home/widgets/delivery/home_delivery_service_item.dart';
 import 'package:laundry_ease/features/home/widgets/laundry_service_provider/service_provider_item.dart';
+import 'package:laundry_ease/features/home/widgets/laundry_service_provider/service_provider_section_item_data.dart';
 
-import '../../../../gen/assets.gen.dart';
 
 class ServiceProviderSection extends StatelessWidget {
-  const ServiceProviderSection({
-    super.key,
-  });
-
-
+  const ServiceProviderSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,87 +14,37 @@ class ServiceProviderSection extends StatelessWidget {
       height: 250.h,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        children: [
-          ServiceProviderItem(
-            titleText: "Derry Laundry",
-            subText: "250 m",
-            thirdText: "#600/mth",
-            fourthText: "Closed",
-            fifthText: "Open 8am Thu",
-            serviceImage: Image.asset(
-              "assets/home/delivery1.png",
-            ),
-            onPress: (){
-              Navigator.push(
+        children: serviceProviderData.map((data) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: ServiceProviderItem(
+              titleText: data['titleText'],
+              subText: data['subText'],
+              thirdText: data['thirdText'],
+              fourthText: data['fourthText'],
+              fifthText: data['fifthText'],
+              serviceImage: Image.asset(
+                data['serviceImage'],
+                fit: BoxFit.cover,
+              ),
+              onPress: () {
+                Navigator.push(
                   context,
                   MaterialPageRoute(
-                  builder: (context) => LaundryServiceProviderPage(titleText: "Derry Laundry"),
-              ),);
-            },
-          ),
-          SizedBox(width: 8),
-          ServiceProviderItem(
-            titleText: "True Laundry",
-            subText: "250 m",
-            thirdText: "#400/mth",
-            fourthText: "Closed",
-            fifthText: "Open 8am Thu",
-            serviceImage: Image.asset(
-              "assets/home/delivery2.png",
+                    builder: (context) => LaundryServiceProviderPage(
+                      titleText: data['titleText'],
+                      serviceImage: Image.asset(
+                        data['bigImage'],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
-            onPress: (){},
-          ),
-          SizedBox(width: 8),
-          ServiceProviderItem(
-            titleText: "Delight Laundry",
-            subText: "250 m",
-            thirdText: "#500/mth",
-            fourthText: "Closed",
-            fifthText: "Open 8am Thu",
-            serviceImage: Image.asset(
-              "assets/home/delivery3.png",
-            ),
-            onPress: (){},
-          ),
-          SizedBox(width: 8),
-          ServiceProviderItem(
-            titleText: "Derry Laundry",
-            subText: "250 m",
-            thirdText: "#600/mth",
-            fourthText: "Closed",
-            fifthText: "Open 8am Thu",
-            serviceImage: Image.asset(
-              "assets/home/delivery1.png",
-            ),
-            onPress: (){},
-          ),
-          SizedBox(width: 8,),
-          ServiceProviderItem(
-            titleText: "Derry Laundry",
-            subText: "250 m",
-            thirdText: "#600/mth",
-            fourthText: "Closed",
-            fifthText: "Open 8am Thu",
-            serviceImage: Image.asset(
-              "assets/home/delivery2.png",
-            ),
-            onPress: (){},
-          ),
-          SizedBox(width: 8),
-          ServiceProviderItem(
-            titleText: "Derry Laundry",
-            subText: "250 m",
-            thirdText: "#600/mth",
-            fourthText: "Closed",
-            fifthText: "Open 8am Thu",
-            serviceImage: Image.asset(
-              "assets/home/delivery3.png",
-            ),
-            onPress: (){},
-          ),
-        ],
+          );
+        }).toList(),
       ),
     );
   }
 }
-
