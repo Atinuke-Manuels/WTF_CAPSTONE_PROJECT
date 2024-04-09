@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:laundry_ease/gen/assets.gen.dart';
 
 import '../../../global/common/usermodel.dart';
+import '../../home/pages/home_page.dart';
 import '../widgets/sign_out_dialog.dart';
 import '../../registration/signup/widgets/signup_authentication.dart';
 import '../widgets/profile_item.dart';
@@ -127,13 +128,14 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         leading: InkWell(
           onTap: () {
-            Navigator.pushNamedAndRemoveUntil(
+            Navigator.push(
               context,
-              '/HomePage',
-                  (route) => false,
+              MaterialPageRoute(
+                builder: (context) => HomePage(),
+              ),
             );
           },
-          child: Icon(Icons.arrow_circle_left_outlined, size: 30),
+          child: Icon(Icons.arrow_back, size: 24), // Reduce the size of the icon to fit inside the container
         ),
         title: Text(
           "Profile",

@@ -20,6 +20,7 @@ class _LaundryServiceProviderPageState
     extends State<LaundryServiceProviderPage> {
   int likeCount = 365; // Initial like count
   int totalReviews = 365; // Initial total reviews count
+  bool _showFullAbout = false;
   final HomeFunctions homeFunctions = HomeFunctions();
 
   // Function to handle thumbs up icon click
@@ -202,7 +203,7 @@ class _LaundryServiceProviderPageState
                               TabBar(
                                 indicatorColor: Theme.of(context).primaryColor,
                                 labelColor: Theme.of(context).primaryColor,
-                                labelStyle: TextStyle(fontSize: 12),
+                                labelStyle: TextStyle(fontSize: 10.5.sp,),
                                 tabs: [
                                   Tab(text: "About"),
                                   Tab(text: "Services"),
@@ -221,7 +222,48 @@ class _LaundryServiceProviderPageState
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(height: 20.h,),
-                                        Text("About", style: TextStyle(fontWeight: FontWeight.bold),)
+                                        Text("About", style: TextStyle(fontWeight: FontWeight.bold),),
+                                        Text.rich(
+                                          TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: _showFullAbout
+                                                    ? '${widget.data["about"]}'
+                                                    : '${widget.data["about"].substring(0, 250)}...',
+                                                style: TextStyle(fontSize: 10),
+                                              ),
+                                              if (!_showFullAbout)
+                                                WidgetSpan(
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        _showFullAbout = true;// Set _showFullAbout to true here
+                                                        print("clicked");
+                                                      });
+                                                    },
+                                                    child: Text(
+                                                      ' Read more',
+                                                      style: TextStyle(fontSize: 10, color: Theme.of(context).primaryColor),
+                                                    ),
+                                                  ),
+                                                ),
+                                              if (_showFullAbout)
+                                                WidgetSpan(
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        _showFullAbout = false; // Set _showFullAbout to false here
+                                                      });
+                                                    },
+                                                    child: Text(
+                                                      ' See less',
+                                                      style: TextStyle(fontSize: 10, color: Theme.of(context).primaryColor),
+                                                    ),
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
+                                        ),
                                       ],)),
                                     Container(child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,

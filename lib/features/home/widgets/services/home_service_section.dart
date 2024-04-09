@@ -22,9 +22,10 @@ class HomeServiceSection extends StatelessWidget {
         children: [
           HomeServiceItem(
             titleText: "Washing & ironing",
+            subText: "3 days",
             serviceImage: Image.asset(
               Assets.home.serviceImages.serviceImg1.path,
-              height: 30,
+              height: 40,
               width: double.infinity,
             ),
             onPress: (){},
@@ -32,9 +33,10 @@ class HomeServiceSection extends StatelessWidget {
           SizedBox(width: 8),
           HomeServiceItem(
             titleText: "Ironing",
+            subText: "1 day",
             serviceImage: Image.asset(
               Assets.home.serviceImages.serviceImg2.path,
-              height: 30,
+              height: 40,
               width: double.infinity,
             ),
             onPress: (){},
@@ -42,9 +44,10 @@ class HomeServiceSection extends StatelessWidget {
           SizedBox(width: 8),
           HomeServiceItem(
             titleText: "Washing",
+            subText: "1 day",
             serviceImage: Image.asset(
               Assets.home.serviceImages.serviceIg3.path,
-              height: 30,
+              height: 40,
               width: double.infinity,
             ),
             onPress: (){},
@@ -52,9 +55,10 @@ class HomeServiceSection extends StatelessWidget {
           SizedBox(width: 8),
           HomeServiceItem(
             titleText: "Dry Cleaning",
+            subText: "1 day",
             serviceImage: Image.asset(
               Assets.home.serviceImages.serviceImg4.path,
-              height: 30,
+              height: 40,
               width: double.infinity,
             ),
             onPress: (){},
@@ -62,9 +66,10 @@ class HomeServiceSection extends StatelessWidget {
           SizedBox(width: 8,),
           HomeServiceItem(
             titleText: "Stain Removal",
+            subText: "2 days",
             serviceImage: Image.asset(
               Assets.home.serviceImages.serviceImg5.path,
-              height: 30,
+              height: 40,
               width: double.infinity,
             ),
             onPress: (){},
@@ -72,9 +77,10 @@ class HomeServiceSection extends StatelessWidget {
           SizedBox(width: 8),
           HomeServiceItem(
             titleText: "Ironing",
+            subText: "1 day",
             serviceImage: Image.asset(
               Assets.home.serviceImages.serviceImg1.path,
-              height: 30,
+              height: 40,
               width: double.infinity,
             ),
             onPress: (){},
@@ -82,9 +88,10 @@ class HomeServiceSection extends StatelessWidget {
           SizedBox(width: 8),
           HomeServiceItem(
             titleText: "Washing",
+            subText: "1 day",
             serviceImage: Image.asset(
               Assets.home.serviceImages.serviceImg2.path,
-              height: 30,
+              height: 40,
               width: double.infinity,
             ),
             onPress: (){},
@@ -92,9 +99,10 @@ class HomeServiceSection extends StatelessWidget {
           SizedBox(width: 8),
           HomeServiceItem(
             titleText: "Dry Cleaning",
+            subText: "1 day",
             serviceImage: Image.asset(
               Assets.home.serviceImages.serviceIg3.path,
-              height: 30,
+              height: 40,
               width: double.infinity,
             ),
             onPress: (){},

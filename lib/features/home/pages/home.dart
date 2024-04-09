@@ -10,7 +10,8 @@ import '../../../gen/assets.gen.dart';
 import '../../../global/common/usermodel.dart';
 import '../../registration/signin/pages/login_page.dart';
 import '../../registration/signup/widgets/signup_authentication.dart';
-import '../widgets/services/services.dart'; // Import SignUpAuthentication
+import '../widgets/services/services.dart';
+import '../widgets/tracker/tracker_section.dart'; // Import SignUpAuthentication
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -176,10 +177,11 @@ class _HomeState extends State<Home> {
                   height: 30,
                 ),
                 Services(),
-                SizedBox(height: 30,),
+                SizedBox(height: 20,),
                 LaundryServiceProvider(),
-                SizedBox(height: 30,),
-                DeliveryServices()
+                SizedBox(height: 20,),
+                // DeliveryServices()
+                TackerSection(),
               ],
             ),
           ),
