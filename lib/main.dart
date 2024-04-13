@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:laundry_ease/agent/agent_home/pages/agent_home_page.dart';
 import 'package:laundry_ease/app_routes.dart';
+import 'package:laundry_ease/features/cart/model/cart_model.dart';
 import 'package:laundry_ease/features/cart/pages/cart_page.dart';
 import 'package:laundry_ease/features/chat/pages/chat_page.dart';
 import 'package:laundry_ease/features/home/pages/home.dart';
@@ -14,6 +15,7 @@ import 'package:laundry_ease/features/registration/signin/pages/login_page.dart'
 import 'package:laundry_ease/features/registration/signup/pages/register_page.dart';
 import 'package:laundry_ease/features/onboarding/pages/splash_screen.dart';
 import 'package:laundry_ease/features/registration/signup/pages/sign_up_page.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'features/home/bloc/home_cubit.dart';
@@ -45,31 +47,34 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(430, 932),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<HomeBloc>(
-            create: (BuildContext context) => HomeBloc(),
+    return ChangeNotifierProvider(
+      create: (context) => CartModel(),
+      child: ScreenUtilInit(
+        designSize: const Size(430, 932),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<HomeBloc>(
+              create: (BuildContext context) => HomeBloc(),
+            ),
+            // Add more BlocProviders as needed
+          ],
+          child: MaterialApp(
+            title: 'Laundry Ease',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              useMaterial3: true,
+              primaryColor: const Color(0xFF5229b6),
+              // Set primary color
+              primaryColorLight: const Color(0xFF7E57C2),
+              // Set light theme primary color
+              primaryColorDark: const Color(0xFF1976D2),
+            ),
+            home: onboardingComplete ? RegisterPage() : SplashScreen(),
+            routes: appRoutes,
           ),
-          // Add more BlocProviders as needed
-        ],
-        child: MaterialApp(
-          title: 'Laundry Ease',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-            primaryColor: const Color(0xFF5229b6),
-            // Set primary color
-            primaryColorLight: const Color(0xFF7E57C2),
-            // Set light theme primary color
-            primaryColorDark: const Color(0xFF1976D2),
-          ),
-          home: onboardingComplete ? RegisterPage() : SplashScreen(),
-          routes: appRoutes,
         ),
       ),
     );

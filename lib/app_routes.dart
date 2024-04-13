@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:laundry_ease/features/cart/pages/add_to_cart.dart';
 import 'package:laundry_ease/features/cart/pages/cart_page.dart';
 import 'package:laundry_ease/features/chat/pages/chat_page.dart';
 import 'package:laundry_ease/features/home/pages/home.dart';
@@ -16,7 +17,6 @@ import 'features/home/pages/home_page.dart';
 import 'features/onboarding/pages/onboarding2.dart';
 import 'features/onboarding/pages/onboarding3.dart';
 import 'features/registration/signup/pages/agent_signup_page.dart';
-import 'firebase_options.dart';
 
 final Map<String, WidgetBuilder> appRoutes = {
   '/Onboarding1': (context) => Onboarding1(),
@@ -32,5 +32,6 @@ final Map<String, WidgetBuilder> appRoutes = {
   '/PlaceHolder': (context) => PlaceHolder(),
   '/ProfilePage': (context) => ProfilePage(),
   '/CartPage': (context) => CartPage(),
+  '/AddToCart': (context) => AddToCart(),
   '/ChatPage': (context) => ChatPage(),
 };

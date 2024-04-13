@@ -74,147 +74,146 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          reverse: false,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.2.h,),
-                Text(
-                  "Client Sign Up",
-                  style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 30),
-                FormContainerWidget(
-                  controller: _firstNameController,
-                  hintText: "First Name",
-                  isPasswordField: false,
-                  focusNode: _firstNameFocusNode,
-                  nextFocusNode: _usernameFocusNode,
-                  errorMessage: _firstNameError,
-                ),
-                SizedBox(height: 10),
-                FormContainerWidget(
-                  controller: _usernameController,
-                  hintText: "Username",
-                  isPasswordField: false,
-                  focusNode: _usernameFocusNode,
-                  nextFocusNode: _phoneFocusNode,
-                  errorMessage: _usernameError,
-                ),
-                SizedBox(height: 10),
-                FormContainerWidget(
-                  controller: _phoneController,
-                  hintText: "Phone number",
-                  isPasswordField: false,
-                  focusNode: _phoneFocusNode,
-                  nextFocusNode: _addressFocusNode,
-                  errorMessage: _phoneError,
-                ),
-                SizedBox(height: 10),
-                FormContainerWidget(
-                  controller: _addressController,
-                  hintText: "Address",
-                  isPasswordField: false,
-                  focusNode: _addressFocusNode,
-                  nextFocusNode: _emailFocusNode,
-                  errorMessage: _addressError,
-                ),
-                SizedBox(height: 10),
-                FormContainerWidget(
-                  controller: _emailController,
-                  hintText: "Email",
-                  isPasswordField: false,
-                  focusNode: _emailFocusNode,
-                  nextFocusNode: _passwordFocusNode,
-                  errorMessage: _emailError,
-                ),
-                SizedBox(height: 10),
-                FormContainerWidget(
-                  controller: null,
-                  hintText: "Role",
-                  isPasswordField: false,
-                  initialValue: _selectedRole,
-                  focusNode: null,
-                  nextFocusNode: _firstNameFocusNode,
-                  errorMessage: null,
-                  readOnly: true,
-                ),
-                SizedBox(height: 10),
-                FormContainerWidget(
-                  controller: _passwordController,
-                  hintText: "Password",
-                  isPasswordField: true,
-                  focusNode: _passwordFocusNode,
-                  nextFocusNode: _confirmPasswordFocusNode,
-                  errorMessage: _passwordError,
-                ),
-                SizedBox(height: 10),
-                FormContainerWidget(
-                  // Added confirm password field
-                  controller: _confirmPasswordController,
-                  hintText: "Confirm Password",
-                  isPasswordField: true,
-                  focusNode: _confirmPasswordFocusNode,
-                  nextFocusNode: null,
-                  errorMessage: _confirmPasswordError,
-                ),
-                SizedBox(height: 30),
-                GestureDetector(
-                  onTap: _signUp,
-                  child: Container(
-                    width: double.infinity,
-                    height: 60.h,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: isSigningUp
-                          ? CircularProgressIndicator(color: Colors.white)
-                          : Text(
-                        "Create Account",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.sp,
-                        ),
+      body: SingleChildScrollView(
+        reverse: false,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.09.h,),
+              Text(
+                "Client Sign Up",
+                style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 30),
+              FormContainerWidget(
+                controller: _firstNameController,
+                hintText: "First Name",
+                isPasswordField: false,
+                focusNode: _firstNameFocusNode,
+                nextFocusNode: _usernameFocusNode,
+                errorMessage: _firstNameError,
+              ),
+              SizedBox(height: 10),
+              FormContainerWidget(
+                controller: _usernameController,
+                hintText: "Username",
+                isPasswordField: false,
+                focusNode: _usernameFocusNode,
+                nextFocusNode: _phoneFocusNode,
+                errorMessage: _usernameError,
+              ),
+              SizedBox(height: 10),
+              FormContainerWidget(
+                controller: _phoneController,
+                hintText: "Phone number",
+                isPasswordField: false,
+                focusNode: _phoneFocusNode,
+                nextFocusNode: _addressFocusNode,
+                errorMessage: _phoneError,
+              ),
+              SizedBox(height: 10),
+              FormContainerWidget(
+                controller: _addressController,
+                hintText: "Address",
+                isPasswordField: false,
+                focusNode: _addressFocusNode,
+                nextFocusNode: _emailFocusNode,
+                errorMessage: _addressError,
+              ),
+              SizedBox(height: 10),
+              FormContainerWidget(
+                controller: _emailController,
+                hintText: "Email",
+                isPasswordField: false,
+                focusNode: _emailFocusNode,
+                nextFocusNode: _passwordFocusNode,
+                errorMessage: _emailError,
+              ),
+              SizedBox(height: 10),
+              FormContainerWidget(
+                controller: null,
+                hintText: "Role",
+                isPasswordField: false,
+                initialValue: _selectedRole,
+                focusNode: null,
+                nextFocusNode: _firstNameFocusNode,
+                errorMessage: null,
+                readOnly: true,
+              ),
+              SizedBox(height: 10),
+              FormContainerWidget(
+                controller: _passwordController,
+                hintText: "Password",
+                isPasswordField: true,
+                focusNode: _passwordFocusNode,
+                nextFocusNode: _confirmPasswordFocusNode,
+                errorMessage: _passwordError,
+              ),
+              SizedBox(height: 10),
+              FormContainerWidget(
+                // Added confirm password field
+                controller: _confirmPasswordController,
+                hintText: "Confirm Password",
+                isPasswordField: true,
+                focusNode: _confirmPasswordFocusNode,
+                nextFocusNode: null,
+                errorMessage: _confirmPasswordError,
+              ),
+              SizedBox(height: 30),
+              GestureDetector(
+                onTap: _signUp,
+                child: Container(
+                  width: double.infinity,
+                  height: 60.h,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: isSigningUp
+                        ? CircularProgressIndicator(color: Colors.white)
+                        : Text(
+                      "Create Account",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.sp,
                       ),
                     ),
                   ),
                 ),
-                SizedBox(height: 20.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Already have an account?",
-                      style: TextStyle(fontSize: 18.sp),
+              ),
+              SizedBox(height: 20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Already have an account?",
+                    style: TextStyle(fontSize: 18.sp),
+                  ),
+                  SizedBox(width: 5),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                              (route) => false);
+                    },
+                    child: Text(
+                      "Sign In",
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.sp),
                     ),
-                    SizedBox(width: 5),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(builder: (context) => LoginPage()),
-                                (route) => false);
-                      },
-                      child: Text(
-                        "Sign In",
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18.sp),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.2.h,)
-              ],
-            ),
+                  ),
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.2.h,)
+            ],
           ),
         ),
       ),

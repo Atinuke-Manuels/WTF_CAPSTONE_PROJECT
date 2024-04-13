@@ -12,6 +12,8 @@ import 'package:flutter/widgets.dart';
 class $AssetsHomeGen {
   const $AssetsHomeGen();
 
+  $AssetsHomeCartGen get cart => const $AssetsHomeCartGen();
+
   /// File path: assets/home/delivery1.png
   AssetGenImage get delivery1 =>
       const AssetGenImage('assets/home/delivery1.png');
@@ -120,6 +122,17 @@ class $AssetsSplashGen {
   List<AssetGenImage> get values => [newLogo];
 }
 
+class $AssetsHomeCartGen {
+  const $AssetsHomeCartGen();
+
+  /// File path: assets/home/cart/shoppingCart.png
+  AssetGenImage get shoppingCart =>
+      const AssetGenImage('assets/home/cart/shoppingCart.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [shoppingCart];
+}
+
 class $AssetsHomeServiceImagesGen {
   const $AssetsHomeServiceImagesGen();
 
@@ -155,8 +168,60 @@ class $AssetsHomeServiceproviderGen {
   AssetGenImage get image =>
       const AssetGenImage('assets/home/serviceprovider/Image.png');
 
+  /// File path: assets/home/serviceprovider/Image2.png
+  AssetGenImage get image2 =>
+      const AssetGenImage('assets/home/serviceprovider/Image2.png');
+
+  /// File path: assets/home/serviceprovider/Image22.png
+  AssetGenImage get image22 =>
+      const AssetGenImage('assets/home/serviceprovider/Image22.png');
+
+  /// File path: assets/home/serviceprovider/Image3.png
+  AssetGenImage get image3 =>
+      const AssetGenImage('assets/home/serviceprovider/Image3.png');
+
+  /// File path: assets/home/serviceprovider/Image4.png
+  AssetGenImage get image4 =>
+      const AssetGenImage('assets/home/serviceprovider/Image4.png');
+
+  /// File path: assets/home/serviceprovider/call_agent1.jpg
+  AssetGenImage get callAgent1 =>
+      const AssetGenImage('assets/home/serviceprovider/call_agent1.jpg');
+
+  /// File path: assets/home/serviceprovider/call_agent2.jpg
+  AssetGenImage get callAgent2 =>
+      const AssetGenImage('assets/home/serviceprovider/call_agent2.jpg');
+
+  /// File path: assets/home/serviceprovider/call_agent3.jpg
+  AssetGenImage get callAgent3 =>
+      const AssetGenImage('assets/home/serviceprovider/call_agent3.jpg');
+
+  /// File path: assets/home/serviceprovider/call_agent4.jpg
+  AssetGenImage get callAgent4 =>
+      const AssetGenImage('assets/home/serviceprovider/call_agent4.jpg');
+
+  /// File path: assets/home/serviceprovider/call_agent5.jpg
+  AssetGenImage get callAgent5 =>
+      const AssetGenImage('assets/home/serviceprovider/call_agent5.jpg');
+
+  /// File path: assets/home/serviceprovider/call_agent6.jpg
+  AssetGenImage get callAgent6 =>
+      const AssetGenImage('assets/home/serviceprovider/call_agent6.jpg');
+
   /// List of all assets
-  List<AssetGenImage> get values => [image];
+  List<AssetGenImage> get values => [
+        image,
+        image2,
+        image22,
+        image3,
+        image4,
+        callAgent1,
+        callAgent2,
+        callAgent3,
+        callAgent4,
+        callAgent5,
+        callAgent6
+      ];
 }
 
 class Assets {
