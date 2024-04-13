@@ -16,10 +16,11 @@ class CartDetailsPage extends StatelessWidget {
         title: Text("Cart Details"),
         centerTitle: true,
         leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(FontAwesomeIcons.arrowLeft)),
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(FontAwesomeIcons.arrowLeft),
+        ),
       ),
       body: Consumer<CartModel>(
         builder: (context, value, child) {
@@ -35,23 +36,26 @@ class CartDetailsPage extends StatelessWidget {
                     itemCount: value.cartItems.length,
                     padding: EdgeInsets.all(6),
                     itemBuilder: (context, index) {
+                      // Calculate the total price for the item considering the item count
+                      double totalPrice = double.parse(value.cartItems[index][1]) * 1;
                       return Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Container(
                           decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(8)),
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                           child: ListTile(
                             leading: Image(
-                              image: AssetImage(value.shopItems[index][2]),
+                              image: AssetImage(value.cartItems[index][2]),
                               height: 36,
                             ),
                             title: Text(
-                              value.shopItems[index][0],
+                              value.cartItems[index][0],
                               style: const TextStyle(fontSize: 14),
                             ),
                             subtitle: Text(
-                              '₦' + value.shopItems[index][1],
+                              '₦$totalPrice',
                               style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
                             ),
                             trailing: IconButton(
@@ -103,24 +107,29 @@ class CartDetailsPage extends StatelessWidget {
                       ),
 
                       // pay now
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.green.shade200),
-                          borderRadius: BorderRadius.circular(28),
-                        ),
-                        padding: const EdgeInsets.all(12),
-                        child: Row(
-                          children: const [
-                            Text(
-                              'Pay Now',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              size: 16,
-                              color: Colors.white,
-                            ),
-                          ],
+                      GestureDetector(
+                        onTap: () {
+                          // Implement pay now functionality
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.green.shade200),
+                            borderRadius: BorderRadius.circular(28),
+                          ),
+                          padding: const EdgeInsets.all(12),
+                          child: Row(
+                            children: const [
+                              Text(
+                                'Pay Now',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 16,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -133,4 +142,5 @@ class CartDetailsPage extends StatelessWidget {
       ),
     );
   }
+
 }

@@ -47,14 +47,20 @@ class AddToCart extends StatelessWidget {
                         childAspectRatio: 1 / 0.3,
                       ),
                       itemBuilder: (context, index) {
+                        double totalPrice = double.parse(value.shopItems[index][1]) * value.itemCount;
                         return ServiceItemTile(
                           itemName: value.shopItems[index][0],
                           itemPrice: value.shopItems[index][1],
                           imagePath: value.shopItems[index][2],
+                          itemCount: value.itemCount,
                           // color: value.shopItems[index][3],
-                          onPressed: () =>
-                              Provider.of<CartModel>(context, listen: false)
-                                  .addItemToCart(index),
+                          onPressed: () {
+                            // Add item to cart with the correct total price
+                            Provider.of<CartModel>(context, listen: false)
+                                .addItemToCart(index, totalPrice);
+                          },
+                          incrementCounter: value.incrementItemCount, // Use incrementItemCount from CartModel
+                          decrementCounter: value.decrementItemCount,
                         );
                       },
                     ),

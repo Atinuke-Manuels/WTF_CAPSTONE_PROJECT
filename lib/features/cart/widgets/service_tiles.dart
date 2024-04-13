@@ -1,41 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ServiceItemTile extends StatefulWidget {
+class ServiceItemTile extends StatelessWidget {
   final String itemName;
   final String itemPrice;
   final String imagePath;
-  void Function()? onPressed;
+  final int itemCount;
+  final void Function()? onPressed;
+  final void Function() incrementCounter;
+  final void Function() decrementCounter;
 
   ServiceItemTile({
     Key? key,
     required this.itemName,
     required this.itemPrice,
     required this.imagePath,
+    required this.itemCount,
     required this.onPressed,
+    required this.incrementCounter,
+    required this.decrementCounter,
   }) : super(key: key);
-
-
-  @override
-  _ServiceItemTileState createState() => _ServiceItemTileState();
-}
-
-class _ServiceItemTileState extends State<ServiceItemTile> {
-  int itemCount = 1;
-
-  void incrementCounter() {
-    setState(() {
-      itemCount++;
-    });
-  }
-
-  void decrementCounter() {
-    if (itemCount > 1) {
-      setState(() {
-        itemCount--;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +38,7 @@ class _ServiceItemTileState extends State<ServiceItemTile> {
           children: [
             // Image
             Image.asset(
-              widget.imagePath,
+              imagePath,
               height: 30.h,
               width: 30.w,
             ),
@@ -66,37 +50,57 @@ class _ServiceItemTileState extends State<ServiceItemTile> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.itemName, // Item name text
+                    itemName, // Item name text
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(height: 4),
-                  Container(
-                    width: 100.w,
-                    height: 30.h,
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                          onPressed: widget.onPressed ?? () {},
+                  Row(
+                    children: [
+                      Container(
+                        width: 70.w,
+                        height: 30.h,
+                        padding: EdgeInsets.symmetric(horizontal: 2),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: TextButton(
+                          onPressed: onPressed ?? () {},
                           child: Text(
-                            '₦${(int.parse(widget.itemPrice) * itemCount).toString()}',
+                            '₦${(int.parse(itemPrice) * itemCount).toString()}',
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: 12.sp,
+                              fontSize: 8.sp,
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(width: 10,),
+                      Container(
+                        width: 50.w,
+                        height: 30.h,
+                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: TextButton(
+                          onPressed: onPressed ?? () {},
+                          child: Text(
+                            'Add',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 8.sp,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
