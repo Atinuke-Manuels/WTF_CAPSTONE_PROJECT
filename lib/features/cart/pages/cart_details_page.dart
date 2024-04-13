@@ -98,6 +98,7 @@ class CartDetailsPage extends StatelessWidget {
                               color: Colors.white,
                             ),
                           ),
+
                         ],
                       ),
 

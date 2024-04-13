@@ -40,11 +40,11 @@ class AddToCart extends StatelessWidget {
                     child: GridView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true, // Keep shrinkWrap true
-                      padding: const EdgeInsets.all(12),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       itemCount: value.shopItems.length,
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 1 / 1,
+                        crossAxisCount: 1,
+                        childAspectRatio: 1 / 0.3,
                       ),
                       itemBuilder: (context, index) {
                         return ServiceItemTile(
