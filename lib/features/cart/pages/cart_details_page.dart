@@ -36,7 +36,7 @@ class CartDetailsPage extends StatelessWidget {
                     itemCount: value.cartItems.length,
                     padding: EdgeInsets.all(6),
                     itemBuilder: (context, index) {
-                      // final itemCount = cartModel.getItemCountForIndex(index);
+                      final itemCount = value.getItemCountForIndex(index); // Get item count
                       // Calculate the total price for the item considering the item count
                       double totalPrice = double.parse(value.cartItems[index][1]) * 1;
                       return Padding(
@@ -52,7 +52,7 @@ class CartDetailsPage extends StatelessWidget {
                               height: 36,
                             ),
                             title: Text(
-                              '${value.cartItems[index][0]}',
+                              '${value.cartItems[index][0]} x $itemCount', // Display item count
                               style: const TextStyle(fontSize: 14),
                             ),
                             subtitle: Text(
@@ -68,6 +68,7 @@ class CartDetailsPage extends StatelessWidget {
                         ),
                       );
                     },
+
                   ),
                 ),
               ),
