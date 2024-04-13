@@ -68,7 +68,7 @@ class ServiceItemTile extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: TextButton(
-                          onPressed: onPressed ?? () {},
+                          onPressed: () {},
                           child: Text(
                             '₦${(int.parse(itemPrice) * itemCount).toString()}',
                             style: TextStyle(

@@ -35,38 +35,42 @@ class AddToCart extends StatelessWidget {
               ),
               SizedBox(height: 12), // Add some spacing between text and grid view
               Consumer<CartModel>(
-                builder: (context, value, child) {
+                builder: (context, cartModel, child) {
                   return Expanded(
                     child: GridView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true, // Keep shrinkWrap true
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: value.shopItems.length,
+                      itemCount: cartModel.shopItems.length,
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 1,
                         childAspectRatio: 1 / 0.3,
                       ),
                       itemBuilder: (context, index) {
-                        double totalPrice = double.parse(value.shopItems[index][1]) * value.itemCount;
+                        final itemCount = cartModel.getItemCountForIndex(index);
+                        double totalPrice = double.parse(cartModel.shopItems[index][1]) * itemCount;
                         return ServiceItemTile(
-                          itemName: value.shopItems[index][0],
-                          itemPrice: value.shopItems[index][1],
-                          imagePath: value.shopItems[index][2],
-                          itemCount: value.itemCount,
-                          // color: value.shopItems[index][3],
+                          itemName: cartModel.shopItems[index][0],
+                          itemPrice: cartModel.shopItems[index][1],
+                          imagePath: cartModel.shopItems[index][2],
+                          itemCount: itemCount,
                           onPressed: () {
                             // Add item to cart with the correct total price
-                            Provider.of<CartModel>(context, listen: false)
-                                .addItemToCart(index, totalPrice);
+                            cartModel.addItemToCart(index, totalPrice);
                           },
-                          incrementCounter: value.incrementItemCount, // Use incrementItemCount from CartModel
-                          decrementCounter: value.decrementItemCount,
+                          incrementCounter: () {
+                            cartModel.incrementItemCountForIndex(index);
+                          },
+                          decrementCounter: () {
+                            cartModel.decrementItemCountForIndex(index);
+                          },
                         );
                       },
                     ),
                   );
                 },
               ),
+
               SizedBox(height: 12), // Add some spacing between grid view and button
               ButtonItem(
                 title: "Continue",
