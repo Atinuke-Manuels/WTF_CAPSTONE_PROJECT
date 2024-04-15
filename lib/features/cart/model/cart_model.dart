@@ -105,6 +105,10 @@ class CartModel extends ChangeNotifier {
     if (count > 1) {
       _itemCounts[index] = count - 1;
       notifyListeners();
+    } else {
+      // Remove the item count from the map if it reaches 0
+      _itemCounts.remove(index);
+      notifyListeners();
     }
   }
 }
