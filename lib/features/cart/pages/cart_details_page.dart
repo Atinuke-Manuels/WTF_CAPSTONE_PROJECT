@@ -38,7 +38,7 @@ class CartDetailsPage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final itemCount = value.getItemCountForIndex(index); // Get item count
                       // Calculate the total price for the item considering the item count
-                      double totalPrice = double.parse(value.cartItems[index][1]) * 1;
+                      double totalPrice = double.parse(value.cartItems[index][1]) * 1 ;
                       return Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Container(

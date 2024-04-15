@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../global/common/toast.dart';
 
@@ -6,12 +7,20 @@ class CartModel extends ChangeNotifier {
   // list of items on sale
   final List<List<dynamic>> _shopItems = [
     // [ itemName, itemPrice, imagePath, color ]
-    ["Laundry", "1000", "assets/home/serviceImages/serviceIg3.png", Colors.white],
-    ["Iron", "500", "assets/home/serviceImages/serviceImg2.png", Colors.white],
-    ["laundry & Iron", "1500", "assets/home/serviceImages/serviceImg1.png", Colors.white],
-    ["Dry Clean", "700", "assets/home/serviceImages/serviceImg4.png", Colors.white],
-    ["Stain Removal", "950", "assets/home/serviceImages/serviceImg5.png", Colors.white],
-    ["Special Services", "1500", "assets/home/serviceImages/serviceImg1.png", Colors.white],
+    ["T-Shirt", "500", "assets/shopItems/tShirt.png", Colors.white],
+    ["Jeans", "1300", "assets/shopItems/jeans.jpg", Colors.blue],
+    ["Dress Shirt", "1800", "assets/shopItems/dressShirt.jpg", Colors.white],
+    ["Skirt", "950", "assets/shopItems/skirt.jpg", Colors.pink],
+    ["Blouse", "1100", "assets/shopItems/blouse.jpg", Colors.white],
+    ["Sweater", "1400", "assets/shopItems/sweater.jpg", Colors.grey],
+    ["Hoodie", "1700", "assets/shopItems/hoodie.jpg", Colors.black],
+    ["Jacket", "2000", "assets/shopItems/jacket.jpg", Colors.black],
+    ["Coat", "650", "assets/shopItems/coat.jpg", Colors.grey],
+    ["Dress", "800", "assets/shopItems/dress.jpg", Colors.pink],
+    ["Suit", "1100", "assets/shopItems/suit.jpg", Colors.black],
+    ["Pants", "1400", "assets/shopItems/pants.jpg", Colors.grey],
+    ["Shorts", "1700", "assets/shopItems/shorts.jpg", Colors.blue],
+    ["Blazer", "2000", "assets/shopItems/blazer.jpg", Colors.black],
   ];
 
   // Map to store item counts

@@ -102,6 +102,7 @@ flutter:
     - assets/profile/
     - assets/home/serviceprovider/
     - assets/home/cart/
+    - assets/shopItems/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
