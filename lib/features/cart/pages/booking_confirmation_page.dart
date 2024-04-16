@@ -1,7 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:laundry_ease/features/cart/pages/payment_methods.dart';
 import 'package:laundry_ease/features/onboarding/widgets/button_item.dart';
 import 'package:intl/intl.dart';
 
@@ -26,7 +25,12 @@ class BookingConfirmationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Booking Confirmation', style: TextStyle(color: Theme.of(context).primaryColor),),
+        title: Text(
+          'Booking Confirmation',
+          style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -39,61 +43,98 @@ class BookingConfirmationPage extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-              Container(
-                width: MediaQuery.of(context).size.width * 0.4,
-                height: MediaQuery.of(context).size.height * 0.18,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.asset(serviceProviderData['serviceImage'], fit: BoxFit.cover,)),
-              ),
-              SizedBox(width: 10.w,),
-              Container(
-                alignment: Alignment.topLeft,
-                width: MediaQuery.of(context).size.width * 0.45,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                  Text('Laundry', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Theme.of(context).primaryColorLight),),
-                  Text(serviceProviderData['titleText'], style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.42,
-                      child: Row(
-                        children: [
-                        Icon(Icons.location_on, size: 20,),
-                        SizedBox(width: 4,),
-                          Flexible(
-                            child: Text(
-                              serviceProviderData['address'],
-                              style: TextStyle(fontSize: 7),
-                              overflow: TextOverflow.clip, // or TextOverflow.ellipsis
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.18,
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        serviceProviderData['serviceImage'],
+                        fit: BoxFit.cover,
+                      )),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  width: MediaQuery.of(context).size.width * 0.45,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Laundry',
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColorLight),
+                      ),
+                      Text(
+                        serviceProviderData['titleText'],
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.42,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              size: 20,
                             ),
-                          )
-                      ],),
-                    )
-                ],),
-              )
-            ],),
-            SizedBox(height: 15,),
-            Divider(color: Colors.grey,),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Flexible(
+                              child: Text(
+                                serviceProviderData['address'],
+                                style: TextStyle(fontSize: 7),
+                                overflow: TextOverflow
+                                    .clip, // or TextOverflow.ellipsis
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Divider(
+              color: Colors.grey,
+            ),
             // Display other information as before
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-              Text('Booking Date: '),
-        Text(
-          "${DateFormat('yyyy-MM-dd | HH:mm').format(DateTime.now())}",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        )
-            ],),
-            SizedBox(height: 10,),
+                Text('Booking Date: '),
+                Text(
+                  "${DateFormat('yyyy-MM-dd | HH:mm').format(DateTime.now())}",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-              Text('Pickup Date:'),
-              Text(pickupDate.toString().substring(0, 10), style: TextStyle(fontWeight: FontWeight.bold),),
-            ],),
-            SizedBox(height: 10,),
+                Text('Pickup Date:'),
+                Text(
+                  pickupDate.toString().substring(0, 10),
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -108,25 +149,55 @@ class BookingConfirmationPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 15,),
-            Divider(color: Colors.grey,),
+            SizedBox(
+              height: 15,
+            ),
+            Divider(
+              color: Colors.grey,
+            ),
             Text('Other Details: $otherDetails'),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-              Text('Total Items:'),
-              Text( '$totalItems', style: TextStyle(fontWeight: FontWeight.bold),),
-            ],),
-            SizedBox(height: 10,),
+                Text('Total Items:'),
+                Text(
+                  '$totalItems',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-              Text('Total Price:'),
-              Text('\₦$totalPrice', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-            ],),
-            SizedBox(height: 50.h,),
-            ButtonItem(title: "Proceed to payment", onPress: (){}, backgroundColor: Theme.of(context).primaryColor,)
+                Text('Total Price:'),
+                Text('\₦$totalPrice',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              ],
+            ),
+            SizedBox(
+              height: 50.h,
+            ),
+            ButtonItem(
+              title: "Proceed to payment",
+              onPress: () {
+                // Navigate to the next page with the total price as a parameter
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        PaymentMethods(totalPrice: totalPrice),
+                  ),
+                );
+              },
+              backgroundColor: Theme.of(context).primaryColor,
+            )
           ],
         ),
       ),

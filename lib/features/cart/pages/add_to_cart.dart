@@ -20,7 +20,7 @@ class AddToCart extends StatelessWidget {
           },
           child: Icon(FontAwesomeIcons.arrowLeft, size: 20),
         ),
-        title: Text("Add to cart", style: TextStyle(color: Theme.of(context).primaryColor)),
+        title: Text("Add to cart", style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
       body: Padding(

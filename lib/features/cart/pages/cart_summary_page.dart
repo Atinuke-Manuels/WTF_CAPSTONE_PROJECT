@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:laundry_ease/features/onboarding/widgets/button_item.dart';
 
+import '../../../global/common/toast.dart';
 import '../../home/widgets/laundry_service_provider/service_provider_section_item_data.dart';
 import 'booking_confirmation_page.dart';
 
@@ -24,6 +25,23 @@ class _CartSummaryPageState extends State<CartSummaryPage> {
   TextEditingController _pickupAddressController = TextEditingController();
   TextEditingController _otherDetailsController = TextEditingController();
 
+  bool isInputComplete = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _pickupAddressController.addListener(_checkInputCompletion);
+    _otherDetailsController.addListener(_checkInputCompletion);
+  }
+
+  void _checkInputCompletion() {
+    setState(() {
+      isInputComplete = selectedServiceProvider != null &&
+          selectedDate != null &&
+          _pickupAddressController.text.isNotEmpty;
+    });
+  }
+
   void _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -42,7 +60,7 @@ class _CartSummaryPageState extends State<CartSummaryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart Summary', style: TextStyle(color: Theme.of(context).primaryColor)),
+        title: Text('Cart Summary', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -88,6 +106,7 @@ class _CartSummaryPageState extends State<CartSummaryPage> {
                         setState(() {
                           selectedServiceProvider = newValue;
                         });
+                        _checkInputCompletion();
                       },
                       isExpanded: true, // Set to true to expand the dropdown button
                       items: serviceProviderData.map((Map<String, dynamic> provider) {
@@ -152,6 +171,7 @@ class _CartSummaryPageState extends State<CartSummaryPage> {
                     borderSide: BorderSide(color: Theme.of(context).primaryColor),
                   ),
                 ),
+                onChanged: (_) => _checkAllInputCompletion(),
               ),
             ),
             // Section to add additional info (e.g., preferred detergent)
@@ -169,31 +189,53 @@ class _CartSummaryPageState extends State<CartSummaryPage> {
                 ),
               ),
             ),
-
-            // Button to proceed to payment options
+        // Button to proceed to payment options
             ButtonItem(
               title: "Continue",
               onPress: () {
-                // Inside onPressed of the "Proceed to Payment Options" button
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BookingConfirmationPage(
-                      serviceProviderData: serviceProviderData.firstWhere((provider) => provider['titleText'] == selectedServiceProvider),
-                      pickupDate: selectedDate!,
-                      pickupAddress: _pickupAddressController.text,
-                      otherDetails: _otherDetailsController.text,
-                      totalItems: widget.totalItems,
-                      totalPrice: widget.totalPrice,
-                    ),
-                  ),
-                );
+                if (isInputComplete) {
+                  _navigateToConfirmationPage();
+                } else {
+                  showToast(message: 'Input required details');
+                }
               },
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: isInputComplete ? Theme.of(context).primaryColor : Colors.grey,
             )
-          ],
+
+
+
+    ],
         ),
       ),
     );
   }
+
+  void _checkAllInputCompletion() {
+    setState(() {
+      isInputComplete = selectedServiceProvider != null &&
+          selectedDate != null &&
+          _pickupAddressController.text.isNotEmpty;
+    });
+  }
+
+
+  // Function to navigate to the confirmation page
+  void _navigateToConfirmationPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BookingConfirmationPage(
+          serviceProviderData: serviceProviderData.firstWhere((provider) => provider['titleText'] == selectedServiceProvider),
+          pickupDate: selectedDate!,
+          pickupAddress: _pickupAddressController.text,
+          otherDetails: _otherDetailsController.text,
+          totalItems: widget.totalItems,
+          totalPrice: widget.totalPrice,
+        ),
+      ),
+    );
+  }
+
+
+
 }

@@ -15,7 +15,7 @@ class CartDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text("Cart Details", style: TextStyle(color: Theme.of(context).primaryColor)),
+        title: Text("Cart Details", style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
         centerTitle: true,
         leading: GestureDetector(
           onTap: () {
