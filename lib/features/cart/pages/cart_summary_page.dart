@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:laundry_ease/features/onboarding/widgets/button_item.dart';
 
 import '../../home/widgets/laundry_service_provider/service_provider_section_item_data.dart';
+import 'booking_confirmation_page.dart';
 
 class CartSummaryPage extends StatefulWidget {
   final int totalItems;
@@ -20,6 +21,8 @@ class CartSummaryPage extends StatefulWidget {
 class _CartSummaryPageState extends State<CartSummaryPage> {
   DateTime? selectedDate;
   String? selectedServiceProvider;
+  TextEditingController _pickupAddressController = TextEditingController();
+  TextEditingController _otherDetailsController = TextEditingController();
 
   void _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -98,8 +101,6 @@ class _CartSummaryPageState extends State<CartSummaryPage> {
                       iconEnabledColor: Colors.black, // Adjust the icon color as needed
                     ),
                   ),
-
-
                 ],
               ),
             ),
@@ -142,6 +143,7 @@ class _CartSummaryPageState extends State<CartSummaryPage> {
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: TextFormField(
+                controller: _pickupAddressController,
                 maxLines: 3,
                 decoration: InputDecoration(
                   labelText: 'Set Pickup Address',
@@ -156,6 +158,7 @@ class _CartSummaryPageState extends State<CartSummaryPage> {
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: TextFormField(
+                controller: _otherDetailsController,
                 maxLines: 3,
                 decoration: InputDecoration(
                   labelText: 'Other Details (e.g., Preferred Detergent)',
@@ -170,7 +173,21 @@ class _CartSummaryPageState extends State<CartSummaryPage> {
             // Button to proceed to payment options
             ButtonItem(
               title: "Proceed to Payment Options",
-              onPress: () {},
+              onPress: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BookingConfirmationPage(
+                      serviceProvider: selectedServiceProvider!,
+                      pickupDate: selectedDate!,
+                      pickupAddress: _pickupAddressController.text,
+                      otherDetails: _otherDetailsController.text,
+                      totalItems: widget.totalItems,
+                      totalPrice: widget.totalPrice,
+                    ),
+                  ),
+                );
+              },
               backgroundColor: Theme.of(context).primaryColor,
             )
           ],
