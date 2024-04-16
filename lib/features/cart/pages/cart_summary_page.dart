@@ -42,7 +42,7 @@ class _CartSummaryPageState extends State<CartSummaryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart Summary'),
+        title: Text('Cart Summary', style: TextStyle(color: Theme.of(context).primaryColor)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -172,13 +172,14 @@ class _CartSummaryPageState extends State<CartSummaryPage> {
 
             // Button to proceed to payment options
             ButtonItem(
-              title: "Proceed to Payment Options",
+              title: "Continue",
               onPress: () {
+                // Inside onPressed of the "Proceed to Payment Options" button
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => BookingConfirmationPage(
-                      serviceProvider: selectedServiceProvider!,
+                      serviceProviderData: serviceProviderData.firstWhere((provider) => provider['titleText'] == selectedServiceProvider),
                       pickupDate: selectedDate!,
                       pickupAddress: _pickupAddressController.text,
                       otherDetails: _otherDetailsController.text,

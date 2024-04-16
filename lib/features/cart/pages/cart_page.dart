@@ -18,7 +18,7 @@ class CartPage extends StatelessWidget {
               Navigator.pop(context);
             },
             child: Icon(FontAwesomeIcons.arrowLeft, size: 20,)),
-        title: Text("Cart Page"),
+        title: Text("Cart Page", style: TextStyle(color: Theme.of(context).primaryColor)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
