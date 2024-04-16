@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:laundry_ease/features/onboarding/widgets/button_item.dart';
 
+import '../../home/widgets/laundry_service_provider/service_provider_section_item_data.dart';
+
 class CartSummaryPage extends StatefulWidget {
   final int totalItems;
   final double totalPrice;
@@ -17,6 +19,7 @@ class CartSummaryPage extends StatefulWidget {
 
 class _CartSummaryPageState extends State<CartSummaryPage> {
   DateTime? selectedDate;
+  String? selectedServiceProvider;
 
   void _selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -58,6 +61,48 @@ class _CartSummaryPageState extends State<CartSummaryPage> {
                 style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
               ),
             ),
+            // Dropdown to select service provider
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Select Service Provider',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    width: double.infinity, // Adjust the width as needed
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Theme.of(context).primaryColor), // Add a border
+                      borderRadius: BorderRadius.circular(8.0), // Add border radius for rounded corners
+                    ),
+                    child: DropdownButton<String>(
+                      value: selectedServiceProvider,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedServiceProvider = newValue;
+                        });
+                      },
+                      isExpanded: true, // Set to true to expand the dropdown button
+                      items: serviceProviderData.map((Map<String, dynamic> provider) {
+                        return DropdownMenuItem<String>(
+                          value: provider['titleText'],
+                          child: Text(provider['titleText']),
+                        );
+                      }).toList(),
+                      icon: Icon(Icons.arrow_drop_down), // Set a custom dropdown icon
+                      iconSize: 24, // Adjust the icon size as needed
+                      iconEnabledColor: Colors.black, // Adjust the icon color as needed
+                    ),
+                  ),
+
+
+                ],
+              ),
+            ),
             // Section to select pickup date
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
@@ -76,7 +121,7 @@ class _CartSummaryPageState extends State<CartSummaryPage> {
                     child: Container(
                       padding: EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
+                        border: Border.all(color: Theme.of(context).primaryColor),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
@@ -100,7 +145,10 @@ class _CartSummaryPageState extends State<CartSummaryPage> {
                 maxLines: 3,
                 decoration: InputDecoration(
                   labelText: 'Set Pickup Address',
-                  border: OutlineInputBorder(),
+                  labelStyle: TextStyle(fontSize: 14.0),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                  ),
                 ),
               ),
             ),
@@ -111,12 +159,20 @@ class _CartSummaryPageState extends State<CartSummaryPage> {
                 maxLines: 3,
                 decoration: InputDecoration(
                   labelText: 'Other Details (e.g., Preferred Detergent)',
-                  border: OutlineInputBorder(),
+                  labelStyle: TextStyle(fontSize: 14.0),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Theme.of(context).primaryColor), // Change the border color
+                  ),
                 ),
               ),
             ),
+
             // Button to proceed to payment options
-            ButtonItem(title: "Proceed to Payment Options", onPress: (){}, backgroundColor: Theme.of(context).primaryColor,)
+            ButtonItem(
+              title: "Proceed to Payment Options",
+              onPress: () {},
+              backgroundColor: Theme.of(context).primaryColor,
+            )
           ],
         ),
       ),

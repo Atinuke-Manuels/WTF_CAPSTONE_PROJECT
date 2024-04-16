@@ -83,7 +83,7 @@ const List<Map<String, dynamic>> serviceProviderData = [
 
   },
   {
-    'titleText': "True Laundry",
+    'titleText': "Blue Laundry",
     'subText': "250 m",
     'thirdText': "#400/mth",
     'fourthText': "Closed",
@@ -103,7 +103,7 @@ const List<Map<String, dynamic>> serviceProviderData = [
 
   },
   {
-    'titleText': "Delight Laundry",
+    'titleText': "Blight Laundry",
     'subText': "250 m",
     'thirdText': "#500/mth",
     'fourthText': "Closed",
