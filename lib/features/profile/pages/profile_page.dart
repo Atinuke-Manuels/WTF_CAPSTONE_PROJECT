@@ -35,23 +35,55 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
 
+  // void _fetchUserData() async {
+  //   // Retrieve the current user's email from Firebase Authentication
+  //   User? user = FirebaseAuth.instance.currentUser;
+  //   if (user != null) {
+  //     String email = user.email ?? '';
+  //     UserModel? currentUser = await _auth.readData(email);
+  //
+  //     // Update the firstname variable if the current user is found
+  //     if (currentUser != null) {
+  //       setState(() {
+  //         firstname = currentUser.firstname;
+  //         avatar = currentUser.avatarUrl;
+  //         userEmail = currentUser.email;
+  //       });
+  //     }
+  //   }
+  // }
+
   void _fetchUserData() async {
     // Retrieve the current user's email from Firebase Authentication
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       String email = user.email ?? '';
-      UserModel? currentUser = await _auth.readData(email);
 
-      // Update the firstname variable if the current user is found
-      if (currentUser != null) {
-        setState(() {
-          firstname = currentUser.firstname;
-          avatar = currentUser.avatarUrl;
-          userEmail = currentUser.email;
-        });
+      // Get Firestore instance
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+      // Query Firestore for user data based on email
+      QuerySnapshot querySnapshot = await firestore.collection('users')
+          .where('email', isEqualTo: email)
+          .get();
+
+      // Check if user data is found
+      if (querySnapshot.docs.isNotEmpty) {
+        // Extract user data
+        var userData = querySnapshot.docs.first.data() as Map<String, dynamic>?;
+
+        if (userData != null) {
+          setState(() {
+            // Update UI with user data
+            firstname = userData['firstname'] as String? ?? '';
+            avatar = userData['avatarUrl'] as String? ?? '';
+            userEmail = userData['email'] as String? ?? '';
+          });
+        }
       }
     }
   }
+
 
   // Future<void> _updateProfileImage() async {
   //   final picker = ImagePicker();
