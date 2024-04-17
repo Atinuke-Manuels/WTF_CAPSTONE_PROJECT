@@ -40,6 +40,7 @@ class BookingConfirmationPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             // Access other details from serviceProviderData
+            SizedBox(height: 30.h,),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -155,7 +156,20 @@ class BookingConfirmationPage extends StatelessWidget {
             Divider(
               color: Colors.grey,
             ),
-            Text('Other Details: $otherDetails'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Other Details:'),
+                Expanded(
+                  child: Text(
+                    '$otherDetails',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.clip, // or TextOverflow.ellipsis
+                    textAlign: TextAlign.right,
+                  ),
+                ),
+              ],
+            ),
             SizedBox(
               height: 10,
             ),
@@ -182,7 +196,7 @@ class BookingConfirmationPage extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 50.h,
+              height: 220.h,
             ),
             ButtonItem(
               title: "Proceed to payment",

@@ -146,6 +146,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
         // Fetch user data again to update the profile page
         print('Fetching user data...');
+
+        // Update the avatar variable in the state with the new URL
+        setState(() {
+          avatar = imageUrl;
+        });
+
         _fetchUserData();
         print('User data fetched successfully');
       } catch (e) {
