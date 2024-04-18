@@ -95,34 +95,40 @@ class _AddCardState extends State<AddCard> {
                 style: TextStyle(color: Colors.grey.shade600),
               ),
               SizedBox(height: 8.0),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _showCardNumber = !_showCardNumber;
-                  });
-                },
-                child: Container(
-                  height: 50,
-                  padding: EdgeInsets.symmetric(horizontal: 12.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        _showCardNumber
-                            ? _cardNumberController.text
-                            : '**** **** **** ****',
-                        style: TextStyle(color: Colors.black),
+              Container(
+                height: 50,
+                padding: EdgeInsets.symmetric(horizontal: 12.0),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _cardNumberController,
+                        keyboardType: TextInputType.number,
+                        obscureText: !_showCardNumber,
+                        decoration: InputDecoration(
+                          hintText: "**** **** **** ****",
+                          hintStyle: TextStyle(color: Colors.grey.shade400),
+                          border: InputBorder.none,
+                        ),
                       ),
-                      Icon(
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _showCardNumber = !_showCardNumber;
+                        });
+                      },
+                      child: Icon(
                         _showCardNumber ? Icons.visibility : Icons.visibility_off,
                         color: Colors.grey,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
 

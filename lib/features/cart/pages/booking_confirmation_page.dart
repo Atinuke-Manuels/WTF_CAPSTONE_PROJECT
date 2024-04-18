@@ -196,7 +196,7 @@ class BookingConfirmationPage extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 220.h,
+              height: 180.h,
             ),
             ButtonItem(
               title: "Proceed to payment",
