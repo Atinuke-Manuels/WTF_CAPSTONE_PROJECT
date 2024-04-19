@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:laundry_ease/features/cart/pages/payment_successful_page.dart';
-import 'package:laundry_ease/features/onboarding/widgets/button_item.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:laundry_ease/global/common/toast.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../onboarding/widgets/button_item.dart';
 
 class AddCard extends StatefulWidget {
   final double totalPrice;
@@ -16,7 +17,6 @@ class AddCard extends StatefulWidget {
   _AddCardState createState() => _AddCardState();
 }
 
-
 class _AddCardState extends State<AddCard> {
   TextEditingController _cardHolderController = TextEditingController();
   TextEditingController _cardNumberController = TextEditingController();
@@ -26,6 +26,11 @@ class _AddCardState extends State<AddCard> {
   bool _showCardNumber = false;
   bool _showCvv = false;
   bool _isAddCardAndProcessPayment = false;
+
+  String? _cardHolderError;
+  String? _cardNumberError;
+  String? _dateError;
+  String? _cvvError;
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +74,14 @@ class _AddCardState extends State<AddCard> {
                   ),
                 ),
               ),
+              if (_cardHolderError != null)
+                Padding(
+                  padding: EdgeInsets.only(left: 16.0, top: 4.0),
+                  child: Text(
+                    _cardHolderError!,
+                    style: TextStyle(color: Colors.red, fontSize: 8),
+                  ),
+                ),
               SizedBox(height: 16.0),
               Text(
                 "Amount",
@@ -131,7 +144,14 @@ class _AddCardState extends State<AddCard> {
                   ],
                 ),
               ),
-
+              if (_cardNumberError != null)
+                Padding(
+                  padding: EdgeInsets.only(left: 16.0, top: 4.0),
+                  child: Text(
+                    _cardNumberError!,
+                    style: TextStyle(color: Colors.red, fontSize: 8),
+                  ),
+                ),
               SizedBox(height: 16.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -163,6 +183,14 @@ class _AddCardState extends State<AddCard> {
                             ),
                           ),
                         ),
+                        if (_dateError != null)
+                          Padding(
+                            padding: EdgeInsets.only(left: 16.0, top: 4.0),
+                            child: Text(
+                              _dateError!,
+                              style: TextStyle(color: Colors.red, fontSize: 8),
+                            ),
+                          ),
                       ],
                     ),
                   ),
@@ -213,22 +241,16 @@ class _AddCardState extends State<AddCard> {
                             ],
                           ),
                         ),
+                        if (_cvvError != null)
+                          Padding(
+                            padding: EdgeInsets.only(left: 16.0, top: 4.0),
+                            child: Text(
+                              _cvvError!,
+                              style: TextStyle(color: Colors.red, fontSize: 8),
+                            ),
+                          ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Image.asset(
-                    "assets/home/cart/mastercard.png",
-                    width: 60.w,
-                    height: 40.h,
-                  ),
-                  Image.asset(
-                    "assets/home/cart/verveCard.jpg",
-                    width: 60.w,
-                    height: 40.h,
                   ),
                 ],
               ),
@@ -257,13 +279,109 @@ class _AddCardState extends State<AddCard> {
   }
 
   void _addCardAndProcessPayment() async {
+    setState(() {
+      _cardHolderError = null;
+      _cardNumberError = null;
+      _dateError = null;
+      _cvvError = null;
+    });
+
+    String cardHolder = _cardHolderController.text.trim();
+    String cardNumber = _cardNumberController.text.trim();
+    String date = _dateController.text.trim();
+    String cvv = _cvvController.text.trim();
+
+    if (cardHolder.isEmpty) {
+      setState(() {
+        _cardHolderError = "Card holder name is required";
+      });
+      return;
+    }
+
+    if (cardNumber.isEmpty) {
+      setState(() {
+        _cardNumberError = "Card number is required";
+      });
+      return;
+    } else if (cardNumber.length != 16 ) {
+      setState(() {
+        _cardNumberError = "Invalid card number. Expected 16 digits";
+      });
+      return;
+    }
+    if (date.isEmpty) {
+      setState(() {
+        _dateError = "Expiry date is required";
+      });
+      return;
+    } else {
+      // Check if the date contains exactly 4 characters
+      if (date.length != 4) {
+        setState(() {
+          _dateError = "Invalid expiry date";
+        });
+        return;
+      }
+
+      // Extract month and year directly
+      String monthString = date.substring(0, 2);
+      String yearString = date.substring(2);
+
+      int month = int.tryParse(monthString) ?? 0;
+      int year = int.tryParse(yearString) ?? 0;
+
+      // Get the current month and year
+      DateTime now = DateTime.now();
+      int currentYear = now.year % 100; // Extract last two digits of the current year
+      int currentMonth = now.month;
+
+      // Check if the month is between 1 and 12
+      if (month < 1 || month > 12) {
+        setState(() {
+          _dateError = "Invalid month";
+        });
+        return;
+      }
+
+      // Check if the year is not earlier than the current year
+      if (year < currentYear || (year == currentYear && month < currentMonth)) {
+        setState(() {
+          _dateError = "Expiry date must not be earlier than today";
+        });
+        return;
+      }
+
+      // Date format is valid
+      setState(() {
+        _dateError = null;
+      });
+    }
+
+
+    if (cvv.isEmpty) {
+      setState(() {
+        _cvvError = "CVV is required";
+      });
+      return;
+    } else if (cvv.length != 3) {
+      setState(() {
+        _cvvError = "Invalid CVV";
+      });
+      return;
+    }
+
+    // If all validations pass, proceed with payment
+    // Your payment processing logic goes here
 
     var uuid = Uuid();
     var idempotencyKey = uuid.v4();
     // Construct the request body
     var requestBody = {
       'idempotency_key': idempotencyKey,
-      'amount_money': {'amount': (widget.totalPrice * 100).toInt(), 'currency': 'USD'}, // Amount in cents
+      'amount_money': {
+        'amount': (widget.totalPrice * 100).toInt(),
+        'currency': 'USD'
+      }, // Amount in cents
       'source_id': 'cnon:card-nonce-ok', // Square's test card nonce
     };
 
@@ -272,7 +390,8 @@ class _AddCardState extends State<AddCard> {
       final response = await http.post(
         Uri.parse('https://connect.squareupsandbox.com/v2/payments'),
         headers: {
-          'Authorization': 'Bearer EAAAl89T8nMUR_L0tFbXLXtV9yNmb_Nf7r9uGtHl9JU_R5uYfv1x-0TEwaP7aiTG', // Replace with your Square access token
+          'Authorization': 'Bearer EAAAl89T8nMUR_L0tFbXLXtV9yNmb_Nf7r9uGtHl9JU_R5uYfv1x-0TEwaP7aiTG',
+          // Replace with your Square access token
           'Content-Type': 'application/json',
         },
         body: jsonEncode(requestBody),
@@ -281,8 +400,11 @@ class _AddCardState extends State<AddCard> {
       // Handle the response
       if (response.statusCode == 200) {
         // Payment successful
-        showToast(message:'Payment successful');
-        Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentSuccessfulPage(amount: widget.totalPrice,)));
+        showToast(message: 'Payment successful');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => PaymentSuccessfulPage(amount: widget.totalPrice,)),
+        );
         // Navigate to success page or perform other actions as needed
       } else {
         // Payment failed

@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:laundry_ease/gen/assets.gen.dart';
+import 'package:laundry_ease/global/common/toast.dart';
 
 import '../../../global/common/usermodel.dart';
 import '../../home/pages/home_page.dart';
@@ -134,18 +135,18 @@ class _ProfilePageState extends State<ProfilePage> {
         // Upload the image to Firebase Storage
         UploadTask uploadTask = ref.putFile(File(pickedFile.path));
         TaskSnapshot taskSnapshot = await uploadTask;
-        print('Image uploaded');
+        showToast(message: 'Image uploaded');
 
         // Get the download URL of the uploaded image
         String imageUrl = await taskSnapshot.ref.getDownloadURL();
-        print('Image URL: $imageUrl');
+        // print('Image URL: $imageUrl');
 
         // Update avatar URL in Firestore
         await FirebaseFirestore.instance.collection('users').doc(email).update({'avatarUrl': imageUrl});
-        print('Avatar URL updated in Firestore');
+        // print('Avatar URL updated in Firestore');
 
         // Fetch user data again to update the profile page
-        print('Fetching user data...');
+        // print('Fetching user data...');
 
         // Update the avatar variable in the state with the new URL
         setState(() {
@@ -153,9 +154,9 @@ class _ProfilePageState extends State<ProfilePage> {
         });
 
         _fetchUserData();
-        print('User data fetched successfully');
+        // print('User data fetched successfully');
       } catch (e) {
-        print('Error updating avatar URL: $e');
+        showToast( message: 'Error updating avatar URL: $e');
       }
     }
   }
