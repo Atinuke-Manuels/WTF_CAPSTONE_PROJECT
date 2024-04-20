@@ -83,21 +83,21 @@ const List<Map<String, dynamic>> serviceProviderData = [
 
   },
   {
-    'titleText': "Blue Laundry",
+    'titleText': "WashRyte Laundry Service",
     'subText': "250 m",
     'thirdText': "#400/mth",
     'fourthText': "Closed",
     'fifthText': "Open 8am Thu",
     'serviceImage': "assets/home/delivery2.png",
-    'bigImage': "assets/home/serviceprovider/Image.png",
-    'address': 'Ikeja Lagos.',
+    'bigImage': "assets/home/serviceprovider/washryte.png",
+    'address': '254 Ikeja Lagos.',
     'about':
-        'Established in 2015, True Laundry Services has been a cornerstone of garment care in downtown Metroville. From humble beginnings as a local laundromat, Ace has evolved into a comprehensive laundry solution provider. Offering services such as washing, dry cleaning, ironing, and expert stain removal, Ace ensures garments emerge impeccably clean and revitalized. With a commitment to quality and customer satisfaction, Ace employs state-of-the-art equipment and eco-friendly cleaning solutions to deliver exceptional results. Flexible pickup and delivery options further enhance convenience for busy professionals and families. At Ace, every garment is treated with care and precision, reflecting a dedication to excellence that has made Ace the preferred choice for discerning individuals seeking premium garment care services.',
+        'Established in 2015, WashRyte Laundry Services has been a cornerstone of garment care in downtown Metroville. From humble beginnings as a local laundromat, Ace has evolved into a comprehensive laundry solution provider. Offering services such as washing, dry cleaning, ironing, and expert stain removal, Ace ensures garments emerge impeccably clean and revitalized. With a commitment to quality and customer satisfaction, Ace employs state-of-the-art equipment and eco-friendly cleaning solutions to deliver exceptional results. Flexible pickup and delivery options further enhance convenience for busy professionals and families. At Ace, every garment is treated with care and precision, reflecting a dedication to excellence that has made Ace the preferred choice for discerning individuals seeking premium garment care services.',
     'contactImg1': 'assets/home/serviceprovider/call_agent3.jpg',
-    'contactName1': 'Tom Shell',
+    'contactName1': 'Hean Swill',
     'contactNum1': '+2348037007352',
     'contactImg2': 'assets/home/serviceprovider/call_agent4.jpg',
-    'contactName2': 'Sandy Timmy',
+    'contactName2': 'Tom Ofrey',
     'contactNum2': '+2348037007352',
     'laundryService': {'Delivery', 'Dry Cleaning', 'General Clothe Drying', 'Laundry Wash And Fold', 'Drop -Off', 'Fold Wash', 'Home Services', 'Self Service', 'Wash  and Dry'}
 

@@ -39,7 +39,7 @@ class CartPage extends StatelessWidget {
                   ButtonItem(title: "+ Add item", onPress: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AddToCart()), // Corrected the builder parameter
+                      MaterialPageRoute(builder: (context) => AddToCart()),
                     );
                   }, textColor: Theme.of(context).primaryColor,)
 

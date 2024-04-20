@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:laundry_ease/features/home/widgets/delivery/delivery_services.dart';
 import 'package:laundry_ease/features/home/widgets/laundry_service_provider/service_provider.dart';
+import 'package:laundry_ease/features/profile/pages/profile_page.dart';
 
 import '../../../gen/assets.gen.dart';
 import '../../../global/common/usermodel.dart';
@@ -57,7 +58,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        reverse: false,
         child: SafeArea(
           child: Container(
             padding: EdgeInsets.all(16),
@@ -103,17 +103,11 @@ class _HomeState extends State<Home> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(onTap: () {}, child: Icon(Icons.settings)),
+                          InkWell(onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage()));
+                          }, child: Icon(Icons.settings)),
                           InkWell(
-                              onTap: () {
-                                _signOut();
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginPage()),
-                                  (route) => false,
-                                );
-                              },
+                              onTap: () {},
                               child: Icon(
                                 FontAwesomeIcons.solidBell,
                                 color: Colors.black,
@@ -181,7 +175,9 @@ class _HomeState extends State<Home> {
                 LaundryServiceProvider(),
                 SizedBox(height: 20,),
                 // DeliveryServices()
-                TackerSection(),
+                TackerSection(
+                  key: GlobalKey(), // You can use GlobalKey or any other appropriate key
+                ),
               ],
             ),
           ),
@@ -189,5 +185,16 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+  List<Step> getSteps() => [
+    Step(title: Text("Order Confirmed", style: TextStyle(fontSize: 8),), content: Container()),
+    Step(title: Text("Clothes Picked Up", style: TextStyle(fontSize: 8),), content: Container()),
+    Step(title: Text("In Washing Process", style: TextStyle(fontSize: 8),), content: Container()),
+    Step(title: Text("Drying Stage", style: TextStyle(fontSize: 8),), content: Container()),
+    Step(title: Text("Ironing Stage", style: TextStyle(fontSize: 8),), content: Container()),
+    Step(title: Text("Ready For Delivery", style: TextStyle(fontSize: 8),), content: Container()),
+    Step(title: Text("Out For Delivery", style: TextStyle(fontSize: 8),), content: Container()),
+    Step(title: Text("Delivered", style: TextStyle(fontSize: 8),), content: Container()),
+  ];
 }
 

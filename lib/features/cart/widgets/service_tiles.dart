@@ -42,7 +42,7 @@ class ServiceItemTile extends StatelessWidget {
               height: 30.h,
               width: 30.w,
             ),
-
+            SizedBox(width: 5,),
             // Text and Button
             Expanded(
               child: Column(

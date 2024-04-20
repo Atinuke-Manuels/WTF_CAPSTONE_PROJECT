@@ -7,7 +7,7 @@ class CartModel extends ChangeNotifier {
   // list of items on sale
   final List<List<dynamic>> _shopItems = [
     // [ itemName, itemPrice, imagePath, color ]
-    ["T-Shirt", "500", "assets/shopItems/tShirt.png", Colors.white],
+    ["T-Shirt", "500", "assets/shopItems/tshirt3.jpg", Colors.white],
     ["Jeans", "1300", "assets/shopItems/jeans.jpg", Colors.blue],
     ["Dress Shirt", "1800", "assets/shopItems/dressShirt.jpg", Colors.white],
     ["Skirt", "950", "assets/shopItems/skirt.jpg", Colors.pink],

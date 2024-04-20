@@ -75,38 +75,38 @@ class HomeServiceSection extends StatelessWidget {
             onPress: (){},
           ),
           SizedBox(width: 8),
-          HomeServiceItem(
-            titleText: "Ironing",
-            subText: "1 day",
-            serviceImage: Image.asset(
-              Assets.home.serviceImages.serviceImg1.path,
-              height: 40,
-              width: double.infinity,
-            ),
-            onPress: (){},
-          ),
-          SizedBox(width: 8),
-          HomeServiceItem(
-            titleText: "Washing",
-            subText: "1 day",
-            serviceImage: Image.asset(
-              Assets.home.serviceImages.serviceImg2.path,
-              height: 40,
-              width: double.infinity,
-            ),
-            onPress: (){},
-          ),
-          SizedBox(width: 8),
-          HomeServiceItem(
-            titleText: "Dry Cleaning",
-            subText: "1 day",
-            serviceImage: Image.asset(
-              Assets.home.serviceImages.serviceIg3.path,
-              height: 40,
-              width: double.infinity,
-            ),
-            onPress: (){},
-          ),
+          // HomeServiceItem(
+          //   titleText: "Ironing",
+          //   subText: "1 day",
+          //   serviceImage: Image.asset(
+          //     Assets.home.serviceImages.serviceImg1.path,
+          //     height: 40,
+          //     width: double.infinity,
+          //   ),
+          //   onPress: (){},
+          // ),
+          // SizedBox(width: 8),
+          // HomeServiceItem(
+          //   titleText: "Washing",
+          //   subText: "1 day",
+          //   serviceImage: Image.asset(
+          //     Assets.home.serviceImages.serviceImg2.path,
+          //     height: 40,
+          //     width: double.infinity,
+          //   ),
+          //   onPress: (){},
+          // ),
+          // SizedBox(width: 8),
+          // HomeServiceItem(
+          //   titleText: "Dry Cleaning",
+          //   subText: "1 day",
+          //   serviceImage: Image.asset(
+          //     Assets.home.serviceImages.serviceIg3.path,
+          //     height: 40,
+          //     width: double.infinity,
+          //   ),
+          //   onPress: (){},
+          // ),
         ],
       ),
     );

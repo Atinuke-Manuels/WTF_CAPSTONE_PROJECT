@@ -20,74 +20,79 @@ class AddToCart extends StatelessWidget {
           },
           child: Icon(FontAwesomeIcons.arrowLeft, size: 20),
         ),
-        title: Text("Add to cart", style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold)),
+        title: Text(
+          "Add to cart",
+          style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Flexible(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Select Services",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 12), // Add some spacing between text and grid view
-              Consumer<CartModel>(
-                builder: (context, cartModel, child) {
-                  return Expanded(
-                    child: GridView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true, // Keep shrinkWrap true
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: cartModel.shopItems.length,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 1,
-                        childAspectRatio: 1 / 0.3,
-                      ),
-                      itemBuilder: (context, index) {
-                        final itemCount = cartModel.getItemCountForIndex(index);
-                        double totalPrice = double.parse(cartModel.shopItems[index][1]) * itemCount;
-                        return ServiceItemTile(
-                          itemName: cartModel.shopItems[index][0],
-                          itemPrice: cartModel.shopItems[index][1],
-                          imagePath: cartModel.shopItems[index][2],
-                          itemCount: itemCount,
-                          onPressed: () {
-                            // Add item to cart with the correct total price
-                            cartModel.addItemToCart(index, totalPrice);
-                          },
-                          incrementCounter: () {
-                            cartModel.incrementItemCountForIndex(index);
-                          },
-                          decrementCounter: () {
-                            cartModel.decrementItemCountForIndex(index);
-                          },
-                        );
-                      },
-                    ),
-                  );
-                },
-              ),
-
-              SizedBox(height: 12), // Add some spacing between grid view and button
-              ButtonItem(
-                title: "Continue",
-                onPress: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return CartDetailsPage();
-                    },
-                  ),
-                ),
-                backgroundColor: Theme.of(context).primaryColor,
-              ),
-
-            ],
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              "Select Services",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
           ),
-        ),
+          Expanded(
+            child: Consumer<CartModel>(
+              builder: (context, cartModel, child) {
+                return GridView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: cartModel.shopItems.length,
+                  gridDelegate:
+                  const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    childAspectRatio: 1 / 0.3,
+                  ),
+                  itemBuilder: (context, index) {
+                    final itemCount =
+                    cartModel.getItemCountForIndex(index);
+                    double totalPrice = double.parse(
+                        cartModel.shopItems[index][1]) *
+                        itemCount;
+                    return ServiceItemTile(
+                      itemName: cartModel.shopItems[index][0],
+                      itemPrice: cartModel.shopItems[index][1],
+                      imagePath: cartModel.shopItems[index][2],
+                      itemCount: itemCount,
+                      onPressed: () {
+                        cartModel.addItemToCart(index, totalPrice);
+                      },
+                      incrementCounter: () {
+                        cartModel.incrementItemCountForIndex(index);
+                      },
+                      decrementCounter: () {
+                        cartModel.decrementItemCountForIndex(index);
+                      },
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ButtonItem(
+              title: "Continue",
+              onPress: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return CartDetailsPage();
+                  },
+                ),
+              ),
+              backgroundColor: Theme.of(context).primaryColor,
+            ),
+          ),
+        ],
       ),
     );
   }
