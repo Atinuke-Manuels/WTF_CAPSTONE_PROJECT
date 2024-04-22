@@ -7,9 +7,21 @@ import '../../../global/common/toast.dart';
 import 'add_card.dart';
 
 class PaymentMethods extends StatefulWidget {
+  final Map<String, dynamic> serviceProviderData;
   final double totalPrice;
+  final DateTime pickupDate;
+  final String pickupAddress;
+  final String otherDetails;
+  final int totalItems;
 
-  PaymentMethods({required this.totalPrice});
+  PaymentMethods({
+    required this.totalPrice,
+    required this.serviceProviderData,
+    required this.pickupDate,
+    required this.pickupAddress,
+    required this.otherDetails,
+    required this.totalItems,
+  });
 
   @override
   State<PaymentMethods> createState() => _PaymentMethodsState();
@@ -46,11 +58,13 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      showToast(message: "payment method inactive");
+                    },
                     child: Text(
                       "Cash",
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey.shade400),
                     ),
                   ),
                   SizedBox(height: 10.h),
@@ -68,31 +82,31 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                           SizedBox(width: 10.w),
                           Text(
                             "Cash",
-                            style: TextStyle(color: Colors.grey.shade800),
+                            style: TextStyle(color: Colors.grey.shade400),
                           ),
                         ],
                       ),
                       GestureDetector(
                         onTap: () {
-                          setState(() {
-                            _selectedRadio = _selectedRadio == 0
-                                ? null
-                                : 0; // Toggle between selected and unselected
-                          });
+                          // setState(() {
+                          //   _selectedRadio = _selectedRadio == 0
+                          //       ? null
+                          //       : 0; // Toggle between selected and unselected
+                          // });
                         },
                         child: Radio(
                           value: 0,
-                          groupValue: _selectedRadio,
+                          groupValue: 1,
                           onChanged: (int? value) {
-                            print("Radio button tapped: $value");
-                            setState(() {
-                              if (_selectedRadio == value) {
-                                _selectedRadio =
-                                    null; // Unselect if already selected
-                              } else {
-                                _selectedRadio = value; // Select otherwise
-                              }
-                            });
+                            // print("Radio button tapped: $value");
+                            // setState(() {
+                            //   if (_selectedRadio == value) {
+                            //     _selectedRadio =
+                            //         null; // Unselect if already selected
+                            //   } else {
+                            //     _selectedRadio = value; // Select otherwise
+                            //   }
+                            // });
                           },
                         ),
                       ),
@@ -114,11 +128,13 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      showToast(message: "payment method inactive");
+                    },
                     child: Text(
                       "Wallet",
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey.shade400),
                     ),
                   ),
                   SizedBox(height: 10.h),
@@ -136,7 +152,106 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                           SizedBox(width: 10.w),
                           Text(
                             "Wallet",
-                            style: TextStyle(color: Colors.grey.shade800),
+                            style: TextStyle(color: Colors.grey.shade400),
+                          ),
+                        ],
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          // setState(() {
+                          //   _selectedRadio = _selectedRadio == 0
+                          //       ? null
+                          //       : 0; // Toggle between selected and unselected
+                          // });
+                        },
+                        child: Radio(
+                          value: 0,
+                          groupValue: 1,
+                          onChanged: (int? value) {
+                            // print("Radio button tapped: $value");
+                            // setState(() {
+                            //   if (_selectedRadio == value) {
+                            //     _selectedRadio =
+                            //         null; // Unselect if already selected
+                            //   } else {
+                            //     _selectedRadio = value; // Select otherwise
+                            //   }
+                            // });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Divider(
+                color: Colors.grey.shade300,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              AddCard(totalPrice: widget.totalPrice,
+                                serviceProviderData: widget.serviceProviderData,
+                                pickupDate: widget.pickupDate,
+                                pickupAddress: widget.pickupAddress,
+                                otherDetails: widget.otherDetails,
+                                totalItems: widget.totalItems,
+                              ),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Credit & Debit Cards",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                  ),
+                  SizedBox(height: 10.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.credit_card,
+                            size: 30,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          SizedBox(width: 10.w),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      AddCard(totalPrice: widget.totalPrice,
+                                        serviceProviderData: widget.serviceProviderData,
+                                        pickupDate: widget.pickupDate,
+                                        pickupAddress: widget.pickupAddress,
+                                        otherDetails: widget.otherDetails,
+                                        totalItems: widget.totalItems,
+                                      ),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              "Add Card",
+                              style: TextStyle(color: Colors.grey.shade800),
+                            ),
                           ),
                         ],
                       ),
@@ -152,7 +267,7 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                           value: 0,
                           groupValue: _selectedRadio,
                           onChanged: (int? value) {
-                            print("Radio button tapped: $value");
+                            // print("Radio button tapped: $value");
                             setState(() {
                               if (_selectedRadio == value) {
                                 _selectedRadio =
@@ -183,97 +298,12 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              AddCard(totalPrice: widget.totalPrice),
-                        ),
-                      );
+                      showToast(message: "payment method inactive");
                     },
-                    child: Text(
-                      "Credit & Debit Cards",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                  ),
-                  SizedBox(height: 10.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.credit_card,
-                            size: 30,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          SizedBox(width: 10.w),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      AddCard(totalPrice: widget.totalPrice),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              "Add Card",
-                              style: TextStyle(color: Colors.grey.shade800),
-                            ),
-                          ),
-                        ],
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _selectedRadio = _selectedRadio == 0
-                                ? null
-                                : 0; // Toggle between selected and unselected
-                          });
-                        },
-                        child: Radio(
-                          value: 0,
-                          groupValue: _selectedRadio,
-                          onChanged: (int? value) {
-                            print("Radio button tapped: $value");
-                            setState(() {
-                              if (_selectedRadio == value) {
-                                _selectedRadio =
-                                    null; // Unselect if already selected
-                              } else {
-                                _selectedRadio = value; // Select otherwise
-                              }
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Divider(
-                color: Colors.grey.shade300,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  InkWell(
-                    onTap: () {},
                     child: Text(
                       "Bank Transfer",
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey.shade400),
                     ),
                   ),
                   SizedBox(height: 10.h),
@@ -291,31 +321,31 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                           SizedBox(width: 10.w),
                           Text(
                             "Transfer",
-                            style: TextStyle(color: Colors.grey.shade800),
+                            style: TextStyle(color: Colors.grey.shade400),
                           ),
                         ],
                       ),
                       GestureDetector(
                         onTap: () {
-                          setState(() {
-                            _selectedRadio = _selectedRadio == 0
-                                ? null
-                                : 0; // Toggle between selected and unselected
-                          });
+                          // setState(() {
+                          //   _selectedRadio = _selectedRadio == 0
+                          //       ? null
+                          //       : 0; // Toggle between selected and unselected
+                          // });
                         },
                         child: Radio(
                           value: 0,
-                          groupValue: _selectedRadio,
+                          groupValue: 1,
                           onChanged: (int? value) {
-                            print("Radio button tapped: $value");
-                            setState(() {
-                              if (_selectedRadio == value) {
-                                _selectedRadio =
-                                    null; // Unselect if already selected
-                              } else {
-                                _selectedRadio = value; // Select otherwise
-                              }
-                            });
+                            // print("Radio button tapped: $value");
+                            // setState(() {
+                            //   if (_selectedRadio == value) {
+                            //     _selectedRadio =
+                            //         null; // Unselect if already selected
+                            //   } else {
+                            //     _selectedRadio = value; // Select otherwise
+                            //   }
+                            // });
                           },
                         ),
                       ),
@@ -331,6 +361,7 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                     showToast(message: 'Please select a payment method');
                   } else {
                     // Navigate to the confirmation page
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => AddCard(totalPrice: widget.totalPrice, serviceProviderData: widget.serviceProviderData, pickupDate: widget.pickupDate, pickupAddress: widget.pickupAddress, otherDetails: widget.otherDetails, totalItems: widget.totalItems)));
                   }
                 },
                 backgroundColor: Theme.of(context).primaryColor,

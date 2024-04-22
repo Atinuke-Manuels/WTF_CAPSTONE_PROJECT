@@ -4,11 +4,24 @@ import 'package:laundry_ease/features/home/pages/home_page.dart';
 import 'package:laundry_ease/features/onboarding/widgets/button_item.dart';
 
 import '../../profile/widgets/sign_out_dialog.dart';
+import 'cart_page.dart';
 
 class PaymentSuccessfulPage extends StatelessWidget {
   final double amount;
+  final Map<String, dynamic> serviceProviderData;
+  final DateTime pickupDate;
+  final String pickupAddress;
+  final String otherDetails;
+  final int totalItems;
 
-  PaymentSuccessfulPage({required this.amount});
+  PaymentSuccessfulPage({
+    required this.amount,
+    required this.serviceProviderData,
+    required this.pickupDate,
+    required this.pickupAddress,
+    required this.otherDetails,
+    required this.totalItems,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +51,7 @@ class PaymentSuccessfulPage extends StatelessWidget {
               ),
               SizedBox(height: 40.h,),
               ButtonItem(title: "Back To Homepage", onPress: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage(totalItems: totalItems)));
               }, backgroundColor: Theme.of(context).primaryColor,),
               SizedBox(height: 10.h,),
               ButtonItem(title: "Log Out", onPress: (){

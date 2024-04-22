@@ -40,7 +40,9 @@ class BookingConfirmationPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             // Access other details from serviceProviderData
-            SizedBox(height: 30.h,),
+            SizedBox(
+              height: 30.h,
+            ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -205,8 +207,14 @@ class BookingConfirmationPage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        PaymentMethods(totalPrice: totalPrice),
+                    builder: (context) => PaymentMethods(
+                      totalPrice: totalPrice,
+                      serviceProviderData: serviceProviderData,
+                      pickupDate: pickupDate,
+                      pickupAddress: pickupAddress,
+                      otherDetails: otherDetails,
+                      totalItems: totalItems,
+                    ),
                   ),
                 );
               },

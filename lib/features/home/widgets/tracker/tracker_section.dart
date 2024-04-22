@@ -33,17 +33,22 @@ class _TackerSectionState extends State<TackerSection> {
               ),
             ],
           ),
-          // Stepper(
-          //   type: StepperType.vertical,
-          //   steps: getSteps(),
-          //   currentStep: currentStep,
-          //   physics: AlwaysScrollableScrollPhysics(),
-          //   onStepTapped: (step) {
-          //     setState(() {
-          //       currentStep = step;
-          //     });
-          //   },
-          // )
+          Container(
+            width: 400, // Specify a fixed width
+            height: 200, // Specify a fixed height
+            child: Stepper(
+              type: StepperType.horizontal,
+              steps: getSteps(),
+              currentStep: currentStep,
+              physics: AlwaysScrollableScrollPhysics(),
+              onStepTapped: (step) {
+                setState(() {
+                  currentStep = step;
+                });
+              },
+            ),
+          )
+
         ],
       ),
     );
@@ -52,11 +57,11 @@ class _TackerSectionState extends State<TackerSection> {
   List<Step> getSteps() => [
     Step(title: Text("Order Confirmed", style: TextStyle(fontSize: 8),), content: Container()),
     Step(title: Text("Clothes Picked Up", style: TextStyle(fontSize: 8),), content: Container()),
-    Step(title: Text("In Washing Process", style: TextStyle(fontSize: 8),), content: Container()),
-    Step(title: Text("Drying Stage", style: TextStyle(fontSize: 8),), content: Container()),
-    Step(title: Text("Ironing Stage", style: TextStyle(fontSize: 8),), content: Container()),
-    Step(title: Text("Ready For Delivery", style: TextStyle(fontSize: 8),), content: Container()),
-    Step(title: Text("Out For Delivery", style: TextStyle(fontSize: 8),), content: Container()),
-    Step(title: Text("Delivered", style: TextStyle(fontSize: 8),), content: Container()),
+    // Step(title: Text("In Washing Process", style: TextStyle(fontSize: 8),), content: Container()),
+    // Step(title: Text("Drying Stage", style: TextStyle(fontSize: 8),), content: Container()),
+    // Step(title: Text("Ironing Stage", style: TextStyle(fontSize: 8),), content: Container()),
+    // Step(title: Text("Ready For Delivery", style: TextStyle(fontSize: 8),), content: Container()),
+    // Step(title: Text("Out For Delivery", style: TextStyle(fontSize: 8),), content: Container()),
+    // Step(title: Text("Delivered", style: TextStyle(fontSize: 8),), content: Container()),
   ];
 }

@@ -158,7 +158,7 @@ class _HomeState extends State<Home> {
                     children: [
                       SizedBox(
                           width: 150.w,
-                          child: Text("Your clothes will be ready in 1 day.")),
+                          child: Text("Your clothes will be ready in 1 day.", style: TextStyle(fontSize: 12),)),
                       Image.asset(
                         Assets.home.washingMachine1.path,
                         height: 90,

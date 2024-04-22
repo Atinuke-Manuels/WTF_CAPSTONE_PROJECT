@@ -2,6 +2,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:laundry_ease/features/home/widgets/laundry_service_provider/see_more_providers.dart';
 import 'package:laundry_ease/features/home/widgets/laundry_service_provider/service_provider_section.dart';
 
 
@@ -24,11 +25,16 @@ class LaundryServiceProvider extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              Text(
-                "See more",
-                style: TextStyle(
-                    fontSize: 12, color: Theme.of(context).primaryColor),
-                textAlign: TextAlign.center,
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SeeMoreProviders()));
+                },
+                child: Text(
+                  "See more",
+                  style: TextStyle(
+                      fontSize: 12, color: Theme.of(context).primaryColor),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),

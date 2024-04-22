@@ -1,37 +1,20 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:laundry_ease/features/profile/widgets/sign_out_dialog.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:laundry_ease/features/home/widgets/laundry_service_provider/service_provider_item.dart';
+import 'package:laundry_ease/features/home/widgets/laundry_service_provider/service_provider_section_item_data.dart';
 
-import '../../../features/home/service_providers/pages/laundry_service_provider_page.dart';
-import '../../../features/home/widgets/laundry_service_provider/service_provider_item.dart';
-import '../../../features/home/widgets/laundry_service_provider/service_provider_section_item_data.dart';
-import '../../../features/registration/signin/pages/login_page.dart';
+import '../../service_providers/pages/laundry_service_provider_page.dart';
 
-class AgentHomePage extends StatelessWidget {
-
-  const AgentHomePage({super.key});
-
-  Future<void> _signOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
+class SeeMoreProviders extends StatelessWidget {
+  const SeeMoreProviders({super.key});
 
   @override
   Widget build(BuildContext context) {
-
-    return Scaffold(appBar: AppBar(
-      title: Text("Welcome Agent"),
-      centerTitle: true,
-      actions: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-              onTap: (){
-                showSignOutDialog(context);
-              },
-              child: Icon(Icons.exit_to_app)),
-        )
-      ],
-    ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Laundry Service", style: TextStyle(color: Theme.of(context).primaryColor),),
+        centerTitle: true,
+      ),
       body: Container(
         height: MediaQuery.of(context).size.height * 1,
         child: Padding(

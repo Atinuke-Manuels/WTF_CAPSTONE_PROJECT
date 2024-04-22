@@ -2,6 +2,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:laundry_ease/features/home/widgets/services/see_more_services.dart';
 
 import 'home_service_section.dart';
 
@@ -24,11 +25,16 @@ class Services extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              Text(
-                "See more",
-                style: TextStyle(
-                    fontSize: 12, color: Theme.of(context).primaryColor),
-                textAlign: TextAlign.center,
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SeeMoreServices()));
+                },
+                child: Text(
+                  "See more",
+                  style: TextStyle(
+                      fontSize: 12, color: Theme.of(context).primaryColor),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),

@@ -63,7 +63,8 @@ class Onboarding2 extends StatelessWidget {
                           );
                         }),
                   ],
-                )
+                ),
+                SizedBox(height: 8.h,),
               ],
             ),
           ),

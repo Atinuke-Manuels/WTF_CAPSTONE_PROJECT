@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeServiceItem extends StatelessWidget {
   const HomeServiceItem({
@@ -45,6 +46,7 @@ class HomeServiceItem extends StatelessWidget {
                   style: TextStyle(color: Colors.grey.shade600, fontSize: 8),
                   textAlign: TextAlign.center,
                 ),
+                SizedBox(height: 3.h,),
               ],
             ),
           ),

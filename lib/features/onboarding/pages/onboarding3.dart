@@ -42,7 +42,7 @@ class Onboarding3 extends StatelessWidget {
                 SizedBox(height: 60.h,),
                 Image.asset(
                   Assets.onboarding.onboarding3Png.path,
-                  height: 382.h,
+                  height: 378.h,
                   width: 319.w,
                 ),
                 SizedBox(height: 30.h,),
@@ -91,6 +91,7 @@ class Onboarding3 extends StatelessWidget {
                         onPress: () {Navigator.pushNamed(context, '/Onboarding2');}),
                   ],
                 ),
+                SizedBox(height: 8.h,),
               ],
             ),
           ),

@@ -268,7 +268,9 @@ class _LoginPageState extends State<LoginPage> {
           showToast(message: "User is successfully signed in");
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => AgentHomePage()),
+            MaterialPageRoute(builder: (context) => AgentHomePage(
+
+            )),
                 (Route<dynamic> route) => false,
           );
         }
