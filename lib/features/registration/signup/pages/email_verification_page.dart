@@ -33,7 +33,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
               Icon(Icons.mail, size: 300.w, color: Theme.of(context).primaryColor,),
               Text(
                 "A verification mail has been sent to",
-                style: TextStyle(fontSize: 16.0),
+                style: TextStyle(fontSize: 14.0),
               ),Text(
                 "${widget.email}",
                 style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold), textAlign: TextAlign.center,

@@ -240,12 +240,29 @@ class _LoginPageState extends State<LoginPage> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
+    if (email.isEmpty) {
+      showToast(message: 'Email cannot be empty');
+      setState(() {
+        _isSigning = false;
+      });
+      return;
+    }
+
+    if (password.isEmpty) {
+      showToast(message: 'Password cannot be empty');
+      setState(() {
+        _isSigning = false;
+      });
+      return;
+    }
+
     try {
       // Sign in with email and password
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+
 
       User? user = userCredential.user;
       if (user != null && user.emailVerified) {
