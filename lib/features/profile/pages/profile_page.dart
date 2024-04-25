@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:laundry_ease/features/profile/widgets/refer_and_earn.dart';
 import 'package:laundry_ease/gen/assets.gen.dart';
 import 'package:laundry_ease/global/common/toast.dart';
 
-import '../../../global/common/usermodel.dart';
 import '../../home/pages/home_page.dart';
 import '../widgets/sign_out_dialog.dart';
 import '../../registration/signup/widgets/signup_authentication.dart';
@@ -35,24 +35,6 @@ class _ProfilePageState extends State<ProfilePage> {
     _fetchUserData();
   }
 
-
-  // void _fetchUserData() async {
-  //   // Retrieve the current user's email from Firebase Authentication
-  //   User? user = FirebaseAuth.instance.currentUser;
-  //   if (user != null) {
-  //     String email = user.email ?? '';
-  //     UserModel? currentUser = await _auth.readData(email);
-  //
-  //     // Update the firstname variable if the current user is found
-  //     if (currentUser != null) {
-  //       setState(() {
-  //         firstname = currentUser.firstname;
-  //         avatar = currentUser.avatarUrl;
-  //         userEmail = currentUser.email;
-  //       });
-  //     }
-  //   }
-  // }
 
   void _fetchUserData() async {
     // Retrieve the current user's email from Firebase Authentication
@@ -85,41 +67,6 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-
-  // Future<void> _updateProfileImage() async {
-  //   final picker = ImagePicker();
-  //   final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-  //   if (pickedFile != null) {
-  //     print('Image picked');
-  //     String email = FirebaseAuth.instance.currentUser!.email!;
-  //     print('Querying Firestore with email: $email');
-  //
-  //     // Reference to the storage location
-  //     Reference ref = FirebaseStorage.instance.ref().child('avatars/$email/avatar.jpg');
-  //
-  //     try {
-  //       // Upload the image to Firebase Storage
-  //       UploadTask uploadTask = ref.putFile(File(pickedFile.path));
-  //       TaskSnapshot taskSnapshot = await uploadTask;
-  //       print('Image uploaded');
-  //
-  //       // Get the download URL of the uploaded image
-  //       String imageUrl = await taskSnapshot.ref.getDownloadURL();
-  //       print('Image URL: $imageUrl');
-  //
-  //       // Update avatar URL in Firestore
-  //       await FirebaseFirestore.instance.collection('users').doc(email).update({'avatarUrl': imageUrl});
-  //       print('Avatar URL updated in Firestore');
-  //
-  //       // Fetch user data again to update the profile page
-  //       print('Fetching user data...');
-  //       _fetchUserData();
-  //       print('User data fetched successfully');
-  //     } catch (e) {
-  //       print('Error updating avatar URL: $e');
-  //     }
-  //   }
-  // }
   Future<void> _updateProfileImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -275,7 +222,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               size: 16,
                               color: Theme.of(context).primaryColorLight),
                           label: 'Refer & Earn',
-                          onPress: () {},
+                          onPress: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> ReferAndEarnPage()));
+                          },
                         ),
                         ProfileItem(
                           firstIcon: Icon(FontAwesomeIcons.creditCard,

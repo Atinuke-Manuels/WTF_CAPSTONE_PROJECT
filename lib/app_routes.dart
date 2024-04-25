@@ -6,6 +6,7 @@ import 'package:laundry_ease/features/home/pages/home.dart';
 import 'package:laundry_ease/features/home/pages/placeholder.dart';
 import 'package:laundry_ease/features/home/service_providers/pages/laundry_service_provider_page.dart';
 import 'package:laundry_ease/features/onboarding/pages/onboarding1.dart';
+import 'package:laundry_ease/features/profile/widgets/refer_and_earn.dart';
 import 'package:laundry_ease/features/registration/signin/pages/login_page.dart';
 import 'package:laundry_ease/features/registration/signup/pages/register_page.dart';
 import 'package:laundry_ease/features/onboarding/pages/splash_screen.dart';
@@ -34,4 +35,5 @@ final Map<String, WidgetBuilder> appRoutes = {
   '/CartPage': (context) => CartPage(),
   '/AddToCart': (context) => AddToCart(),
   '/ChatPage': (context) => ChatPage(),
+  '/ReferAndEarnPage': (context) => ReferAndEarnPage(),
 };

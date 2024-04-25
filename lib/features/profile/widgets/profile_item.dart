@@ -14,6 +14,7 @@ class ProfileItem extends StatelessWidget {
   final String label;
   final Function() onPress;
 
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -32,7 +33,9 @@ class ProfileItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 0),
               child: ListTile(
                 leading: firstIcon, // Leading icon
-                title: Text(label, style: TextStyle(fontSize: 14),), // Text in between
+                title: InkWell(
+                    onTap: onPress,
+                    child: Text(label, style: TextStyle(fontSize: 14),)), // Text in between
                 trailing: InkWell(
                     onTap: onPress,
                     child: Icon(Icons.arrow_forward_ios, size: 16, color: Theme.of(context).primaryColorLight,)), // Trailing icon

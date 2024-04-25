@@ -78,11 +78,12 @@ class _MessagesState extends State<Messages> {
                                   style: TextStyle(
                                     fontSize: 15,
                                     color: isSent ? Colors.black : Colors.white,
+                                    fontWeight: FontWeight.bold
                                   ),
                                 ),
                                 Text(
                                   "${d.hour}:${d.minute}",
-                                  style: TextStyle(color: isSent ? Colors.black : Colors.white,),
+                                  style: TextStyle(color: isSent ? Colors.black : Colors.white, fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -93,7 +94,7 @@ class _MessagesState extends State<Messages> {
                                 qs['message'],
                                 softWrap: true,
                                 style: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: 13,
                                   color: isSent ? Colors.black : Colors.white,
                                 ),
                               ),
