@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:laundry_ease/features/onboarding/widgets/button_item.dart';
+import 'package:share/share.dart';
+
+import '../../home/bloc/home_functions.dart';
+
+
+final HomeFunctions homeFunctions = HomeFunctions();
 
 class ReferAndEarnPage extends StatelessWidget {
   const ReferAndEarnPage({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +94,9 @@ class ReferAndEarnPage extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 34, vertical: 20),
                   child: ButtonItem(
                     title: "Refer a friend",
-                    onPress: () {},
+                    onPress: () {
+                      homeFunctions.shareApkFile(context);
+                    },
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                 ),
@@ -131,4 +140,5 @@ class ReferAndEarnPage extends StatelessWidget {
       ),
     );
   }
+
 }
